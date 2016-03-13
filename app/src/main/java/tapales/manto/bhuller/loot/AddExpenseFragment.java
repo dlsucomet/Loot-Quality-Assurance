@@ -126,7 +126,6 @@ public class AddExpenseFragment extends Fragment {
         });
         return v;
     }
-
     private void submitForm() {
         if (!validateTitle()) {
             return;

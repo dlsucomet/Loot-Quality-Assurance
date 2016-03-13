@@ -116,6 +116,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="42dp"
                 android:layout_weight="1"
+                android:background="@color/colorAccent"
+                android:textColor="@color/colorDefault"
                 android:text="Change"/>
             </LinearLayout>
             <RelativeLayout
@@ -132,12 +134,16 @@
                         android:layout_width="wrap_content"
                         android:layout_height="42dp"
                         android:layout_weight="1"
+                        android:background="@color/colorAccent"
+                        android:textColor="@color/colorDefault"
                         android:text="Submit"/>
                     <Button
                         android:id="@+id/add_clear_button"
                         android:layout_width="wrap_content"
                         android:layout_height="42dp"
                         android:layout_weight="1"
+                        android:background="@color/colorAccent"
+                        android:textColor="@color/colorDefault"
                         android:text="Clear"/>
                 </LinearLayout>
             </RelativeLayout>
