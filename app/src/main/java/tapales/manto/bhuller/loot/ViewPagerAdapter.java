@@ -15,12 +15,12 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter{
     }
     public Fragment getItem(int position){
         if(position == 0){
-            ExpenseList eList = new ExpenseList();
-            return eList;
-        }
-        else if(position == 1){
             IncomeList iList = new IncomeList();
             return iList;
+        }
+        else if(position == 2){
+            ExpenseList eList = new ExpenseList();
+            return eList;
         }
         else{
             ExpenseList eList = new ExpenseList();

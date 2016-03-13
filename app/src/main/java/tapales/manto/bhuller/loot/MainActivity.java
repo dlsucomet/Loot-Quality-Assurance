@@ -17,7 +17,7 @@ public class MainActivity extends AppCompatActivity{
     private ViewPager viewPager;
     private ViewPagerAdapter pagerAdapter;
     private SlidingTabLayout tabSlider;
-    private CharSequence tabList[] = {"Overview", "View Income" ,"View Expenses"};
+    private CharSequence tabList[] = {"Income", "Overview" ,"Expenses"};
     public static final int TAB_NUMBERS = 3;
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity{
         setContentView(R.layout.activity_main);
         toolbar = (Toolbar) findViewById(R.id.tool_bar);
         toolbar.setTitle(" Loot");
-        toolbar.setLogo(R.drawable.loot);
+        toolbar.setLogo(R.drawable.loot_icon_small);
         setSupportActionBar(toolbar);
         pagerAdapter =  new ViewPagerAdapter(getSupportFragmentManager(), tabList, TAB_NUMBERS);
         viewPager = (ViewPager) findViewById(R.id.pager);

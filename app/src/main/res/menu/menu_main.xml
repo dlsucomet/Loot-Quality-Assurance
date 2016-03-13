@@ -3,4 +3,4 @@
         android:title="Settings"/>
     <item  android:id="@+id/menu_about"
         android:title="About"/>
-</menu>  
+</menu>
