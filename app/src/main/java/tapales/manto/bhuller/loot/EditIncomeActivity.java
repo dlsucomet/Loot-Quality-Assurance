@@ -61,12 +61,7 @@ public class EditIncomeActivity extends AppCompatActivity{
         submitButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                currentIncome.setIncomeName(editTitle.getText().toString());
-                currentIncome.setIncomeAmount(Float.valueOf(editValue.getText().toString()));
-                currentIncome.setTimeInterval(dateText.getText().toString().replace("Date - ", ""));
-                dbHelper.updateIncome(currentIncome);
-                setResult(RESULT_OK);
-                finish();
+                submitForm();
             }
         });
         cancelButton = (Button) findViewById(R.id.edit_income_cancel_button);
@@ -108,5 +103,36 @@ public class EditIncomeActivity extends AppCompatActivity{
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+    private void submitForm() {
+        if (!validateTitle()){
+            return;
+        }
+        if (!validatePrice()){
+            return;
+        }
+        currentIncome.setIncomeName(editTitle.getText().toString());
+        currentIncome.setIncomeAmount(Float.valueOf(editValue.getText().toString()));
+        currentIncome.setTimeInterval(dateText.getText().toString().replace("Date - ", ""));
+        dbHelper.updateIncome(currentIncome);
+        setResult(RESULT_OK);
+        finish();
+    }
+    private boolean validateTitle() {
+        if (editTitle.getText().toString().trim().isEmpty()) {
+            editLayoutTitle.setError("Enter a Title");
+            return false;
+        }
+        else {
+            editLayoutTitle.setErrorEnabled(false);
+        }
+        return true;
+    }
+    private boolean validatePrice(){
+        if (editValue.getText().toString().trim().isEmpty()){
+            editLayoutValue.setError("Enter a Value");
+            return false;
+        }
+        return true;
     }
 }

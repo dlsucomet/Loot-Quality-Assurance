@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import java.util.Calendar;
 
-public class AddExpenseFragment extends Fragment{
+public class AddExpenseFragment extends Fragment {
     private DatabaseOpenHelper dbHelper;
     private int mYear, mMonth, mDay;
     private TextView categoryItem, dateText;
@@ -27,8 +28,8 @@ public class AddExpenseFragment extends Fragment{
     private TextInputLayout inputLayoutTitle, inputLayoutValue;
     private ImageView foodButton, leisureButton, transportButton, billButton, debtButton, othersButton;
     private static final String[] months = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState){
-        View v = inflater.inflate(R.layout.add_expense,container,false);
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View v = inflater.inflate(R.layout.add_expense, container, false);
         dbHelper = new DatabaseOpenHelper(getActivity().getApplicationContext());
         final Calendar c = Calendar.getInstance();
         mYear = c.get(Calendar.YEAR);
@@ -43,42 +44,34 @@ public class AddExpenseFragment extends Fragment{
         inputLayoutTitle = (TextInputLayout) v.findViewById(R.id.input_layout_title);
         inputLayoutValue = (TextInputLayout) v.findViewById(R.id.input_layout_value);
         submitButton = (Button) v.findViewById(R.id.add_submit_button);
-        submitButton.setOnClickListener(new View.OnClickListener(){
-                @Override
-                public void onClick(View v) {
-                    Expense expense = new Expense();
-                    expense.setExpName(inputTitle.getText().toString());
-                    expense.setSpentAmount(Float.valueOf(inputValue.getText().toString()));
-                    expense.setCategory(categoryItem.getText().toString().replace("Category -", ""));
-                    expense.setDate(dateText.getText().toString().replace("Date - ", ""));
-                    //Temporary 1
-                    expense.setPaymentType(1);
-                    dbHelper.insertExpense(expense);
-                    getActivity().setResult(Activity.RESULT_OK, new Intent(getActivity().getApplicationContext(), MainActivity.class));
-                    getActivity().finish();
-                }
+        submitButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                submitForm();
+            }
         });
         clearButton = (Button) v.findViewById(R.id.add_clear_button);
-        clearButton.setOnClickListener(new View.OnClickListener(){
+        clearButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
+            public void onClick(View v) {
                 dateText.setText("Date - " + months[mMonth] + " " + mDay + ", " + mYear);
                 inputTitle.setText("");
                 inputValue.setText("");
                 categoryItem.setText("Category - None");
-                Toast.makeText(getActivity().getApplicationContext(),"Expense Successfully Cleared", Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity().getApplicationContext(), "Expense Successfully Cleared", Toast.LENGTH_LONG).show();
             }
         });
         dateButton = (Button) v.findViewById(R.id.add_date_button);
-        dateButton.setOnClickListener(new View.OnClickListener(){
+        dateButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
+            public void onClick(View v) {
                 DatePickerDialog dpd = new DatePickerDialog(getContext(),
-                        new DatePickerDialog.OnDateSetListener(){
-                            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth){
-                                    dateText.setText("Date - " + months[monthOfYear] + " " + dayOfMonth + ", " + year);
-                                    Toast.makeText(getActivity().getApplicationContext(), "Date - " + months[monthOfYear] + " " + dayOfMonth + ", " + year, Toast.LENGTH_LONG).show();
-                            }}
+                        new DatePickerDialog.OnDateSetListener() {
+                            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                                dateText.setText("Date - " + months[monthOfYear] + " " + dayOfMonth + ", " + year);
+                                Toast.makeText(getActivity().getApplicationContext(), "Date - " + months[monthOfYear] + " " + dayOfMonth + ", " + year, Toast.LENGTH_LONG).show();
+                            }
+                        }
                         , mYear, mMonth, mDay);
                 dpd.show();
             }
@@ -86,7 +79,7 @@ public class AddExpenseFragment extends Fragment{
         foodButton = (ImageView) v.findViewById(R.id.add_food);
         foodButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
+            public void onClick(View v) {
                 Toast.makeText(getActivity().getApplicationContext(), "Category - Food Selected", Toast.LENGTH_LONG).show();
                 categoryItem.setText("Category - Food");
             }
@@ -94,32 +87,32 @@ public class AddExpenseFragment extends Fragment{
         leisureButton = (ImageView) v.findViewById(R.id.add_leisure);
         leisureButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
-                Toast.makeText(getActivity().getApplicationContext(),"Category - Leisure Selected", Toast.LENGTH_LONG).show();
+            public void onClick(View v) {
+                Toast.makeText(getActivity().getApplicationContext(), "Category - Leisure Selected", Toast.LENGTH_LONG).show();
                 categoryItem.setText("Category - Leisure");
             }
         });
         transportButton = (ImageView) v.findViewById(R.id.add_transportation);
         transportButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
-                Toast.makeText(getActivity().getApplicationContext(),"Category - Transportation Selected", Toast.LENGTH_LONG).show();
+            public void onClick(View v) {
+                Toast.makeText(getActivity().getApplicationContext(), "Category - Transportation Selected", Toast.LENGTH_LONG).show();
                 categoryItem.setText("Category - Transportation");
             }
         });
         billButton = (ImageView) v.findViewById(R.id.add_bills);
         billButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
-                Toast.makeText(getActivity().getApplicationContext(),"Category - Bills Selected", Toast.LENGTH_LONG).show();
+            public void onClick(View v) {
+                Toast.makeText(getActivity().getApplicationContext(), "Category - Bills Selected", Toast.LENGTH_LONG).show();
                 categoryItem.setText("Category - Bills");
             }
         });
         debtButton = (ImageView) v.findViewById(R.id.add_debt);
         debtButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
-                Toast.makeText(getActivity().getApplicationContext(),"Category - Debt Selected", Toast.LENGTH_LONG).show();
+            public void onClick(View v) {
+                Toast.makeText(getActivity().getApplicationContext(), "Category - Debt Selected", Toast.LENGTH_LONG).show();
                 categoryItem.setText("Category - Debt");
             }
         });
@@ -133,4 +126,52 @@ public class AddExpenseFragment extends Fragment{
         });
         return v;
     }
+
+    private void submitForm() {
+        if (!validateTitle()) {
+            return;
+        }
+        if (!validatePrice()) {
+            return;
+        }
+        if (!validateCategory()) {
+            return;
+        }
+        Expense expense = new Expense();
+        expense.setExpName(inputTitle.getText().toString());
+        expense.setSpentAmount(Float.valueOf(inputValue.getText().toString()));
+        expense.setCategory(categoryItem.getText().toString().replace("Category -", ""));
+        expense.setDate(dateText.getText().toString().replace("Date - ", ""));
+        //Temporary 1
+        expense.setPaymentType(1);
+        dbHelper.insertExpense(expense);
+        getActivity().setResult(Activity.RESULT_OK, new Intent(getActivity().getApplicationContext(), MainActivity.class));
+        getActivity().finish();
+        Toast.makeText(getActivity().getApplicationContext(), "Expense Successfully Added", Toast.LENGTH_SHORT).show();
+    }
+    private boolean validateTitle() {
+        if (inputTitle.getText().toString().trim().isEmpty()) {
+            inputLayoutTitle.setError("Enter a Title");
+            return false;
+        } else {
+            inputLayoutTitle.setErrorEnabled(false);
+        }
+        return true;
+    }
+    private boolean validatePrice(){
+        if (inputValue.getText().toString().trim().isEmpty()){
+            inputLayoutValue.setError("Enter a Value");
+            return false;
+        }
+        return true;
+    }
+    private boolean validateCategory(){
+        if (categoryItem.getText() == "Category - None"){
+            categoryItem.setText(Html.fromHtml("<font color=\"#F44336\">Category - None</font>"));
+            Toast.makeText(getActivity().getApplicationContext(), "Please Select a Category", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        return true;
+    }
 }
+

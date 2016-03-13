@@ -5,6 +5,7 @@ import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.text.Html;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -63,15 +64,7 @@ public class EditExpenseActivity extends AppCompatActivity{
         submitButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                currentExpense.setExpName(editTitle.getText().toString());
-                currentExpense.setSpentAmount(Float.valueOf(editValue.getText().toString()));
-                currentExpense.setCategory(categoryItem.getText().toString().replace("Category -", ""));
-                currentExpense.setDate(dateText.getText().toString().replace("Date - ", ""));
-                //Temporary 1
-                currentExpense.setPaymentType(1);
-                dbHelper.updateExpense(currentExpense);
-                setResult(RESULT_OK);
-                finish();
+                submitForm();
             }
         });
         cancelButton = (Button) findViewById(R.id.edit_cancel_button);
@@ -161,5 +154,49 @@ public class EditExpenseActivity extends AppCompatActivity{
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+    private void submitForm() {
+        if (!validateTitle()) {
+            return;
+        }
+        if (!validatePrice()) {
+            return;
+        }
+        if (!validateCategory()) {
+            return;
+        }
+        currentExpense.setExpName(editTitle.getText().toString());
+        currentExpense.setSpentAmount(Float.valueOf(editValue.getText().toString()));
+        currentExpense.setCategory(categoryItem.getText().toString().replace("Category -", ""));
+        currentExpense.setDate(dateText.getText().toString().replace("Date - ", ""));
+        //Temporary 1
+        currentExpense.setPaymentType(1);
+        dbHelper.updateExpense(currentExpense);
+        setResult(RESULT_OK);
+        finish();
+    }
+    private boolean validateTitle() {
+        if (editTitle.getText().toString().trim().isEmpty()) {
+            editLayoutTitle.setError("Enter a Title");
+            return false;
+        } else {
+            editLayoutTitle.setErrorEnabled(false);
+        }
+        return true;
+    }
+    private boolean validatePrice(){
+        if (editValue.getText().toString().trim().isEmpty()){
+            editLayoutValue.setError("Enter a Value");
+            return false;
+        }
+        return true;
+    }
+    private boolean validateCategory(){
+        if (categoryItem.getText() == "Category - None"){
+            categoryItem.setText(Html.fromHtml("<font color=\"#F44336\">Category - None</font>"));
+            Toast.makeText(getBaseContext(), "Please Select a Category", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        return true;
     }
 }

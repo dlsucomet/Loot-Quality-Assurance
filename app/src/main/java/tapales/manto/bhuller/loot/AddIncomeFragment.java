@@ -42,13 +42,7 @@ public class AddIncomeFragment extends Fragment{
         submitButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                Income income = new Income();
-                income.setIncomeName(inputTitle.getText().toString());
-                income.setIncomeAmount(Float.valueOf(inputValue.getText().toString()));
-                income.setTimeInterval(dateText.getText().toString().replace("Date - ", ""));
-                dbHelper.insertIncome(income);
-                getActivity().setResult(Activity.RESULT_OK, new Intent(getActivity().getApplicationContext(), MainActivity.class));
-                getActivity().finish();
+                submitForm();
             }
         });
         clearButton = (Button) v.findViewById(R.id.add_income_clear_button);
@@ -76,5 +70,36 @@ public class AddIncomeFragment extends Fragment{
             }
         });
         return v;
+    }
+    private void submitForm() {
+        if (!validateTitle()){
+            return;
+        }
+        if (!validatePrice()){
+            return;
+        }
+        Income income = new Income();
+        income.setIncomeName(inputTitle.getText().toString());
+        income.setIncomeAmount(Float.valueOf(inputValue.getText().toString()));
+        income.setTimeInterval(dateText.getText().toString().replace("Date - ", ""));
+        dbHelper.insertIncome(income);
+        getActivity().setResult(Activity.RESULT_OK, new Intent(getActivity().getApplicationContext(), MainActivity.class));
+        getActivity().finish();
+    }
+    private boolean validateTitle() {
+        if (inputTitle.getText().toString().trim().isEmpty()) {
+            inputLayoutTitle.setError("Enter a Title");
+            return false;
+        } else {
+            inputLayoutTitle.setErrorEnabled(false);
+        }
+        return true;
+    }
+    private boolean validatePrice(){
+        if (inputValue.getText().toString().trim().isEmpty()){
+            inputLayoutValue.setError("Enter a Value");
+            return false;
+        }
+        return true;
     }
 }
