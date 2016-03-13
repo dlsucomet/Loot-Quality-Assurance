@@ -1,5 +1,6 @@
 package tapales.manto.bhuller.loot;
 
+import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -38,6 +39,10 @@ public class LoginActivity extends AppCompatActivity{
         if (!validatePasscode()) {
             return;
         }
+        //Temp just for Navigation
+        Intent intent = new Intent(getBaseContext(), MainActivity.class);
+        startActivity(intent);
+        finish();
         //TO DO
     }
     private boolean validateUsername() {

@@ -1,14 +1,18 @@
 package tapales.manto.bhuller.loot;
 
+import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 public class PasscodeActivity extends AppCompatActivity {
+    private TextView noPasscode;
     private EditText passcode;
     private TextInputLayout inputLayoutPasscode;
     private Button submitButton;
@@ -16,6 +20,16 @@ public class PasscodeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_passcode);
+        noPasscode = (TextView) findViewById(R.id.no_passcode_text);
+        noPasscode.setText((Html.fromHtml("No Passcode Yet? Click <u>Here</u> to Get One!")));
+                noPasscode.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(getBaseContext(), LoginActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }
+                });
         passcode = (EditText) findViewById(R.id.enter_passcode);
         passcode.getBackground().mutate().setColorFilter(getResources().getColor(R.color.colorDefault), PorterDuff.Mode.SRC_ATOP);
         inputLayoutPasscode = (TextInputLayout) findViewById(R.id.enter_layout_passcode);
@@ -31,6 +45,10 @@ public class PasscodeActivity extends AppCompatActivity {
         if (!validatePasscode()) {
             return;
         }
+        //Temp just for navigation
+        Intent intent = new Intent(getBaseContext(), MainActivity.class);
+        startActivity(intent);
+        finish();
         //TO DO
     }
     private boolean validatePasscode(){

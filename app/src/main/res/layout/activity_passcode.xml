@@ -50,5 +50,13 @@
                 android:textColor="@color/colorDefault"
                 android:text="Enter Passcode"/>
         </RelativeLayout>
+        <TextView
+            android:id="@+id/no_passcode_text"
+            android:layout_marginTop="12dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textColor="@color/colorDefault"
+            android:textSize="12dp"/>
     </LinearLayout>
 </RelativeLayout>
