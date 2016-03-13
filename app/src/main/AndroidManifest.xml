@@ -26,7 +26,8 @@
         <activity
             android:name=".EditIncomeActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".LoginActivity"></activity>
+        <activity android:name=".LoginActivity" />
+        <activity android:name=".PasscodeActivity"></activity>
     </application>
 
 </manifest>

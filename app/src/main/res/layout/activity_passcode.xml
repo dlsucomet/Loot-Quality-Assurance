@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:padding="16dp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:weightSum="3">
+    <TextView
+        android:id="@+id/welcome_user_passcode"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:textColor="@color/colorDefault"
+        android:textSize="48dp"
+        android:text="Welcome User, Enter Your Passcode."/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="2">
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/enter_layout_passcode"
+                android:layout_marginTop="16dp"
+                android:layout_width="240dp"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:singleLine="true"
+                android:theme="@style/EditScreenTextInputLayoutStyle">
+                    <EditText
+                        android:id="@+id/enter_passcode"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="18dp"
+                        android:textColor="@color/colorDefault"
+                        android:inputType="numberPassword"
+                        android:hint="Passcode"
+                        android:gravity="center"/>
+            </android.support.design.widget.TextInputLayout>
+            <Button
+                android:id="@+id/button_enter"
+                android:layout_marginTop="16dp"
+                android:layout_width="240dp"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/enter_layout_passcode"
+                android:background="@color/colorPrimaryDark"
+                android:textColor="@color/colorDefault"
+                android:text="Enter Passcode"/>
+        </RelativeLayout>
+    </LinearLayout>
+</RelativeLayout>

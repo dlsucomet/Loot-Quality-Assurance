@@ -29,8 +29,6 @@
         <item name="android:actionBarStyle">@style/FullscreenActionBarStyle</item>
         <item name="android:windowActionBarOverlay">true</item>
         <item name="android:windowBackground">@null</item>
-        <item name="metaButtonBarStyle">?android:attr/buttonBarStyle</item>
-        <item name="metaButtonBarButtonStyle">?android:attr/buttonBarButtonStyle</item>
     </style>
 
     <style name="FullscreenActionBarStyle" parent="Widget.AppCompat.ActionBar">
@@ -38,9 +36,16 @@
     </style>
 
     <style name="EditScreenTextInputLayoutStyle" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorControlNormal">@color/colorDefault</item>
+        <item name="colorControlActivated">@color/colorDefault</item>
+        <item name="colorControlHighlight">@color/colorDefault</item>
         <item name="colorAccent">@color/colorDefault</item>
         <item name="android:textColorHint">@color/colorDefault</item>
         <item name="android:editTextStyle">@style/EditTextStyle</item>
+    </style>
+
+    <style name="AppTheme.Base" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorAccent">@color/colorDefault</item>
     </style>
 
     <style name="EditTextStyle" parent="Widget.AppCompat.EditText"/>

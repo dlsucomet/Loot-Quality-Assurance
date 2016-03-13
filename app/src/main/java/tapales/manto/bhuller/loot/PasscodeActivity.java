@@ -4,26 +4,22 @@ import android.graphics.PorterDuff;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-public class LoginActivity extends AppCompatActivity{
-    private EditText username, passcode;
-    private TextInputLayout inputLayoutUser, inputLayoutPasscode;
+public class PasscodeActivity extends AppCompatActivity {
+    private EditText passcode;
+    private TextInputLayout inputLayoutPasscode;
     private Button submitButton;
     @Override
-    protected void onCreate(Bundle savedInstanceState){
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
-        username = (EditText) findViewById(R.id.input_username);
-        username.getBackground().mutate().setColorFilter(getResources().getColor(R.color.colorDefault), PorterDuff.Mode.SRC_ATOP);
-        passcode = (EditText) findViewById(R.id.input_passcode);
+        setContentView(R.layout.activity_passcode);
+        passcode = (EditText) findViewById(R.id.enter_passcode);
         passcode.getBackground().mutate().setColorFilter(getResources().getColor(R.color.colorDefault), PorterDuff.Mode.SRC_ATOP);
-        inputLayoutUser = (TextInputLayout) findViewById(R.id.input_layout_username);
-        inputLayoutPasscode = (TextInputLayout) findViewById(R.id.input_layout_passcode);
-        submitButton = (Button) findViewById(R.id.button_sign_up);
+        inputLayoutPasscode = (TextInputLayout) findViewById(R.id.enter_layout_passcode);
+        submitButton = (Button) findViewById(R.id.button_enter);
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -32,22 +28,10 @@ public class LoginActivity extends AppCompatActivity{
         });
     }
     private void submitForm() {
-        if (!validateUsername()) {
-            return;
-        }
         if (!validatePasscode()) {
             return;
         }
         //TO DO
-    }
-    private boolean validateUsername() {
-        if (username.getText().toString().trim().isEmpty()) {
-            inputLayoutUser.setError("Enter a Username");
-            return false;
-        } else {
-            inputLayoutUser.setErrorEnabled(false);
-        }
-        return true;
     }
     private boolean validatePasscode(){
         if (passcode.getText().toString().trim().isEmpty()){
@@ -60,4 +44,5 @@ public class LoginActivity extends AppCompatActivity{
         }
         return true;
     }
+
 }
