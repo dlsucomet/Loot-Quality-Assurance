@@ -30,6 +30,7 @@ public class MainActivity extends AppCompatActivity{
         pagerAdapter =  new ViewPagerAdapter(getSupportFragmentManager(), tabList, TAB_NUMBERS);
         viewPager = (ViewPager) findViewById(R.id.pager);
         viewPager.setAdapter(pagerAdapter);
+        viewPager.setCurrentItem(1);
         tabSlider = (SlidingTabLayout) findViewById(R.id.tabs);
         tabSlider.setDistributeEvenly(true);
         tabSlider.setCustomTabColorizer(new SlidingTabLayout.TabColorizer() {
@@ -51,7 +52,7 @@ public class MainActivity extends AppCompatActivity{
                 startActivity(new Intent(getBaseContext(), AddItemActivity.class));
                 return true;
             case R.id.menu_settings:
-                Toast.makeText(getApplicationContext(), "Settings Selected", Toast.LENGTH_LONG).show();
+                startActivity(new Intent(getBaseContext(), SettingsActivity.class));
                 return true;
             case R.id.menu_about:
                 Toast.makeText(getApplicationContext(),"About Selected",Toast.LENGTH_LONG).show();

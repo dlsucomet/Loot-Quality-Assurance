@@ -79,6 +79,6 @@ public class Expense{
         else if(category.equalsIgnoreCase("Others")){
             return R.drawable.others;
         }
-        else return R.drawable.about;
+        else return R.drawable.all;
     }
 }
