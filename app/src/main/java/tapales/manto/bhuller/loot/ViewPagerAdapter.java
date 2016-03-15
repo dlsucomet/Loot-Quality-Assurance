@@ -18,14 +18,15 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter{
             IncomeList iList = new IncomeList();
             return iList;
         }
+        else if(position == 1){
+            Overview oView = new Overview();
+            return oView;
+        }
         else if(position == 2){
             ExpenseList eList = new ExpenseList();
             return eList;
         }
-        else{
-            ExpenseList eList = new ExpenseList();
-            return eList;
-        }
+        else return null;
     }
     public CharSequence getPageTitle(int position){
         return Titles[position];

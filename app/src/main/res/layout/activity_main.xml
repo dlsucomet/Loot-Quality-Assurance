@@ -16,23 +16,11 @@
             android:layout_height="wrap_content"
             android:background="@color/colorPrimary"
             android:elevation="2dp"/>
-        <FrameLayout
+        <android.support.v4.view.ViewPager
+            android:id="@+id/pager"
+            android:layout_height="match_parent"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <android.support.v4.view.ViewPager
-                android:id="@+id/pager"
-                android:layout_height="match_parent"
-                android:layout_width="match_parent"
-                android:layout_weight="1"
-                android:background="@color/colorBackground"/>
-                <ImageButton
-                    android:id="@+id/floating_action_button"
-                    android:layout_margin="16dp"
-                    android:layout_width="70dp"
-                    android:layout_height="70dp"
-                    android:layout_gravity="bottom|right"
-                    android:src="@drawable/add"
-                    android:background="@drawable/circle"/>
-        </FrameLayout>
+            android:layout_weight="1"
+            android:background="@color/colorBackground"/>
     </android.support.design.widget.AppBarLayout>
 </LinearLayout>

@@ -9,7 +9,6 @@ import android.widget.ImageButton;
 
 public class AddItemActivity extends AppCompatActivity{
     private Toolbar toolbar;
-    private ImageButton floatingActionBar;
     private ViewPager viewPager;
     private ViewAddPagerAdapter pagerAdapter;
     private SlidingTabLayout tabSlider;
@@ -20,7 +19,7 @@ public class AddItemActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         toolbar = (Toolbar) findViewById(R.id.tool_bar);
-        toolbar.setTitle("Add Item");
+        toolbar.setTitle("New Item");
         setSupportActionBar(toolbar);
         toolbar.setNavigationIcon(R.drawable.back);
         toolbar.setNavigationOnClickListener(new View.OnClickListener(){
@@ -40,7 +39,5 @@ public class AddItemActivity extends AppCompatActivity{
             }
         });
         tabSlider.setViewPager(viewPager);
-        floatingActionBar = (ImageButton) findViewById(R.id.floating_action_button);
-        floatingActionBar.setVisibility(View.INVISIBLE);
     }
 }

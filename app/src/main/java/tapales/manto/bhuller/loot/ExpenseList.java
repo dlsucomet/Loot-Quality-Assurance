@@ -11,8 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.Toast;
-import java.util.ArrayList;
-import java.util.List;
 
 public class ExpenseList extends Fragment{
     RecyclerView rvExpenses;

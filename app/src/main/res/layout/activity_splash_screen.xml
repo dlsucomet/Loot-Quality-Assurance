@@ -36,5 +36,5 @@
         android:layout_below="@id/splash_screen"
         android:textColor="@color/colorDefault"
         android:textSize="16dp"
-        android:text="Your Money is Safe With Us." />
+        android:text="Expense Tracking Made Simple." />
 </RelativeLayout>

@@ -14,7 +14,6 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity{
     private Toolbar toolbar;
-    private ImageButton floatingActionBar;
     private ViewPager viewPager;
     private ViewPagerAdapter pagerAdapter;
     private SlidingTabLayout tabSlider;
@@ -39,13 +38,6 @@ public class MainActivity extends AppCompatActivity{
             }
         });
         tabSlider.setViewPager(viewPager);
-        floatingActionBar = (ImageButton) findViewById(R.id.floating_action_button);
-        floatingActionBar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getBaseContext(), AddItemActivity.class));
-            }
-        });
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -55,6 +47,9 @@ public class MainActivity extends AppCompatActivity{
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
+            case R.id.action_add:
+                startActivity(new Intent(getBaseContext(), AddItemActivity.class));
+                return true;
             case R.id.menu_settings:
                 Toast.makeText(getApplicationContext(), "Settings Selected", Toast.LENGTH_LONG).show();
                 return true;
