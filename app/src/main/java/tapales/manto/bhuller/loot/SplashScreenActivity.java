@@ -21,4 +21,30 @@ public class SplashScreenActivity extends AppCompatActivity{
             }
         }, SPLASH_DISPLAY_LENGTH);
     }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Intent mainIntent = new Intent(getBaseContext(), PasscodeActivity.class);
+                startActivity(mainIntent);
+                finish();
+            }
+        }, SPLASH_DISPLAY_LENGTH);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Intent mainIntent = new Intent(getBaseContext(), PasscodeActivity.class);
+                startActivity(mainIntent);
+                finish();
+            }
+        }, SPLASH_DISPLAY_LENGTH);
+    }
 }

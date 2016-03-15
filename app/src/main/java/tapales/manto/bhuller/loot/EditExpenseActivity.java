@@ -137,8 +137,8 @@ public class EditExpenseActivity extends AppCompatActivity{
                 categoryItem.setText("Category - Others");
             }
         });
-        floatingActionBar = (ImageButton) findViewById(R.id.floating_action_button);
-        floatingActionBar.setVisibility(View.INVISIBLE);
+        //floatingActionBar = (ImageButton) findViewById(R.id.floating_action_button);
+        //floatingActionBar.setVisibility(View.INVISIBLE);
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -150,6 +150,8 @@ public class EditExpenseActivity extends AppCompatActivity{
         switch (item.getItemId()) {
             case R.id.menu_delete:
                 Toast.makeText(getApplicationContext(), "Expense Deleted", Toast.LENGTH_LONG).show();
+                dbHelper.deleteExpense(currentExpense.getId());
+                finish();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -167,7 +169,7 @@ public class EditExpenseActivity extends AppCompatActivity{
         }
         currentExpense.setExpName(editTitle.getText().toString());
         currentExpense.setSpentAmount(Float.valueOf(editValue.getText().toString()));
-        currentExpense.setCategory(categoryItem.getText().toString().replace("Category -", ""));
+        currentExpense.setCategory(categoryItem.getText().toString().replace("Category - ", ""));
         currentExpense.setDate(dateText.getText().toString().replace("Date - ", ""));
         //Temporary 1
         currentExpense.setPaymentType(1);

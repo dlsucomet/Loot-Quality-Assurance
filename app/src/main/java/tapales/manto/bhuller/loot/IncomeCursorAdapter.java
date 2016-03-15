@@ -10,13 +10,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
-public class IncomeCursorAdapter extends CursorRecyclerViewAdapter<IncomeCursorAdapter.ExpenseViewHolder> {
+public class IncomeCursorAdapter extends CursorRecyclerViewAdapter2<IncomeCursorAdapter.ExpenseViewHolder> {
+    private Context context;
     public IncomeCursorAdapter(Context context, Cursor cursor) {
         super(context, cursor);
+        this.context = context;
     }
     public void onBindViewHolder(ExpenseViewHolder viewHolder, Cursor cursor) {
-        String title = cursor.getString(cursor.getColumnIndex(Income.COL_INCOME_NAME));
+        String title = cursor.getString(cursor.getColumnIndex(Income.COL_NAME));
         String price = cursor.getString(cursor.getColumnIndex(Income.COL_INCOME_AMOUNT));
         String date = cursor.getString(cursor.getColumnIndex(Income.COL_TIME_INTERVAL));
         viewHolder.incomeTitle.setText(title);
@@ -24,6 +27,14 @@ public class IncomeCursorAdapter extends CursorRecyclerViewAdapter<IncomeCursorA
         viewHolder.incomeDate.setText(date);
         int incomeID = cursor.getInt(cursor.getColumnIndex(Income.COL_ID));
         viewHolder.container.setTag(incomeID);
+
+        viewHolder.container.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Toast.makeText(context, "Hold to Edit Income", Toast.LENGTH_LONG).show();
+            }
+        });
         viewHolder.container.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {

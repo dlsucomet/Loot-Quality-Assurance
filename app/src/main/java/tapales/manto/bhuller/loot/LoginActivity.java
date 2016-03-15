@@ -14,10 +14,12 @@ public class LoginActivity extends AppCompatActivity{
     private EditText username, passcode;
     private TextInputLayout inputLayoutUser, inputLayoutPasscode;
     private Button submitButton;
+    private DatabaseOpenHelper dbHelper;
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        dbHelper = new DatabaseOpenHelper(getBaseContext());
         username = (EditText) findViewById(R.id.input_username);
         username.getBackground().mutate().setColorFilter(getResources().getColor(R.color.colorDefault), PorterDuff.Mode.SRC_ATOP);
         passcode = (EditText) findViewById(R.id.input_passcode);
@@ -39,11 +41,16 @@ public class LoginActivity extends AppCompatActivity{
         if (!validatePasscode()) {
             return;
         }
-        //Temp just for Navigation
-        Intent intent = new Intent(getBaseContext(), MainActivity.class);
-        startActivity(intent);
-        finish();
-        //TO DO
+        if(validatePasscode() &&  validateUsername())
+        {
+            //Temp just for Navigation
+            dbHelper.insertUser(new User(username.getText().toString(),Integer.parseInt(passcode.getText().toString())));
+            Intent intent = new Intent(getBaseContext(), MainActivity.class);
+            startActivity(intent);
+            finish();
+            //TO DO
+        }
+
     }
     private boolean validateUsername() {
         if (username.getText().toString().trim().isEmpty()) {

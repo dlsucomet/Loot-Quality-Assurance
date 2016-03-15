@@ -8,6 +8,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class DatabaseOpenHelper extends SQLiteOpenHelper{
     public static final String SCHEMA = "loot";
+    private int DummyDataInserted = 0;
+
     public DatabaseOpenHelper(Context context){
         super(context, SCHEMA, null, 1);
     }
@@ -28,11 +30,95 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper{
         db.execSQL(sql);
         sql = "CREATE TABLE " + Income.TABLE_NAME  + " ("
                 + Income.COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-                + Income.COL_INCOME_NAME + "TEXT, "
+                + Income.COL_NAME + " TEXT, "
                 + Income.COL_INCOME_AMOUNT + " FLOAT, "
                 + Income.COL_TIME_INTERVAL + " TEXT);";
         db.execSQL(sql);
+
+
     }
+
+    public void deleteAllExpenses(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("delete from " + Expense.TABLE_NAME);
+    }
+
+    public void insertDummyData(){
+
+        //inserting dummy user
+        SQLiteDatabase db =  getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(User.COL_NAME, "User");
+        contentValues.put(User.COL_PINCODE, 1234);
+        long id =  db.insert(User.TABLE_NAME, null, contentValues);
+
+        //inserting dummy expenses
+        contentValues = new ContentValues();
+        contentValues.put(Expense.COL_EXPENSE_NAME, "Burger");
+        contentValues.put(Expense.COL_SPENT_AMOUNT, 100);
+        contentValues.put(Expense.COL_PAYMENT_TYPE, 1);
+        contentValues.put(Expense.COL_CATEGORY, "Food");
+        contentValues.put(Expense.COL_DATE, "3/13/2016");
+        id =  db.insert(Expense.TABLE_NAME, null, contentValues);
+
+        contentValues = new ContentValues();
+        contentValues.put(Expense.COL_EXPENSE_NAME, "Taxi");
+        contentValues.put(Expense.COL_SPENT_AMOUNT, 150);
+        contentValues.put(Expense.COL_PAYMENT_TYPE, 1);
+        contentValues.put(Expense.COL_CATEGORY, "Transportation");
+        contentValues.put(Expense.COL_DATE, "2/13/2016");
+        id =  db.insert(Expense.TABLE_NAME, null, contentValues);
+
+        contentValues = new ContentValues();
+        contentValues.put(Expense.COL_EXPENSE_NAME, "Electricity");
+        contentValues.put(Expense.COL_SPENT_AMOUNT, 1000);
+        contentValues.put(Expense.COL_PAYMENT_TYPE, 2);
+        contentValues.put(Expense.COL_CATEGORY, "Bills");
+        contentValues.put(Expense.COL_DATE, "3/10/2016");
+        id =  db.insert(Expense.TABLE_NAME, null, contentValues);
+
+
+        contentValues = new ContentValues();
+        contentValues.put(Expense.COL_EXPENSE_NAME, "Pizza");
+        contentValues.put(Expense.COL_SPENT_AMOUNT, 250);
+        contentValues.put(Expense.COL_PAYMENT_TYPE, 1);
+        contentValues.put(Expense.COL_CATEGORY, "Food");
+        contentValues.put(Expense.COL_DATE, "3/05/2016");
+        id =  db.insert(Expense.TABLE_NAME, null, contentValues);
+
+
+        contentValues = new ContentValues();
+        contentValues.put(Expense.COL_EXPENSE_NAME, "Uber");
+        contentValues.put(Expense.COL_SPENT_AMOUNT, 80);
+        contentValues.put(Expense.COL_PAYMENT_TYPE, 1);
+        contentValues.put(Expense.COL_CATEGORY, "Transportation");
+        contentValues.put(Expense.COL_DATE, "2/25/2016");
+        id =  db.insert(Expense.TABLE_NAME, null, contentValues);
+
+
+        contentValues = new ContentValues();
+        contentValues.put(Expense.COL_EXPENSE_NAME, "Notebook");
+        contentValues.put(Expense.COL_SPENT_AMOUNT, 100);
+        contentValues.put(Expense.COL_PAYMENT_TYPE, 1);
+        contentValues.put(Expense.COL_CATEGORY, "Others");
+        contentValues.put(Expense.COL_DATE, "3/02/2016");
+        id =  db.insert(Expense.TABLE_NAME, null, contentValues);
+
+        db.close();
+
+    }
+
+    public void insertDummyIncome()
+    {
+        SQLiteDatabase db =  getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(Income.COL_NAME, "Salary");
+        contentValues.put(Income.COL_INCOME_AMOUNT, 1000);
+        contentValues.put(Income.COL_TIME_INTERVAL, "Monthly");
+        long id =  db.insert(Income.TABLE_NAME, null, contentValues);
+        db.close();
+    }
+
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion){
         String sql = "DROP TABLE IF EXISTS " + User.TABLE_NAME;
@@ -49,7 +135,7 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper{
         ContentValues contentValues = new ContentValues();
         contentValues.put(User.COL_NAME, u.getName());
         contentValues.put(User.COL_PINCODE, u.getPincode());
-        long id =  db.insert(User.TABLE_NAME, null, contentValues);
+        long id = db.insert(User.TABLE_NAME, null, contentValues);
         db.close();
         return id;
     }
@@ -82,14 +168,7 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper{
                 User.COL_ID + " = 1 ",
                 null);
     }
-    public void deleteUser(SQLiteDatabase db){
-        String sql = "DROP TABLE IF EXISTS " + User.TABLE_NAME;
-        db.execSQL(sql);
-        sql = "DROP TABLE IF EXISTS " + Expense.TABLE_NAME;
-        db.execSQL(sql);
-        sql = "DROP TABLE IF EXISTS " + Income.TABLE_NAME;
-        db.execSQL(sql);
-    }
+
     public long insertExpense(Expense e){
         SQLiteDatabase db =  getWritableDatabase();
         ContentValues contentValues = new ContentValues();
@@ -168,10 +247,10 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper{
         contentValues.put(Expense.COL_PAYMENT_TYPE, updatedExpense.getPaymentType());
         contentValues.put(Expense.COL_CATEGORY, updatedExpense.getCategory());
         contentValues.put(Expense.COL_DATE, updatedExpense.getDate().toString());
-       return  getWritableDatabase().update(Expense.TABLE_NAME,
-               contentValues,
-               Expense.COL_ID + " =? ",
-               new String[]{String.valueOf(updatedExpense.getId())});
+        return  getWritableDatabase().update(Expense.TABLE_NAME,
+                contentValues,
+                Expense.COL_ID + " =? ",
+                new String[]{String.valueOf(updatedExpense.getId())});
     }
     public int deleteExpense(int id){
         return getWritableDatabase().delete(Expense.TABLE_NAME,
@@ -186,7 +265,7 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper{
     public long insertIncome(Income i){
         SQLiteDatabase db =  getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put(Income.COL_INCOME_NAME, i.getIncomeName());
+        contentValues.put(Income.COL_NAME, i.getIncomeName());
         contentValues.put(Income.COL_INCOME_AMOUNT, i.getIncomeAmount());
         contentValues.put(Income.COL_TIME_INTERVAL, i.getTimeInterval());
         long id =  db.insert(Income.TABLE_NAME, null, contentValues);
@@ -195,7 +274,7 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper{
     }
     public int updateIncome(Income updatedIncome){
         ContentValues contentValues = new ContentValues();
-        contentValues.put(Income.COL_INCOME_NAME, updatedIncome.getIncomeName());
+        contentValues.put(Income.COL_NAME, updatedIncome.getIncomeName());
         contentValues.put(Income.COL_INCOME_AMOUNT, updatedIncome.getIncomeAmount());
         contentValues.put(Income.COL_TIME_INTERVAL, updatedIncome.getTimeInterval());
         return  getWritableDatabase().update(Income.TABLE_NAME,
@@ -213,7 +292,7 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper{
                 null, null, null);
         if(cursor.moveToFirst()){
             i = new Income();
-            i.setIncomeName(cursor.getString(cursor.getColumnIndex(Income.COL_INCOME_NAME)));
+            i.setIncomeName(cursor.getString(cursor.getColumnIndex(Income.COL_NAME)));
             i.setIncomeAmount(cursor.getFloat(cursor.getColumnIndex(Income.COL_INCOME_AMOUNT)));
             i.setTimeInterval(cursor.getString(cursor.getColumnIndex(Income.COL_TIME_INTERVAL)));
             i.setId(id);
@@ -221,4 +300,10 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper{
         cursor.close();
         return i;
     }
+    public int deleteIncome(int id){
+        return getWritableDatabase().delete(Income.TABLE_NAME,
+                Income.COL_ID + " =? ",
+                new String[]{String.valueOf(id)});
+    }
+
 }

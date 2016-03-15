@@ -42,7 +42,13 @@ public class AddIncomeFragment extends Fragment{
         submitButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                submitForm();
+                Income income = new Income();
+                income.setIncomeName(inputTitle.getText().toString());
+                income.setIncomeAmount(Float.valueOf(inputValue.getText().toString()));
+                income.setTimeInterval(dateText.getText().toString().replace("Date - ", ""));
+                dbHelper.insertIncome(income);
+                getActivity().setResult(Activity.RESULT_OK, new Intent(getActivity().getApplicationContext(), MainActivity.class));
+                getActivity().finish();
             }
         });
         clearButton = (Button) v.findViewById(R.id.add_income_clear_button);

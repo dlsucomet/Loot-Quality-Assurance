@@ -61,22 +61,22 @@ public class Expense{
         this.date = date;
     }
     public int getCategoryInt(){
-        if(category == "Food"){
+        if(category.equalsIgnoreCase("Food")){
             return R.drawable.food;
         }
-        else if(category == "Leisure"){
+        else if(category.equalsIgnoreCase("Leisure")){
             return R.drawable.leisure;
         }
-        else if(category == "Transportation"){
+        else if(category.equalsIgnoreCase("Transportation")){
             return R.drawable.transportation;
         }
-        else if(category == "Bills"){
+        else if(category.equalsIgnoreCase("Bills")){
             return R.drawable.bills;
         }
-        else if(category == "Debt"){
+        else if(category.equalsIgnoreCase("Debt")){
             return R.drawable.debt;
         }
-        else if(category == "Others"){
+        else if(category.equalsIgnoreCase("Others")){
             return R.drawable.others;
         }
         else return R.drawable.about;

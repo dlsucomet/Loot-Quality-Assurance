@@ -47,7 +47,17 @@ public class AddExpenseFragment extends Fragment {
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                submitForm();
+                Expense expense = new Expense();
+                expense.setExpName(inputTitle.getText().toString());
+                expense.setSpentAmount(Float.valueOf(inputValue.getText().toString()));
+                expense.setCategory(categoryItem.getText().toString().replace("Category - ", ""));
+                //expense.setCategory("Food");
+                expense.setDate(dateText.getText().toString().replace("Date - ", ""));
+                //Temporary 1
+                expense.setPaymentType(1);
+                dbHelper.insertExpense(expense);
+                getActivity().setResult(Activity.RESULT_OK, new Intent(getActivity().getApplicationContext(), MainActivity.class));
+                getActivity().finish();
             }
         });
         clearButton = (Button) v.findViewById(R.id.add_clear_button);

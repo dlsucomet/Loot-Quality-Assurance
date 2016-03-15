@@ -10,21 +10,34 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class ExpenseCursorAdapter extends CursorRecyclerViewAdapter<ExpenseCursorAdapter.ExpenseViewHolder> {
+    private Context context;
     public ExpenseCursorAdapter(Context context, Cursor cursor) {
         super(context, cursor);
+        this.context = context;
     }
     public void onBindViewHolder(ExpenseViewHolder viewHolder, Cursor cursor) {
         String title = cursor.getString(cursor.getColumnIndex(Expense.COL_EXPENSE_NAME));
         String price = cursor.getString(cursor.getColumnIndex(Expense.COL_SPENT_AMOUNT));
         String date = cursor.getString(cursor.getColumnIndex(Expense.COL_DATE));
         String category = cursor.getString(cursor.getColumnIndex(Expense.COL_CATEGORY));
+        int expenseID = cursor.getInt(cursor.getColumnIndex(Expense.COL_ID));
+        Expense e = new Expense(expenseID, title,Float.parseFloat(price), 1, category, date);
         viewHolder.expenseTitle.setText(title);
         viewHolder.expenseValue.setText(price);
         viewHolder.expenseDate.setText(date);
-        viewHolder.expenseCategory.setImageResource(getCategory(category));
-        int expenseID = cursor.getInt(cursor.getColumnIndex(Expense.COL_ID));
+        viewHolder.expenseCategory.setImageResource(e.getCategoryInt());
+
+        viewHolder.container.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Toast.makeText(context, "Hold to Edit Expense", Toast.LENGTH_LONG).show();
+            }
+        });
+
         viewHolder.container.setTag(expenseID);
         viewHolder.container.setOnLongClickListener(new View.OnLongClickListener(){
             @Override

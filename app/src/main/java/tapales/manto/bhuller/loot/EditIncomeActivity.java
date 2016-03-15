@@ -53,7 +53,7 @@ public class EditIncomeActivity extends AppCompatActivity{
         dateText.setText("Date - " + currentIncome.getTimeInterval());
         editTitle = (EditText) findViewById(R.id.edit_income_title);
         editTitle.setText(currentIncome.getIncomeName());
-        editValue = (EditText) findViewById(R.id.edit_expense_value);
+        editValue = (EditText) findViewById(R.id.edit_income_value);
         editValue.setText(String.valueOf(currentIncome.getIncomeAmount()));
         editLayoutTitle = (TextInputLayout) findViewById(R.id.edit_income_layout_title);
         editLayoutValue = (TextInputLayout) findViewById(R.id.edit_income_layout_value);
@@ -86,8 +86,8 @@ public class EditIncomeActivity extends AppCompatActivity{
                 dpd.show();
             }
         });
-        floatingActionBar = (ImageButton) findViewById(R.id.floating_action_button);
-        floatingActionBar.setVisibility(View.INVISIBLE);
+        //floatingActionBar = (ImageButton) findViewById(R.id.floating_action_button);
+        //floatingActionBar.setVisibility(View.INVISIBLE);
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -99,6 +99,8 @@ public class EditIncomeActivity extends AppCompatActivity{
         switch (item.getItemId()) {
             case R.id.menu_delete:
                 Toast.makeText(getApplicationContext(), "Income Deleted", Toast.LENGTH_LONG).show();
+                dbHelper.deleteIncome(currentIncome.getId());
+                finish();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

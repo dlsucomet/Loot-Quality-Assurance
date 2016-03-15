@@ -3,7 +3,7 @@ package tapales.manto.bhuller.loot;
 public class Income{
     public static final String TABLE_NAME = "Income";
     public static final String COL_ID = "incomeID";
-    public static final String COL_INCOME_NAME = "incName";
+    public static final String COL_NAME = "incName";
     public static final String COL_INCOME_AMOUNT = "incomeAmount";
     public static final String COL_TIME_INTERVAL = "timeInterval";
     private float incomeAmount;
