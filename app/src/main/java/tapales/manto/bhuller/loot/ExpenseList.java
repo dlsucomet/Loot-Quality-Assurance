@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class ExpenseList extends Fragment{
@@ -18,10 +19,11 @@ public class ExpenseList extends Fragment{
     ExpenseCursorAdapter expenseAdapter;
     ExpenseCursorAdapter swapAdapter;
     DatabaseOpenHelper dbHelper;
-    //These ImageView Buttons are to filter the categories
-    ImageView allButton, foodButton, leisureButton, transportButton, billButton, debtButton, othersButton;
+    TextView monthText;
+    ImageView allButton, foodButton, leisureButton, transportButton, billButton, debtButton, othersButton, backMonth, forwardMonth;
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState){
         View v = inflater.inflate(R.layout.expense_list, container, false);
+        monthText = (TextView) v.findViewById(R.id.expense_month_text);
         rvExpenses = (RecyclerView) v.findViewById(R.id.recycler_expenses);
         dbHelper = new DatabaseOpenHelper(v.getContext());
         //dbHelper.deleteAllExpenses();
@@ -34,6 +36,25 @@ public class ExpenseList extends Fragment{
 //        expenseAdapter = new ExpenseAdapter(expenses);
         rvExpenses.setAdapter(expenseAdapter);
         rvExpenses.setLayoutManager(new LinearLayoutManager(v.getContext()));
+        backMonth = (ImageView) v.findViewById(R.id.expense_left_month);
+        backMonth.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //TODO
+                //Change monthText and filter items by month
+                Toast.makeText(getActivity().getApplicationContext(),"Back by One Month", Toast.LENGTH_LONG).show();
+            }
+        });
+        forwardMonth = (ImageView) v.findViewById(R.id.expense_right_month);
+        forwardMonth.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //TODO
+                //Change monthText and filter items by month
+                Toast.makeText(getActivity().getApplicationContext(),"Forward by One Month", Toast.LENGTH_LONG).show();
+
+            }
+        });
         allButton = (ImageView) v.findViewById(R.id.category_all);
         allButton.setOnClickListener(new View.OnClickListener() {
             @Override

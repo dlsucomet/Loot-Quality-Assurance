@@ -4,6 +4,39 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+    <android.support.v7.widget.CardView
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        card_view:cardCornerRadius="0dp"
+        android:id="@+id/card_month"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <RelativeLayout
+            android:padding="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/income_left_month"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_alignParentLeft="true"
+                android:src="@drawable/left"/>
+            <TextView
+                android:id="@+id/income_month_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:textSize="14dp"
+                android:textColor="#000000"
+                android:text="March 2016"/>
+            <ImageView
+                android:id="@+id/income_right_month"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_alignParentRight="true"
+                android:src="@drawable/right"/>
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_income"
         android:scrollbars="vertical"

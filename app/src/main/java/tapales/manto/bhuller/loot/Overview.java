@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class Overview extends Fragment{
     private TextView monthText, totalSavings, monthlySavings, monthlyIncome, monthlyExpenses;
@@ -24,6 +25,8 @@ public class Overview extends Fragment{
             @Override
             public void onClick(View v) {
                 //TODO
+                //Change monthText and filter items by month
+                Toast.makeText(getActivity().getApplicationContext(), "Back by One Month", Toast.LENGTH_LONG).show();
             }
         });
         forwardMonth = (ImageView) v.findViewById(R.id.overview_right_month);
@@ -31,6 +34,8 @@ public class Overview extends Fragment{
             @Override
             public void onClick(View v) {
                 //TODO
+                //Change monthText and filter items by month
+                Toast.makeText(getActivity().getApplicationContext(),"Forward by One Month", Toast.LENGTH_LONG).show();
             }
         });
         return v;
