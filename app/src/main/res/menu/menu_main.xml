@@ -5,6 +5,8 @@
         android:title="New Item"
         android:icon="@drawable/add"
         loot:showAsAction="ifRoom"/>
+    <item  android:id="@+id/menu_account"
+    android:title="My Account"/>
     <item  android:id="@+id/menu_settings"
         android:title="Settings"/>
     <item  android:id="@+id/menu_about"

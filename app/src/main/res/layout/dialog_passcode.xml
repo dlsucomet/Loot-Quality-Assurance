@@ -56,10 +56,12 @@
             android:text="Cancel"
             android:background="@null"
             android:textColor="@color/colorAccent"
+            android:textSize="14dp"
             android:id="@+id/btn_Cancel"/>
         <Button
             android:layout_width="match_parent"
             android:layout_height="30dp"
+            android:textSize="14dp"
             android:text="Submit"
             android:background="@null"
             android:textColor="@color/colorAccent"

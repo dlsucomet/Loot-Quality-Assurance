@@ -21,7 +21,7 @@ public class AddIncomeFragment extends Fragment{
     private DatabaseOpenHelper dbHelper;
     private int mYear, mMonth, mDay;
     private TextView dateText;
-    private Button dateButton, submitButton, clearButton;
+    private Button dateButton, submitButton, cancelButton;
     private EditText inputTitle, inputValue;
     private TextInputLayout inputLayoutTitle, inputLayoutValue;
     private static final String[] months = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
@@ -51,14 +51,11 @@ public class AddIncomeFragment extends Fragment{
                 getActivity().finish();
             }
         });
-        clearButton = (Button) v.findViewById(R.id.add_income_clear_button);
-        clearButton.setOnClickListener(new View.OnClickListener(){
+        cancelButton = (Button) v.findViewById(R.id.add_income_cancel_button);
+        cancelButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                dateText.setText("Date - " + months[mMonth] + " " + mDay + ", " + mYear);
-                inputTitle.setText("");
-                inputValue.setText("");
-                Toast.makeText(getActivity().getApplicationContext(), "Income Successfully Cleared", Toast.LENGTH_LONG).show();
+                getActivity().finish();
             }
         });
         dateButton = (Button) v.findViewById(R.id.add_income_date_button);

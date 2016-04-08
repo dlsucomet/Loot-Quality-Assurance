@@ -11,13 +11,14 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.PieData;
+import com.github.mikephil.charting.data.PieDataSet;
+import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.text.DateFormatSymbols;
 import java.util.ArrayList;
-
-import lecho.lib.hellocharts.model.PieChartData;
-import lecho.lib.hellocharts.model.SliceValue;
-import lecho.lib.hellocharts.view.PieChartView;
 
 public class Overview extends Fragment{
     private TextView monthText, totalSavings, monthlySavings, monthlyIncome, monthlyExpenses;
@@ -25,32 +26,53 @@ public class Overview extends Fragment{
     private DatabaseOpenHelper dbHelper;
     private ArrayList<String> monthList;
     private String[] CurrentMandY;
-    private PieChartView pieChart;
+    private PieChart pieChart;
+    private PieDataSet pieDataSet;
+    private PieData dataSet;
+    private ArrayList<String> labels = new ArrayList<String>();
+    private int[] colors = new int[6];
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState){
         View v = inflater.inflate(R.layout.overview, container, false);
-
         dbHelper = new DatabaseOpenHelper(v.getContext());
+        pieChart = (PieChart) v.findViewById(R.id.pie_chart);
 
-        pieChart = (PieChartView) v.findViewById(R.id.overview_pie_chart);
-
-
-
-
+        pieChart.setDrawHoleEnabled(true);
+        pieChart.setHoleRadius(30);
+        pieChart.setTransparentCircleRadius(36);
         monthList = new ArrayList<String>();
         String[] months = new DateFormatSymbols().getMonths();
         for (int i = 0; i < months.length; i++) {
             String month = months[i];
             monthList .add(months[i]);
         }
-
         monthText = (TextView) v.findViewById(R.id.overview_month_text);
         String date = monthText.getText().toString();
         CurrentMandY = date.split(" ");
+        labels.add("Food");
+        labels.add("Leisure");
+        labels.add("Transportation");
+        labels.add("Bills");
+        labels.add("Debt");
+        labels.add("Others");
+        colors[0] = Color.parseColor("#2196F3");
+        colors[1] = Color.parseColor("#FF8F00");
+        colors[2] = Color.parseColor("#FF1744");
+        colors[3] = Color.parseColor("#3F51B5");
+        colors[4] = Color.parseColor("#4CAF50");
+        colors[5] = Color.parseColor("#1976D2");
+        ArrayList<Entry> dataList = getData(CurrentMandY[0],CurrentMandY[1]);
+        pieDataSet = new PieDataSet(dataList, "");
+        pieDataSet.setColors(ColorTemplate.JOYFUL_COLORS);
+        dataSet = new PieData(labels, pieDataSet);
 
-        PieChartData data = new PieChartData(getData(CurrentMandY[0],CurrentMandY[1]));
 
-        pieChart.setPieChartData(data);
+        dataSet.setValueTextSize(9f);
+        dataSet.setValueTextColor(Color.WHITE);
 
+        pieChart.setData(dataSet);
+        pieChart.highlightValues(null);
+        pieChart.setDescription("");
+        pieChart.invalidate();
         totalSavings = (TextView) v.findViewById(R.id.overview_total_price);
         monthlySavings = (TextView) v.findViewById(R.id.overview_savings_price);
         monthlyIncome = (TextView) v.findViewById(R.id.overview_income_price);
@@ -67,7 +89,6 @@ public class Overview extends Fragment{
             public void onClick(View v) {
                 //TODO
                 //Change monthText and filter items by month
-                Toast.makeText(getActivity().getApplicationContext(), "Back by One Month", Toast.LENGTH_LONG).show();
                 String date = monthText.getText().toString();
                 String[] MandY = date.split(" ");
                 String backMandY = prevMonth(MandY[0], Integer.parseInt(MandY[1]));
@@ -77,8 +98,17 @@ public class Overview extends Fragment{
                 monthlyExpenses.setText(getMonthlyExpense(BackMandY[0], BackMandY[1]));
                 monthlySavings.setText(getMonthlySaving(BackMandY[0], BackMandY[1]));
                 totalSavings.setText(getTotalSaving());
-                PieChartData data = new PieChartData(getData(BackMandY[0],BackMandY[1]));
-                pieChart.setPieChartData(data);
+                pieDataSet = new PieDataSet(getData(BackMandY[0],BackMandY[1]), "");
+                pieDataSet.setColors(colors);
+                dataSet = new PieData(labels, pieDataSet);
+                dataSet.setValueTextSize(9f);
+                dataSet.setValueTextColor(Color.WHITE);
+
+                pieChart.setData(dataSet);
+                pieChart.highlightValues(null);
+                pieChart.setDescription("");
+                pieChart.invalidate();
+                Toast.makeText(getActivity().getApplicationContext(), BackMandY[0]+" "+BackMandY[1], Toast.LENGTH_LONG).show();
             }
         });
         forwardMonth = (ImageView) v.findViewById(R.id.overview_right_month);
@@ -87,7 +117,6 @@ public class Overview extends Fragment{
             public void onClick(View v) {
                 //TODO
                 //Change monthText and filter items by month
-                Toast.makeText(getActivity().getApplicationContext(),"Forward by One Month", Toast.LENGTH_LONG).show();
                 String date = monthText.getText().toString();
                 String[] MandY = date.split(" ");
                 String nextMandY = nextMonth(MandY[0], Integer.parseInt(MandY[1]));
@@ -97,8 +126,16 @@ public class Overview extends Fragment{
                 monthlyExpenses.setText(getMonthlyExpense(NextMandY[0], NextMandY[1]));
                 monthlySavings.setText(getMonthlySaving(NextMandY[0], NextMandY[1]));
                 totalSavings.setText(getTotalSaving());
-                PieChartData data = new PieChartData(getData(NextMandY[0],NextMandY[1]));
-                pieChart.setPieChartData(data);
+                pieDataSet = new PieDataSet(getData(NextMandY[0],NextMandY[1]), "");
+                pieDataSet.setColors(colors);
+                dataSet = new PieData(labels, pieDataSet);
+                dataSet.setValueTextSize(9f);
+                dataSet.setValueTextColor(Color.WHITE);
+                pieChart.setData(dataSet);
+                pieChart.highlightValues(null);
+                pieChart.setDescription("");
+                pieChart.invalidate();
+                Toast.makeText(getActivity().getApplicationContext(), NextMandY[0]+" "+NextMandY[1], Toast.LENGTH_LONG).show();
             }
         });
         return v;
@@ -201,24 +238,22 @@ public class Overview extends Fragment{
         return result;
     }
 
-    public String nextMonth(String month, int year){
-        String result="";
+    public String nextMonth(String month, int year) {
+        String result = "";
         int indexofCurrentMonth = 0;
-        int indexofNextMonth= 0;
-        for(int i = 0; i < monthList.size(); i++)
-        {
-            if(monthList.get(i).equalsIgnoreCase(month)){
+        int indexofNextMonth = 0;
+        for (int i = 0; i < monthList.size(); i++) {
+            if (monthList.get(i).equalsIgnoreCase(month)) {
                 indexofCurrentMonth = i;
-                indexofNextMonth = i+1;
+                indexofNextMonth = i + 1;
                 break;
             }
         }
 
-        if(indexofCurrentMonth == 11){
+        if (indexofCurrentMonth == 11) {
             year = year + 1;
             month = monthList.get(0);
-        }
-        else{
+        } else {
             month = monthList.get(indexofNextMonth);
         }
 
@@ -226,15 +261,14 @@ public class Overview extends Fragment{
 
         return result;
     }
-
-    public ArrayList<SliceValue> getData(String month, String year){
-        ArrayList<SliceValue> dataList = new ArrayList<SliceValue>();
-        int sumF = 0;
-        int sumL = 0;
-        int sumT = 0;
-        int sumB = 0;
-        int sumD = 0;
-        int sumO = 0;
+    private ArrayList<Entry> getData(String month, String year){
+        ArrayList<Entry> dataList = new ArrayList<Entry>();
+        float sumF = 0;
+        float sumL = 0;
+        float sumT = 0;
+        float sumB = 0;
+        float sumD = 0;
+        float sumO = 0;
         Cursor cursorFood = dbHelper.getAllExpensesByCategoryandMonth("Food",month,year);
         Cursor cursorLeisure = dbHelper.getAllExpensesByCategoryandMonth("Leisure",month,year);
         Cursor cursorTransportation = dbHelper.getAllExpensesByCategoryandMonth("Transportation",month,year);
@@ -244,69 +278,60 @@ public class Overview extends Fragment{
 
         while(cursorFood.moveToNext()){
             String s = cursorFood.getString(cursorFood.getColumnIndex(Expense.COL_SPENT_AMOUNT));
-            int val = Integer.parseInt(s);
+            float val = Float.parseFloat(s);
             sumF += val;
         }
         cursorFood.close();
 
         while(cursorLeisure.moveToNext()){
             String s = cursorLeisure.getString(cursorLeisure.getColumnIndex(Expense.COL_SPENT_AMOUNT));
-            int val = Integer.parseInt(s);
+            float val = Float.parseFloat(s);
             sumL += val;
         }
         cursorLeisure.close();
 
         while(cursorTransportation.moveToNext()){
             String s = cursorTransportation.getString(cursorTransportation.getColumnIndex(Expense.COL_SPENT_AMOUNT));
-            int val = Integer.parseInt(s);
+            float val = Float.parseFloat(s);
             sumT += val;
         }
         cursorTransportation.close();
 
         while(cursorBills.moveToNext()){
             String s = cursorBills.getString(cursorBills.getColumnIndex(Expense.COL_SPENT_AMOUNT));
-            int val = Integer.parseInt(s);
+            float val = Float.parseFloat(s);
             sumB += val;
         }
         cursorBills.close();
 
         while(cursorDebt.moveToNext()){
             String s = cursorDebt.getString(cursorDebt.getColumnIndex(Expense.COL_SPENT_AMOUNT));
-            int val = Integer.parseInt(s);
+            float val = Float.parseFloat(s);
             sumD += val;
         }
         cursorDebt.close();
 
         while(cursorOthers.moveToNext()){
             String s = cursorOthers.getString(cursorOthers.getColumnIndex(Expense.COL_SPENT_AMOUNT));
-            int val = Integer.parseInt(s);
+            float val = Float.parseFloat(s);
             sumO += val;
         }
         cursorOthers.close();
-
-        SliceValue sliceF = new SliceValue(sumF, Color.BLUE);
-        sliceF.setLabel(("Food " + (int) sliceF.getValue() + "%"));
-        SliceValue sliceL = new SliceValue(sumL, Color.YELLOW);
-        sliceL.setLabel("Leisure " + (int)sliceL.getValue() + "%" );
-        SliceValue sliceT = new SliceValue(sumT, Color.RED);
-        sliceT.setLabel("Transportation " + (int)sliceT.getValue() + "%" );
-        SliceValue sliceB = new SliceValue(sumB, Color.LTGRAY);
-        sliceB.setLabel("Bills " + (int)sliceB.getValue() + "%" );
-        SliceValue sliceD = new SliceValue(sumD, Color.GREEN);
-        sliceD.setLabel("Debt " + (int)sliceD.getValue() + "%" );
-        SliceValue sliceO = new SliceValue(sumO, Color.DKGRAY);
-        sliceO.setLabel("Others " + (int) sliceO.getValue() + "%");
-
-        dataList.add(sliceF);
-        dataList.add(sliceL);
-        dataList.add(sliceT);
-        dataList.add(sliceB);
-        dataList.add(sliceD);
-        dataList.add(sliceO);
+        if(sumF != 0)
+            dataList.add(new Entry(sumF, 0));
+        if(sumL != 0)
+            dataList.add(new Entry(sumL, 1));
+        if(sumT != 0)
+            dataList.add(new Entry(sumT, 2));
+        if(sumB != 0)
+            dataList.add(new Entry(sumB, 3));
+        if(sumD != 0)
+            dataList.add(new Entry(sumD, 4));
+        if(sumO != 0)
+            dataList.add(new Entry(sumO, 5));
 
         return dataList;
     }
-
     public void onResume(){
         super.onResume();
         String date = monthText.getText().toString();
@@ -316,7 +341,15 @@ public class Overview extends Fragment{
         monthlyExpenses.setText(getMonthlyExpense(MandY[0], MandY[1]));
         monthlySavings.setText(getMonthlySaving(MandY[0], MandY[1]));
         totalSavings.setText(getTotalSaving());
-        PieChartData data = new PieChartData(getData(MandY[0],MandY[1]));
-        pieChart.setPieChartData(data);
+        pieDataSet = new PieDataSet(getData(MandY[0],MandY[1]), "");
+        pieDataSet.setColors(colors);
+        dataSet = new PieData(labels, pieDataSet);
+        dataSet.setValueTextSize(9f);
+        dataSet.setValueTextColor(Color.WHITE);
+
+        pieChart.setData(dataSet);
+        pieChart.highlightValues(null);
+        pieChart.setDescription("");
+        pieChart.invalidate();
     }
 }

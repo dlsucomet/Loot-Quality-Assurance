@@ -28,7 +28,7 @@
                 android:gravity="center"
                 android:textSize="14dp"
                 android:textColor="#000000"
-                android:text="March 2016"/>
+                android:text="April 2016"/>
             <ImageView
                 android:id="@+id/overview_right_month"
                 android:layout_width="32dp"
@@ -40,103 +40,27 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <lecho.lib.hellocharts.view.PieChartView
-            android:id="@+id/overview_pie_chart"
-            android:padding="16dp"
+        <com.github.mikephil.charting.charts.PieChart
+            android:id="@+id/pie_chart"
+            android:layout_margin="16dp"
             android:layout_width="match_parent"
-            android:layout_height="220dp"/>
-        <android.support.v7.widget.CardView
-            xmlns:card_view="http://schemas.android.com/apk/res-auto"
-            card_view:cardCornerRadius="0dp"
-            android:id="@+id/card_total_saved"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/overview_pie_chart"
-            android:foreground="?android:attr/selectableItemBackground">
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="15dp">
-                <ImageView
-                    android:id="@+id/overview_total_photo"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_alignParentLeft="true"
-                    android:layout_centerVertical="true"
-                    android:src="@drawable/total_savings"/>
-                <TextView
-                    android:id="@+id/overview_total_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:textSize="14sp"
-                    android:textColor="#000000"
-                    android:text="Total Savings"/>
-                <TextView
-                    android:id="@+id/overview_total_price"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:textSize="18sp"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:text="500"/>
-            </RelativeLayout>
-        </android.support.v7.widget.CardView>
-        <android.support.v7.widget.CardView
-            xmlns:card_view="http://schemas.android.com/apk/res-auto"
-            card_view:cardCornerRadius="0dp"
-            android:id="@+id/card_monthly_saved"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/card_total_saved"
-            android:foreground="?android:attr/selectableItemBackground">
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="15dp">
-                <ImageView
-                    android:id="@+id/overview_savings_photo"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_alignParentLeft="true"
-                    android:layout_centerVertical="true"
-                    android:src="@drawable/monthly_savings"/>
-                <TextView
-                    android:id="@+id/overview_savings_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:textSize="14sp"
-                    android:textColor="#000000"
-                    android:text="Monthly Savings"/>
-                <TextView
-                    android:id="@+id/overview_savings_price"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:textSize="18sp"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:text="500"/>
-            </RelativeLayout>
-        </android.support.v7.widget.CardView>
+            android:layout_height="230dp"/>
         <android.support.v7.widget.CardView
             xmlns:card_view="http://schemas.android.com/apk/res-auto"
             card_view:cardCornerRadius="0dp"
             android:id="@+id/card_total_income"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/card_monthly_saved"
+            android:layout_below="@id/pie_chart"
             android:foreground="?android:attr/selectableItemBackground">
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="15dp">
+                android:padding="12dp">
                 <ImageView
                     android:id="@+id/overview_income_photo"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="26dp"
+                    android:layout_height="26dp"
                     android:layout_alignParentLeft="true"
                     android:layout_centerVertical="true"
                     android:src="@drawable/view_income"/>
@@ -154,7 +78,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:textSize="18sp"
+                    android:textSize="16sp"
                     android:textColor="@color/colorPrimaryDark"
                     android:text="500"/>
             </RelativeLayout>
@@ -170,11 +94,11 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="15dp">
+                android:padding="12dp">
                 <ImageView
                     android:id="@+id/overview_expense_photo"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="26dp"
+                    android:layout_height="26dp"
                     android:layout_alignParentLeft="true"
                     android:layout_centerVertical="true"
                     android:src="@drawable/view_expense"/>
@@ -192,8 +116,84 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:textSize="18sp"
+                    android:textSize="16sp"
                     android:textColor="@color/colorRed"
+                    android:text="500"/>
+            </RelativeLayout>
+        </android.support.v7.widget.CardView>
+        <android.support.v7.widget.CardView
+            xmlns:card_view="http://schemas.android.com/apk/res-auto"
+            card_view:cardCornerRadius="0dp"
+            android:id="@+id/card_monthly_saved"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/card_total_expenses"
+            android:foreground="?android:attr/selectableItemBackground">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="12dp">
+                <ImageView
+                    android:id="@+id/overview_savings_photo"
+                    android:layout_width="26dp"
+                    android:layout_height="26dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/monthly_savings"/>
+                <TextView
+                    android:id="@+id/overview_savings_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:textSize="14sp"
+                    android:textColor="#000000"
+                    android:text="Monthly Savings"/>
+                <TextView
+                    android:id="@+id/overview_savings_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:textSize="16sp"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:text="500"/>
+            </RelativeLayout>
+        </android.support.v7.widget.CardView>
+        <android.support.v7.widget.CardView
+            xmlns:card_view="http://schemas.android.com/apk/res-auto"
+            card_view:cardCornerRadius="0dp"
+            android:id="@+id/card_total_saved"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/card_monthly_saved"
+            android:foreground="?android:attr/selectableItemBackground">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="12dp">
+                <ImageView
+                    android:id="@+id/overview_total_photo"
+                    android:layout_width="26dp"
+                    android:layout_height="26dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/total_savings"/>
+                <TextView
+                    android:id="@+id/overview_total_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:textSize="14sp"
+                    android:textColor="#000000"
+                    android:text="Total Savings"/>
+                <TextView
+                    android:id="@+id/overview_total_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:textSize="16sp"
+                    android:textColor="@color/colorPrimaryDark"
                     android:text="500"/>
             </RelativeLayout>
         </android.support.v7.widget.CardView>

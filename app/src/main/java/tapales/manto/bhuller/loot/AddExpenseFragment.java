@@ -23,7 +23,7 @@ public class AddExpenseFragment extends Fragment {
     private DatabaseOpenHelper dbHelper;
     private int mYear, mMonth, mDay;
     private TextView categoryItem, dateText;
-    private Button dateButton, submitButton, clearButton;
+    private Button dateButton, submitButton, cancelButton;
     private EditText inputTitle, inputValue;
     private TextInputLayout inputLayoutTitle, inputLayoutValue;
     private ImageView foodButton, leisureButton, transportButton, billButton, debtButton, othersButton;
@@ -60,15 +60,11 @@ public class AddExpenseFragment extends Fragment {
                 getActivity().finish();
             }
         });
-        clearButton = (Button) v.findViewById(R.id.add_clear_button);
-        clearButton.setOnClickListener(new View.OnClickListener() {
+        cancelButton = (Button) v.findViewById(R.id.add_cancel_button);
+        cancelButton.setOnClickListener(new View.OnClickListener(){
             @Override
-            public void onClick(View v) {
-                dateText.setText("Date - " + months[mMonth] + " " + mDay + ", " + mYear);
-                inputTitle.setText("");
-                inputValue.setText("");
-                categoryItem.setText("Category - None");
-                Toast.makeText(getActivity().getApplicationContext(), "Expense Successfully Cleared", Toast.LENGTH_LONG).show();
+            public void onClick(View v){
+                getActivity().finish();
             }
         });
         dateButton = (Button) v.findViewById(R.id.add_date_button);

@@ -51,6 +51,9 @@ public class MainActivity extends AppCompatActivity{
             case R.id.action_add:
                 startActivity(new Intent(getBaseContext(), AddItemActivity.class));
                 return true;
+            case R.id.menu_account:
+                startActivity(new Intent(getBaseContext(), MyAccountActivity.class));
+                return true;
             case R.id.menu_settings:
                 startActivity(new Intent(getBaseContext(), SettingsActivity.class));
                 return true;
