@@ -11,6 +11,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.PieData;
@@ -19,6 +21,7 @@ import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.text.DateFormatSymbols;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class Overview extends Fragment{
     private TextView monthText, totalSavings, monthlySavings, monthlyIncome, monthlyExpenses;
@@ -29,16 +32,22 @@ public class Overview extends Fragment{
     private PieChart pieChart;
     private PieDataSet pieDataSet;
     private PieData dataSet;
+    private int mYear, mMonth;
     private ArrayList<String> labels = new ArrayList<String>();
     private int[] colors = new int[6];
+    private static final String[] months = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState){
         View v = inflater.inflate(R.layout.overview, container, false);
+        final Calendar c = Calendar.getInstance();
+        mYear = c.get(Calendar.YEAR);
+        mMonth = c.get(Calendar.MONTH);
         dbHelper = new DatabaseOpenHelper(v.getContext());
         pieChart = (PieChart) v.findViewById(R.id.pie_chart);
-
         pieChart.setDrawHoleEnabled(true);
         pieChart.setHoleRadius(30);
         pieChart.setTransparentCircleRadius(36);
+        pieChart.animateY(1000, Easing.EasingOption.EaseInOutQuad);
+        pieChart.setDrawSliceText(!pieChart.isDrawSliceTextEnabled());
         monthList = new ArrayList<String>();
         String[] months = new DateFormatSymbols().getMonths();
         for (int i = 0; i < months.length; i++) {
@@ -46,7 +55,8 @@ public class Overview extends Fragment{
             monthList .add(months[i]);
         }
         monthText = (TextView) v.findViewById(R.id.overview_month_text);
-        String date = monthText.getText().toString();
+        String date = months[mMonth] + " " + mYear;
+        monthText.setText(date);
         CurrentMandY = date.split(" ");
         labels.add("Food");
         labels.add("Leisure");
@@ -107,6 +117,7 @@ public class Overview extends Fragment{
                 pieChart.setData(dataSet);
                 pieChart.highlightValues(null);
                 pieChart.setDescription("");
+                pieChart.animateY(1000, Easing.EasingOption.EaseInOutQuad);
                 pieChart.invalidate();
                 Toast.makeText(getActivity().getApplicationContext(), BackMandY[0]+" "+BackMandY[1], Toast.LENGTH_LONG).show();
             }
@@ -134,6 +145,7 @@ public class Overview extends Fragment{
                 pieChart.setData(dataSet);
                 pieChart.highlightValues(null);
                 pieChart.setDescription("");
+                pieChart.animateY(1000, Easing.EasingOption.EaseInOutQuad);
                 pieChart.invalidate();
                 Toast.makeText(getActivity().getApplicationContext(), NextMandY[0]+" "+NextMandY[1], Toast.LENGTH_LONG).show();
             }
@@ -336,7 +348,6 @@ public class Overview extends Fragment{
         super.onResume();
         String date = monthText.getText().toString();
         String[] MandY = date.split(" ");
-        //Cursor cursor = dbHelper.getAllExpensesByMonth(MandY[0],MandY[1]);
         monthlyIncome.setText(getMonthlyIncome(MandY[0],MandY[1]));
         monthlyExpenses.setText(getMonthlyExpense(MandY[0], MandY[1]));
         monthlySavings.setText(getMonthlySaving(MandY[0], MandY[1]));
@@ -346,7 +357,6 @@ public class Overview extends Fragment{
         dataSet = new PieData(labels, pieDataSet);
         dataSet.setValueTextSize(9f);
         dataSet.setValueTextColor(Color.WHITE);
-
         pieChart.setData(dataSet);
         pieChart.highlightValues(null);
         pieChart.setDescription("");

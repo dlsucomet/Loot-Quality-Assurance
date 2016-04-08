@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import java.text.DateFormatSymbols;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class ExpenseList extends Fragment{
     RecyclerView rvExpenses;
@@ -26,8 +27,14 @@ public class ExpenseList extends Fragment{
     private ArrayList<String> monthList;
     private String[] CurrentMandY;
     ImageView allButton, foodButton, leisureButton, transportButton, billButton, debtButton, othersButton, backMonth, forwardMonth;
+    private int mYear, mMonth;
+    private static final String[] months = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState){
         View v = inflater.inflate(R.layout.expense_list, container, false);
+
+        final Calendar c = Calendar.getInstance();
+        mYear = c.get(Calendar.YEAR);
+        mMonth = c.get(Calendar.MONTH);
 
         monthList = new ArrayList<String>();
         String[] months = new DateFormatSymbols().getMonths();
@@ -37,7 +44,8 @@ public class ExpenseList extends Fragment{
         }
 
         monthText = (TextView) v.findViewById(R.id.expense_month_text);
-        String date = monthText.getText().toString();
+        String date = months[mMonth] + " " + mYear;
+        monthText.setText(date);
         CurrentMandY = date.split(" ");
         rvExpenses = (RecyclerView) v.findViewById(R.id.recycler_expenses);
         dbHelper = new DatabaseOpenHelper(v.getContext());
