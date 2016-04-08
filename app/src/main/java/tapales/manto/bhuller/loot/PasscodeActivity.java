@@ -13,7 +13,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 public class PasscodeActivity extends AppCompatActivity {
-    private TextView noPasscode;
+    private TextView noPasscode, tvwelcome;
     private EditText passcode;
     private TextInputLayout inputLayoutPasscode;
     private Button submitButton;
@@ -23,9 +23,11 @@ public class PasscodeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_passcode);
         dbHelper = new DatabaseOpenHelper(getBaseContext());
+        tvwelcome = (TextView) findViewById(R.id.welcome_user_passcode);
         noPasscode = (TextView) findViewById(R.id.no_passcode_text);
         if(dbHelper.getUser() == null)
         {
+            tvwelcome.setText("Welcome User, Enter Your Passcode.");
             noPasscode.setText((Html.fromHtml("No Passcode Yet? Click <u>Here</u> to Get One!")));
             noPasscode.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -36,7 +38,10 @@ public class PasscodeActivity extends AppCompatActivity {
                 }
             });
         }
-        else noPasscode.setText("");
+        else {
+            tvwelcome.setText("Welcome " + dbHelper.getUser().getName() + ", Enter Your Passcode.");
+            noPasscode.setText("");
+        }
 
         passcode = (EditText) findViewById(R.id.enter_passcode);
         passcode.getBackground().mutate().setColorFilter(getResources().getColor(R.color.colorDefault), PorterDuff.Mode.SRC_ATOP);

@@ -13,10 +13,12 @@ import android.widget.Toast;
 public class SettingsActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private CardView changeUser, changePasscode, deleteAllData;
+    private DatabaseOpenHelper dbHelper;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
+        dbHelper = new DatabaseOpenHelper(getBaseContext());
         toolbar = (Toolbar) findViewById(R.id.tool_bar);
         toolbar.setTitle("Settings");
         setSupportActionBar(toolbar);
@@ -52,16 +54,30 @@ public class SettingsActivity extends AppCompatActivity {
                         .setMessage("Are you sure you want to remove all data?")
                         .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
-                                // continue with delete
+                                dbHelper.deleteAllData();
                             }
                         })
                         .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
-                                // do nothing
+                               dialog.dismiss();
                             }
                         })
                         .show();
             }
         });
+    }
+
+    public void onYesSelectedU(String username){
+        dbHelper.updateUsername(username);
+    }
+
+    public void onYesSelectedP(int passcode){
+        dbHelper.updatePasscode(passcode);
+    }
+
+    public String getOldPasscode() {
+        int passcode = dbHelper.getUser().getPincode();
+        String p = String.valueOf(passcode);
+        return p;
     }
 }

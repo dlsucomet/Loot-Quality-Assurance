@@ -13,6 +13,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.DateFormatSymbols;
+import java.util.ArrayList;
+
 public class ExpenseList extends Fragment{
     RecyclerView rvExpenses;
     //ExpenseCursorAdapter expenseAdapter;
@@ -20,15 +23,27 @@ public class ExpenseList extends Fragment{
     ExpenseCursorAdapter swapAdapter;
     DatabaseOpenHelper dbHelper;
     TextView monthText;
+    private ArrayList<String> monthList;
+    private String[] CurrentMandY;
     ImageView allButton, foodButton, leisureButton, transportButton, billButton, debtButton, othersButton, backMonth, forwardMonth;
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState){
         View v = inflater.inflate(R.layout.expense_list, container, false);
+
+        monthList = new ArrayList<String>();
+        String[] months = new DateFormatSymbols().getMonths();
+        for (int i = 0; i < months.length; i++) {
+            String month = months[i];
+            monthList .add(months[i]);
+        }
+
         monthText = (TextView) v.findViewById(R.id.expense_month_text);
+        String date = monthText.getText().toString();
+        CurrentMandY = date.split(" ");
         rvExpenses = (RecyclerView) v.findViewById(R.id.recycler_expenses);
         dbHelper = new DatabaseOpenHelper(v.getContext());
         //dbHelper.deleteAllExpenses();
         //dbHelper.insertDummyIncome();
-        expenseAdapter = new ExpenseCursorAdapter(v.getContext(), dbHelper.getAllExpenses());
+        expenseAdapter = new ExpenseCursorAdapter(v.getContext(), dbHelper.getAllExpensesByMonth(CurrentMandY[0],CurrentMandY[1]));
 //        List<Expense> expenses= new ArrayList<>();
 //        expenses.add(new Expense(1, "Starbucks Coffee", (float) 120, 1, "Food", "March 13, 2016"));
 //        expenses.add(new Expense(2, "Uber", (float) 240, 1, "Transportation", "March 13, 2016"));
@@ -43,6 +58,13 @@ public class ExpenseList extends Fragment{
                 //TODO
                 //Change monthText and filter items by month
                 Toast.makeText(getActivity().getApplicationContext(),"Back by One Month", Toast.LENGTH_LONG).show();
+                String date = monthText.getText().toString();
+                String[] MandY = date.split(" ");
+                String backMandY = prevMonth(MandY[0], Integer.parseInt(MandY[1]));
+                String[] BackMandY = backMandY.split(" ");
+                monthText.setText(backMandY);
+                swapAdapter = new ExpenseCursorAdapter(v.getContext(), dbHelper.getAllExpensesByMonth(BackMandY[0],BackMandY[1]));
+                expenseAdapter.swapCursor(dbHelper.getAllExpensesByMonth(BackMandY[0],BackMandY[1]));
             }
         });
         forwardMonth = (ImageView) v.findViewById(R.id.expense_right_month);
@@ -52,6 +74,13 @@ public class ExpenseList extends Fragment{
                 //TODO
                 //Change monthText and filter items by month
                 Toast.makeText(getActivity().getApplicationContext(),"Forward by One Month", Toast.LENGTH_LONG).show();
+                String date = monthText.getText().toString();
+                String[] MandY = date.split(" ");
+                String nextMandY = nextMonth(MandY[0], Integer.parseInt(MandY[1]));
+                String[] NextMandY = nextMandY.split(" ");
+                monthText.setText(nextMandY);
+                swapAdapter = new ExpenseCursorAdapter(v.getContext(), dbHelper.getAllExpensesByMonth(NextMandY[0], NextMandY[1]));
+                expenseAdapter.swapCursor(dbHelper.getAllExpensesByMonth(NextMandY[0], NextMandY[1]));
 
             }
         });
@@ -61,7 +90,9 @@ public class ExpenseList extends Fragment{
             public void onClick(View v) {
                 Toast.makeText(getActivity().getApplicationContext(), "All Categories", Toast.LENGTH_LONG).show();
                 swapAdapter = new ExpenseCursorAdapter(v.getContext(), dbHelper.getAllExpenses());
-                rvExpenses.swapAdapter(swapAdapter, true);
+                String date = monthText.getText().toString();
+                String[] MandY = date.split(" ");
+                expenseAdapter.swapCursor(dbHelper.getAllExpensesByMonth(MandY[0],MandY[1]));
             }
         });
         foodButton = (ImageView) v.findViewById(R.id.category_food);
@@ -70,7 +101,9 @@ public class ExpenseList extends Fragment{
             public void onClick(View v) {
                 Toast.makeText(getActivity().getApplicationContext(), "Category - Food", Toast.LENGTH_LONG).show();
                 swapAdapter = new ExpenseCursorAdapter(v.getContext(), dbHelper.getAllExpensesByCategory("Food"));
-                rvExpenses.swapAdapter(swapAdapter, true);
+                String date = monthText.getText().toString();
+                String[] MandY = date.split(" ");
+                expenseAdapter.swapCursor(dbHelper.getAllExpensesByCategoryandMonth("Food",MandY[0],MandY[1]));
             }
         });
         leisureButton = (ImageView) v.findViewById(R.id.category_leisure);
@@ -79,7 +112,9 @@ public class ExpenseList extends Fragment{
             public void onClick(View v){
                 Toast.makeText(getActivity().getApplicationContext(),"Category - Leisure", Toast.LENGTH_LONG).show();
                 swapAdapter = new ExpenseCursorAdapter(v.getContext(), dbHelper.getAllExpensesByCategory("Leisure"));
-                rvExpenses.swapAdapter(swapAdapter, true);
+                String date = monthText.getText().toString();
+                String[] MandY = date.split(" ");
+                expenseAdapter.swapCursor(dbHelper.getAllExpensesByCategoryandMonth("Leisure",MandY[0],MandY[1]));
             }
         });
         transportButton = (ImageView) v.findViewById(R.id.category_transportation);
@@ -88,7 +123,9 @@ public class ExpenseList extends Fragment{
             public void onClick(View v){
                 Toast.makeText(getActivity().getApplicationContext(),"Category - Transportation", Toast.LENGTH_LONG).show();
                 swapAdapter = new ExpenseCursorAdapter(v.getContext(), dbHelper.getAllExpensesByCategory("Transportation"));
-                rvExpenses.swapAdapter(swapAdapter, true);
+                String date = monthText.getText().toString();
+                String[] MandY = date.split(" ");
+                expenseAdapter.swapCursor(dbHelper.getAllExpensesByCategoryandMonth("Transportation", MandY[0], MandY[1]));
             }
         });
         billButton = (ImageView) v.findViewById(R.id.category_bills);
@@ -97,7 +134,9 @@ public class ExpenseList extends Fragment{
             public void onClick(View v){
                 Toast.makeText(getActivity().getApplicationContext(),"Category - Bills", Toast.LENGTH_LONG).show();
                 swapAdapter = new ExpenseCursorAdapter(v.getContext(), dbHelper.getAllExpensesByCategory("Bills"));
-                rvExpenses.swapAdapter(swapAdapter, true);
+                String date = monthText.getText().toString();
+                String[] MandY = date.split(" ");
+                expenseAdapter.swapCursor(dbHelper.getAllExpensesByCategoryandMonth("Bills",MandY[0],MandY[1]));
             }
         });
         debtButton = (ImageView) v.findViewById(R.id.category_debt);
@@ -106,7 +145,9 @@ public class ExpenseList extends Fragment{
             public void onClick(View v){
                 Toast.makeText(getActivity().getApplicationContext(),"Category - Debt", Toast.LENGTH_LONG).show();
                 swapAdapter = new ExpenseCursorAdapter(v.getContext(), dbHelper.getAllExpensesByCategory("Debt"));
-                rvExpenses.swapAdapter(swapAdapter, true);
+                String date = monthText.getText().toString();
+                String[] MandY = date.split(" ");
+                expenseAdapter.swapCursor(dbHelper.getAllExpensesByCategoryandMonth("Debt",MandY[0],MandY[1]));
             }
         });
         othersButton = (ImageView) v.findViewById(R.id.category_others);
@@ -115,7 +156,9 @@ public class ExpenseList extends Fragment{
             public void onClick(View v){
                 Toast.makeText(getActivity().getApplicationContext(),"Category - Others", Toast.LENGTH_LONG).show();
                 swapAdapter = new ExpenseCursorAdapter(v.getContext(), dbHelper.getAllExpensesByCategory("Others"));
-                rvExpenses.swapAdapter(swapAdapter, true);
+                String date = monthText.getText().toString();
+                String[] MandY = date.split(" ");
+                expenseAdapter.swapCursor(dbHelper.getAllExpensesByCategoryandMonth("Others",MandY[0],MandY[1]));
             }
         });
         return v;
@@ -123,7 +166,61 @@ public class ExpenseList extends Fragment{
 
     public void onResume(){
         super.onResume();
-        Cursor cursor = dbHelper.getAllExpenses();
+        String date = monthText.getText().toString();
+        String[] MandY = date.split(" ");
+        Cursor cursor = dbHelper.getAllExpensesByMonth(MandY[0],MandY[1]);
         expenseAdapter.swapCursor(cursor);
+    }
+
+    public String prevMonth(String month, int year){
+        String result="";
+        int indexofCurrentMonth = 0;
+        int indexofPrevMonth= 0;
+        for(int i = 0; i < monthList.size(); i++)
+        {
+            if(monthList.get(i).equalsIgnoreCase(month)){
+                indexofCurrentMonth = i;
+                indexofPrevMonth = i-1;
+                break;
+            }
+        }
+
+        if(indexofCurrentMonth == 0){
+            year = year - 1;
+            month = monthList.get(11);
+        }
+        else{
+            month = monthList.get(indexofPrevMonth);
+        }
+
+        result = month + " " + year;
+
+        return result;
+    }
+
+    public String nextMonth(String month, int year){
+        String result="";
+        int indexofCurrentMonth = 0;
+        int indexofNextMonth= 0;
+        for(int i = 0; i < monthList.size(); i++)
+        {
+            if(monthList.get(i).equalsIgnoreCase(month)){
+                indexofCurrentMonth = i;
+                indexofNextMonth = i+1;
+                break;
+            }
+        }
+
+        if(indexofCurrentMonth == 11){
+            year = year + 1;
+            month = monthList.get(0);
+        }
+        else{
+            month = monthList.get(indexofNextMonth);
+        }
+
+        result = month + " " + year;
+
+        return result;
     }
 }

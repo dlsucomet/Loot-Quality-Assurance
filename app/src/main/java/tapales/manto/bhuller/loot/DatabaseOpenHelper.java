@@ -130,6 +130,21 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper{
         onCreate(db);
 
     }
+
+    public void deleteAllData(){
+//        SQLiteDatabase db =  getWritableDatabase();
+//        String sql = "DROP TABLE IF EXISTS " + User.TABLE_NAME;
+//        db.execSQL(sql);
+//        sql = "DROP TABLE IF EXISTS " + Expense.TABLE_NAME;
+//        db.execSQL(sql);
+//        sql = "DROP TABLE IF EXISTS " + Income.TABLE_NAME;
+//        db.execSQL(sql);
+//        onCreate(db);
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(Expense.TABLE_NAME, null, null);
+        db.delete(Income.TABLE_NAME, null, null);
+    }
+
     public long insertUser(User u){
         SQLiteDatabase db =  getWritableDatabase();
         ContentValues contentValues = new ContentValues();
@@ -152,17 +167,17 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper{
         cursor.close();
         return u;
     }
-    public int updateUsername(User updatedUser){
+    public int updateUsername(String username){
         ContentValues contentValues = new ContentValues();
-        contentValues.put(User.COL_NAME, updatedUser.getName());
+        contentValues.put(User.COL_NAME, username);
         return  getWritableDatabase().update(User.TABLE_NAME,
                 contentValues,
                 User.COL_ID + " = 1 ",
                 null);
     }
-    public int updatePincode(User updatedUser){
+    public int updatePasscode(int passcode){
         ContentValues contentValues = new ContentValues();
-        contentValues.put(User.COL_PINCODE, updatedUser.getPincode());
+        contentValues.put(User.COL_PINCODE, passcode);
         return  getWritableDatabase().update(User.TABLE_NAME,
                 contentValues,
                 User.COL_ID + " = 1 ",
@@ -201,11 +216,34 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper{
         cursor.close();
         return e;
     }
+
+    public Cursor getAllExpensesByMonth(String month, String year){
+        SQLiteDatabase db = getReadableDatabase();
+//        Cursor cursor =  db.query(Expense.TABLE_NAME, null, null, null, null, null, null);
+        Cursor cursor =  db.query(Expense.TABLE_NAME,
+                null,
+                Expense.COL_DATE + " LIKE '%" + month + "%' AND " +  Expense.COL_DATE + " LIKE '%" + year + "%' " ,
+                null,
+                null, null, null);
+        return cursor;
+    }
+
     public Cursor getAllExpenses(){
         SQLiteDatabase db = getReadableDatabase();
         Cursor cursor =  db.query(Expense.TABLE_NAME, null, null, null, null, null, null);
         return cursor;
     }
+    public Cursor getAllExpensesByCategoryandMonth(String category, String month, String year){
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor =  db.query(Expense.TABLE_NAME,
+                null,
+                Expense.COL_CATEGORY + " =? AND " +
+                        Expense.COL_DATE + " LIKE '%" + month + "%' AND " +  Expense.COL_DATE + " LIKE '%" + year + "%' " ,
+                new String[]{category},
+                null, null, null);
+        return cursor;
+    }
+
     public Cursor getAllExpensesByCategory(String category){
         SQLiteDatabase db = getReadableDatabase();
         Cursor cursor =  db.query(Expense.TABLE_NAME,
@@ -215,6 +253,8 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper{
                 null, null, null);
         return cursor;
     }
+
+
     public Cursor getAllExpensesByPaymentType(int paymentType){
         SQLiteDatabase db = getReadableDatabase();
         Cursor cursor =  db.query(Expense.TABLE_NAME,
@@ -260,6 +300,17 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper{
     public Cursor getAllIncome(){
         SQLiteDatabase db = getReadableDatabase();
         Cursor cursor =  db.query(Income.TABLE_NAME, null, null, null, null, null, null);
+        return cursor;
+    }
+
+    public Cursor getAllIncomeByMonth(String month, String year){
+        SQLiteDatabase db = getReadableDatabase();
+//        Cursor cursor =  db.query(Income.TABLE_NAME, null, null, null, null, null, null);
+        Cursor cursor =  db.query(Income.TABLE_NAME,
+                null,
+                Income.COL_TIME_INTERVAL + " LIKE '%" + month + "%' AND " +  Income.COL_TIME_INTERVAL + " LIKE '%" + year + "%' " ,
+                null,
+                null, null, null);
         return cursor;
     }
     public long insertIncome(Income i){

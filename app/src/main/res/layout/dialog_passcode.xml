@@ -6,6 +6,19 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
     <android.support.design.widget.TextInputLayout
+        android:id="@+id/enter_layout_old_passcode"
+        android:layout_marginTop="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:singleLine="true">
+        <EditText
+            android:id="@+id/dialog_old_passcode"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="numberPassword"
+            android:hint="Enter Old Passcode"/>
+    </android.support.design.widget.TextInputLayout>
+    <android.support.design.widget.TextInputLayout
         android:id="@+id/enter_layout_passcode_one"
         android:layout_marginTop="16dp"
         android:layout_width="match_parent"
@@ -31,4 +44,25 @@
             android:inputType="numberPassword"
             android:hint="Enter Passcode Again"/>
     </android.support.design.widget.TextInputLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingTop="20dp"
+        android:layout_gravity="right">
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:text="Cancel"
+            android:background="@null"
+            android:textColor="@color/colorAccent"
+            android:id="@+id/btn_Cancel"/>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:text="Submit"
+            android:background="@null"
+            android:textColor="@color/colorAccent"
+            android:id="@+id/btn_Submit"/>
+    </LinearLayout>
 </LinearLayout>

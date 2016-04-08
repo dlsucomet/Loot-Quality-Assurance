@@ -13,6 +13,7 @@ import android.widget.Toast;
 public class UserDialogFragment extends DialogFragment {
     View v;
     public Dialog onCreateDialog(Bundle savedInstanceState){
+
         v = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_user, null);
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity())
                 .setView(v)
@@ -23,6 +24,8 @@ public class UserDialogFragment extends DialogFragment {
                         EditText dialogName = (EditText) v.findViewById(R.id.dialog_username);
                         Toast.makeText(getActivity().getApplicationContext(), "Username changed to " + dialogName.getText().toString(), Toast.LENGTH_LONG).show();
                         //TODO
+                        ((SettingsActivity)getActivity()).onYesSelectedU(dialogName.getText().toString());
+
                     }
                 })
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
