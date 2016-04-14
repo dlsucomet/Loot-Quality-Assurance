@@ -27,7 +27,7 @@ public class PasscodeActivity extends AppCompatActivity {
         noPasscode = (TextView) findViewById(R.id.no_passcode_text);
         if(dbHelper.getUser() == null)
         {
-            tvwelcome.setText("Welcome User, Enter Your Passcode.");
+            tvwelcome.setText("Welcome to Loot.");
             noPasscode.setText((Html.fromHtml("No Passcode Yet? Click <u>Here</u> to Get One!")));
             noPasscode.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -39,7 +39,7 @@ public class PasscodeActivity extends AppCompatActivity {
             });
         }
         else {
-            tvwelcome.setText("Welcome " + dbHelper.getUser().getName() + ", Enter Your Passcode.");
+            tvwelcome.setText("Welcome " + dbHelper.getUser().getName() + ".");
             noPasscode.setText("");
         }
 
