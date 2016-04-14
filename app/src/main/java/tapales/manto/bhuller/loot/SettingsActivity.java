@@ -51,6 +51,7 @@ public class SettingsActivity extends AppCompatActivity {
             public void onClick(View v) {
                 new AlertDialog.Builder(SettingsActivity.this)
                         .setTitle("Remove All Data")
+                        .setIcon(R.drawable.delete_all)
                         .setMessage("Are you sure you want to remove all data?")
                         .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {

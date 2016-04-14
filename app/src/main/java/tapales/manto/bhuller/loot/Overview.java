@@ -44,6 +44,7 @@ public class Overview extends Fragment{
         pieChart = (PieChart) v.findViewById(R.id.pie_chart);
         pieChart.setDrawHoleEnabled(true);
         pieChart.setHoleRadius(30);
+        pieChart.setHighlightPerTapEnabled(false);
         pieChart.setTransparentCircleRadius(36);
         pieChart.animateY(1000, Easing.EasingOption.EaseInOutQuad);
         pieChart.setDrawSliceText(!pieChart.isDrawSliceTextEnabled());
@@ -64,7 +65,7 @@ public class Overview extends Fragment{
         labels.add("Debt");
         labels.add("Others");
         colors[0] = Color.parseColor("#2196F3");
-        colors[1] = Color.parseColor("#FFA000");
+        colors[1] = Color.parseColor("#FF8F00");
         colors[2] = Color.parseColor("#FF1744");
         colors[3] = Color.parseColor("#3F51B5");
         colors[4] = Color.parseColor("#4CAF50");
@@ -96,6 +97,8 @@ public class Overview extends Fragment{
         backMonth.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //TODO
+                //Change monthText and filter items by month
                 String date = monthText.getText().toString();
                 String[] MandY = date.split(" ");
                 String backMandY = prevMonth(MandY[0], Integer.parseInt(MandY[1]));
@@ -116,12 +119,15 @@ public class Overview extends Fragment{
                 pieChart.setDescription("");
                 pieChart.animateY(1000, Easing.EasingOption.EaseInOutQuad);
                 pieChart.invalidate();
+                Toast.makeText(getActivity().getApplicationContext(), BackMandY[0]+" "+BackMandY[1], Toast.LENGTH_LONG).show();
             }
         });
         forwardMonth = (ImageView) v.findViewById(R.id.overview_right_month);
         forwardMonth.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //TODO
+                //Change monthText and filter items by month
                 String date = monthText.getText().toString();
                 String[] MandY = date.split(" ");
                 String nextMandY = nextMonth(MandY[0], Integer.parseInt(MandY[1]));
@@ -141,6 +147,7 @@ public class Overview extends Fragment{
                 pieChart.setDescription("");
                 pieChart.animateY(1000, Easing.EasingOption.EaseInOutQuad);
                 pieChart.invalidate();
+                Toast.makeText(getActivity().getApplicationContext(), NextMandY[0]+" "+NextMandY[1], Toast.LENGTH_LONG).show();
             }
         });
         return v;

@@ -50,6 +50,7 @@ public class MainActivity extends AppCompatActivity{
         switch (item.getItemId()) {
             case R.id.action_account:
                 startActivity(new Intent(getBaseContext(), MyAccountActivity.class));
+                finish();
                 return true;
             case R.id.action_add:
                 Intent intent = new Intent(this, AddItemActivity.class);
@@ -65,8 +66,7 @@ public class MainActivity extends AppCompatActivity{
                 startActivity(new Intent(getBaseContext(), SettingsActivity.class));
                 return true;
             case R.id.menu_about:
-                //Testing purposes
-                    DialogFragment df = new AchievementDialogFragment();
+                    DialogFragment df = new AboutDialogFragment();
                     df.show(getFragmentManager(), "");
                 return true;
             default:

@@ -1,5 +1,6 @@
 package tapales.manto.bhuller.loot;
 
+import android.app.DialogFragment;
 import android.content.Intent;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -50,6 +51,7 @@ public class MyAccountActivity extends AppCompatActivity{
         switch (item.getItemId()) {
             case R.id.action_expenses:
                 startActivity(new Intent(getBaseContext(), MainActivity.class));
+                finish();
                 return true;
             case R.id.action_add:
                 Intent intent = new Intent(this, AddItemActivity.class);
@@ -60,7 +62,8 @@ public class MyAccountActivity extends AppCompatActivity{
                 startActivity(new Intent(getBaseContext(), SettingsActivity.class));
                 return true;
             case R.id.menu_about:
-                Toast.makeText(getApplicationContext(),"About Selected",Toast.LENGTH_LONG).show();
+                DialogFragment df = new AboutDialogFragment();
+                df.show(getFragmentManager(), "");
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

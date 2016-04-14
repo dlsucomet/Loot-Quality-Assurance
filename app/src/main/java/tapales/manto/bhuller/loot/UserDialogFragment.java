@@ -24,7 +24,8 @@ public class UserDialogFragment extends DialogFragment {
         btnCancel = (Button) v.findViewById(R.id.btn_user_cancel);
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity())
                 .setView(v)
-                .setTitle("Change Username");
+                .setTitle("Change Username")
+                .setIcon(R.drawable.change_user);
                 /*
                 .setPositiveButton("Submit", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {

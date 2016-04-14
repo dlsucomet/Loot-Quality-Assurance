@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.HorizontalBarChart;
@@ -16,6 +17,7 @@ import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class MyAccount extends Fragment {
     private BarData data;
@@ -23,10 +25,14 @@ public class MyAccount extends Fragment {
     private ArrayList<String> labels = new ArrayList<String>();
     private HorizontalBarChart barChart;
     private ArrayList<BarEntry> experience = new ArrayList<>();
+    private Random random = new Random();
     private ImageView accountLevel;
     private TextView level, userName, daysUsed, achievementsUnlocked, incomeItems, expenseItems;
+    private RelativeLayout userBox;
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.my_account, container, false);
+        userBox = (RelativeLayout) v.findViewById(R.id.my_account_box);
+        randomizeColors(random.nextInt((5 - 0 + 1) + 0));
         level = (TextView) v.findViewById(R.id.account_level);
         userName = (TextView) v.findViewById(R.id.account_user_name);
         daysUsed = (TextView) v.findViewById(R.id.account_level);
@@ -57,6 +63,7 @@ public class MyAccount extends Fragment {
     }
     public void onResume(){
         super.onResume();
+        randomizeColors(random.nextInt((5 - 0 + 1) + 0));
         dataset = new BarDataSet(experience, "");
         dataset.setColor(Color.parseColor("#FFC107"));
         data = new BarData(labels, dataset);
@@ -74,5 +81,15 @@ public class MyAccount extends Fragment {
         barChart.getData().setHighlightEnabled(!barChart.getData().isHighlightEnabled());
         barChart.getData().setValueTextSize(0);
         barChart.invalidate();
+    }
+    public void randomizeColors(int random){
+        int colors[] = new int[6];
+        colors[0] = Color.parseColor("#2196F3");
+        colors[1] = Color.parseColor("#FFA000");
+        colors[2] = Color.parseColor("#FF1744");
+        colors[3] = Color.parseColor("#3F51B5");
+        colors[4] = Color.parseColor("#4CAF50");
+        colors[5] = Color.parseColor("#1976D2");
+        userBox.setBackgroundColor(colors[random]);
     }
 }

@@ -29,7 +29,8 @@ public class PasscodeDialogFragment extends DialogFragment {
         btnCancel = (Button) v.findViewById(R.id.btn_Cancel);
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity())
                 .setView(v)
-                .setTitle("Change Passcode");
+                .setTitle("Change Passcode")
+                .setIcon(R.drawable.change_passcode);
 //        AlertDialog dialog = dialogBuilder.create();
 //        Button positiveButton = (Button) dialog.getButton(Dialog.BUTTON_POSITIVE);
 //        //Button negativeButton = ((AlertDialog) dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
