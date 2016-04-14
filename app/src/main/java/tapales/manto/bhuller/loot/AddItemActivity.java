@@ -5,9 +5,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.ImageButton;
-
-import com.ToxicBakery.viewpager.transforms.AccordionTransformer;
 
 public class AddItemActivity extends AppCompatActivity{
     private Toolbar toolbar;
@@ -32,7 +29,6 @@ public class AddItemActivity extends AppCompatActivity{
         });
         pagerAdapter =  new ViewAddPagerAdapter(getSupportFragmentManager(), tabList, TAB_NUMBERS);
         viewPager = (ViewPager) findViewById(R.id.pager);
-        viewPager.setPageTransformer(true, new AccordionTransformer());
         viewPager.setAdapter(pagerAdapter);
 		
 		String loc = getIntent().getStringExtra("caller");
