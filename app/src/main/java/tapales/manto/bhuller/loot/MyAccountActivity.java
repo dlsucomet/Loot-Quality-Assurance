@@ -1,10 +1,14 @@
 package tapales.manto.bhuller.loot;
 
+import android.content.Intent;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 public class MyAccountActivity extends AppCompatActivity{
     private Toolbar toolbar;
@@ -18,15 +22,9 @@ public class MyAccountActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_account);
         toolbar = (Toolbar) findViewById(R.id.tool_bar);
-        toolbar.setTitle("My Account");
+        toolbar.setTitle(" Account");
         setSupportActionBar(toolbar);
-        toolbar.setNavigationIcon(R.drawable.back);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v){
-                onBackPressed();
-            }
-        });
+        toolbar.setLogo(R.drawable.loot_icon_small);
         pagerAdapter =  new ViewAccountPagerAdapter(getSupportFragmentManager(), tabList, TAB_NUMBERS);
         viewPager = (ViewPager) findViewById(R.id.pager);
         viewPager.setAdapter(pagerAdapter);
@@ -38,5 +36,29 @@ public class MyAccountActivity extends AppCompatActivity{
             }
         });
         tabSlider.setViewPager(viewPager);
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_account, menu);
+        return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_expenses:
+                startActivity(new Intent(getBaseContext(), MainActivity.class));
+                return true;
+            case R.id.action_add:
+                startActivity(new Intent(getBaseContext(), AddItemActivity.class));
+                return true;
+            case R.id.menu_settings:
+                startActivity(new Intent(getBaseContext(), SettingsActivity.class));
+                return true;
+            case R.id.menu_about:
+                Toast.makeText(getApplicationContext(),"About Selected",Toast.LENGTH_LONG).show();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         toolbar = (Toolbar) findViewById(R.id.tool_bar);
-        toolbar.setTitle(" Loot");
+        toolbar.setTitle(" Expenses");
         toolbar.setLogo(R.drawable.loot_icon_small);
         setSupportActionBar(toolbar);
         pagerAdapter =  new ViewPagerAdapter(getSupportFragmentManager(), tabList, TAB_NUMBERS);

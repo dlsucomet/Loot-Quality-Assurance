@@ -46,9 +46,9 @@ public class AchievementAdapter extends RecyclerView.Adapter<AchievementAdapter.
             @Override
             public void onClick(View v) {
                 if(!isLocked){
-                    Toast.makeText(v.getContext(), "Achievement Unlocked", Toast.LENGTH_LONG).show();
+                    Toast.makeText(v.getContext(), "Achievement Unlocked", Toast.LENGTH_SHORT).show();
                 }
-                else Toast.makeText(v.getContext(), "Achievement Locked", Toast.LENGTH_LONG).show();
+                else Toast.makeText(v.getContext(), "Achievement Locked", Toast.LENGTH_SHORT).show();
             }
         });
     }
