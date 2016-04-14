@@ -96,8 +96,6 @@ public class Overview extends Fragment{
         backMonth.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO
-                //Change monthText and filter items by month
                 String date = monthText.getText().toString();
                 String[] MandY = date.split(" ");
                 String backMandY = prevMonth(MandY[0], Integer.parseInt(MandY[1]));
@@ -125,8 +123,6 @@ public class Overview extends Fragment{
         forwardMonth.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO
-                //Change monthText and filter items by month
                 String date = monthText.getText().toString();
                 String[] MandY = date.split(" ");
                 String nextMandY = nextMonth(MandY[0], Integer.parseInt(MandY[1]));
