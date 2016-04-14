@@ -1,14 +1,19 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:loot="http://schemas.android.com/apk/res-auto">
     <item
+        android:id="@+id/action_account"
+        android:title="My Account"
+        android:icon="@drawable/account"
+        loot:showAsAction="ifRoom" />
+    <item
         android:id="@+id/action_add"
         android:title="New Item"
         android:icon="@drawable/add"
         loot:showAsAction="ifRoom"/>
-    <item  android:id="@+id/menu_account"
-    android:title="My Account"/>
-    <item  android:id="@+id/menu_settings"
+    <item
+        android:id="@+id/menu_settings"
         android:title="Settings"/>
-    <item  android:id="@+id/menu_about"
+    <item
+        android:id="@+id/menu_about"
         android:title="About"/>
 </menu>

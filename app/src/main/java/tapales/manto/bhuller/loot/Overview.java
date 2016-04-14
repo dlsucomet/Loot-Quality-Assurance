@@ -17,7 +17,6 @@ import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
-import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.text.DateFormatSymbols;
 import java.util.ArrayList;
@@ -72,7 +71,7 @@ public class Overview extends Fragment{
         colors[5] = Color.parseColor("#1976D2");
         ArrayList<Entry> dataList = getData(CurrentMandY[0],CurrentMandY[1]);
         pieDataSet = new PieDataSet(dataList, "");
-        pieDataSet.setColors(ColorTemplate.JOYFUL_COLORS);
+        pieDataSet.setColors(colors);
         dataSet = new PieData(labels, pieDataSet);
 
 
@@ -329,17 +328,11 @@ public class Overview extends Fragment{
             sumO += val;
         }
         cursorOthers.close();
-        if(sumF != 0)
             dataList.add(new Entry(sumF, 0));
-        if(sumL != 0)
             dataList.add(new Entry(sumL, 1));
-        if(sumT != 0)
             dataList.add(new Entry(sumT, 2));
-        if(sumB != 0)
             dataList.add(new Entry(sumB, 3));
-        if(sumD != 0)
             dataList.add(new Entry(sumD, 4));
-        if(sumO != 0)
             dataList.add(new Entry(sumO, 5));
 
         return dataList;
