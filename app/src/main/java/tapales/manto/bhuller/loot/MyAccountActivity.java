@@ -10,6 +10,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.ToxicBakery.viewpager.transforms.AccordionTransformer;
+
 public class MyAccountActivity extends AppCompatActivity{
     private Toolbar toolbar;
     private ViewPager viewPager;
@@ -27,6 +29,7 @@ public class MyAccountActivity extends AppCompatActivity{
         toolbar.setLogo(R.drawable.loot_icon_small);
         pagerAdapter =  new ViewAccountPagerAdapter(getSupportFragmentManager(), tabList, TAB_NUMBERS);
         viewPager = (ViewPager) findViewById(R.id.pager);
+        viewPager.setPageTransformer(true, new AccordionTransformer());
         viewPager.setAdapter(pagerAdapter);
         tabSlider = (SlidingTabLayout) findViewById(R.id.tabs);
         tabSlider.setDistributeEvenly(true);
