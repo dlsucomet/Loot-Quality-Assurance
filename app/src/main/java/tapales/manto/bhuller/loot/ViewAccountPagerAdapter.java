@@ -15,12 +15,12 @@ public class ViewAccountPagerAdapter extends FragmentStatePagerAdapter{
     }
     public Fragment getItem(int position){
         if(position == 0){
-            IncomeList iList = new IncomeList();
-            return iList;
+            MyAccount mAccount = new MyAccount();
+            return mAccount;
         }
         else if(position == 1){
-            Overview oView = new Overview();
-            return oView;
+            AchievementList aList = new AchievementList();
+            return aList;
         }
         else return null;
     }
