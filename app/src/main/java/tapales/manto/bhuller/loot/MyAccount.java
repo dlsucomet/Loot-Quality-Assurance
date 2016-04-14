@@ -35,6 +35,7 @@ public class MyAccount extends Fragment {
         randomizeColors(random.nextInt((5 - 0 + 1) + 0));
         level = (TextView) v.findViewById(R.id.account_level);
         userName = (TextView) v.findViewById(R.id.account_user_name);
+        userName.setText("Chino "+randomizeSmileys(random.nextInt((5 - 0 + 1) + 0)));
         daysUsed = (TextView) v.findViewById(R.id.account_level);
         achievementsUnlocked = (TextView) v.findViewById(R.id.account_unlocked_items);
         incomeItems = (TextView) v.findViewById(R.id.account_income_count);
@@ -91,5 +92,22 @@ public class MyAccount extends Fragment {
         colors[4] = Color.parseColor("#4CAF50");
         colors[5] = Color.parseColor("#1976D2");
         userBox.setBackgroundColor(colors[random]);
+    }
+    public String randomizeSmileys(int random){
+        switch(random){
+            case 0:
+                return ":)";
+            case 1:
+                return ":(";
+            case 2:
+                return ":D";
+            case 3:
+                return ":o";
+            case 4:
+                return ":|  ";
+            case 5:
+                return "B)";
+        }
+        return ":|";
     }
 }
