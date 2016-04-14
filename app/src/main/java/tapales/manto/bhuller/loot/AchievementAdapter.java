@@ -35,7 +35,7 @@ public class AchievementAdapter extends RecyclerView.Adapter<AchievementAdapter.
         AchievementViewHolder viewHolder = new AchievementViewHolder(view);
         return viewHolder;
     }
-    public void onBindViewHolder(AchievementViewHolder holder, int position){
+    public void onBindViewHolder(final AchievementViewHolder holder, int position){
         holder.achievementTitle.setText(achievements.get(position).getAchievementName());
         holder.achievementDescription.setText(achievements.get(position).getAchievementDescription());
         holder.pointValue.setText(String.valueOf(achievements.get(position).getPointValue()));
@@ -46,9 +46,9 @@ public class AchievementAdapter extends RecyclerView.Adapter<AchievementAdapter.
             @Override
             public void onClick(View v) {
                 if(!isLocked){
-                    Toast.makeText(v.getContext(), "Achievement Unlocked", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(v.getContext(), holder.achievementTitle.getText().toString() + " Unlocked", Toast.LENGTH_SHORT).show();
                 }
-                else Toast.makeText(v.getContext(), "Achievement Locked", Toast.LENGTH_SHORT).show();
+                else Toast.makeText(v.getContext(), holder.achievementTitle.getText().toString() + " Locked", Toast.LENGTH_SHORT).show();
             }
         });
     }

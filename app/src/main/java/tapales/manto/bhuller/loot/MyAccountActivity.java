@@ -49,7 +49,9 @@ public class MyAccountActivity extends AppCompatActivity{
                 startActivity(new Intent(getBaseContext(), MainActivity.class));
                 return true;
             case R.id.action_add:
-                startActivity(new Intent(getBaseContext(), AddItemActivity.class));
+                Intent intent = new Intent(this, AddItemActivity.class);
+                intent.putExtra("caller", "expense");
+                startActivity(intent);
                 return true;
             case R.id.menu_settings:
                 startActivity(new Intent(getBaseContext(), SettingsActivity.class));

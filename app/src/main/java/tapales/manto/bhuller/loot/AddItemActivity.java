@@ -31,6 +31,16 @@ public class AddItemActivity extends AppCompatActivity{
         pagerAdapter =  new ViewAddPagerAdapter(getSupportFragmentManager(), tabList, TAB_NUMBERS);
         viewPager = (ViewPager) findViewById(R.id.pager);
         viewPager.setAdapter(pagerAdapter);
+		
+		String loc = getIntent().getStringExtra("caller");
+
+        if( loc.compareToIgnoreCase("income") == 0)
+        {
+            viewPager.setCurrentItem(0);
+        }
+        else
+            viewPager.setCurrentItem(1);
+		
         tabSlider = (SlidingTabLayout) findViewById(R.id.tabs);
         tabSlider.setDistributeEvenly(true);
         tabSlider.setCustomTabColorizer(new SlidingTabLayout.TabColorizer() {
@@ -39,5 +49,19 @@ public class AddItemActivity extends AppCompatActivity{
             }
         });
         tabSlider.setViewPager(viewPager);
+    }
+	
+	@Override
+    protected void onResume() {
+        super.onResume();
+
+        String loc = getIntent().getStringExtra("caller");
+
+        if( loc.compareToIgnoreCase("income") == 0)
+        {
+            viewPager.setCurrentItem(0);
+        }
+        else
+            viewPager.setCurrentItem(1);
     }
 }

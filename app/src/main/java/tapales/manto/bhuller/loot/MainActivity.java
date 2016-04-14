@@ -52,8 +52,14 @@ public class MainActivity extends AppCompatActivity{
                 startActivity(new Intent(getBaseContext(), MyAccountActivity.class));
                 return true;
             case R.id.action_add:
-                //if(viewPager.getCurrentItem() == 2)
-                startActivity(new Intent(getBaseContext(), AddItemActivity.class));
+                Intent intent = new Intent(this, AddItemActivity.class);
+                if(viewPager.getCurrentItem() == 0)
+                {
+                    intent.putExtra("caller", "income");
+                }
+                else
+                    intent.putExtra("caller", "expense");
+                startActivity(intent);
                 return true;
             case R.id.menu_settings:
                 startActivity(new Intent(getBaseContext(), SettingsActivity.class));
