@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.HorizontalBarChart;
@@ -27,8 +28,12 @@ public class AchievementDialogFragment extends DialogFragment {
     ArrayList<String> labels = new ArrayList<String>();
     HorizontalBarChart barChart;
     ArrayList<BarEntry> experience = new ArrayList<>();
+    TextView achievementName;
+    TextView pointsAdded;
     public Dialog onCreateDialog(Bundle savedInstanceState){
         v = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_unlocked, null);
+        achievementName = (TextView) v.findViewById(R.id.dialog_unlocked_title);
+        pointsAdded = (TextView) v.findViewById(R.id.dialog_plus_points);
         barChart = (HorizontalBarChart) v.findViewById(R.id.dialog_experience_bar);
         experience.add(new BarEntry(70f, 0));
         dataset = new BarDataSet(experience, "");
