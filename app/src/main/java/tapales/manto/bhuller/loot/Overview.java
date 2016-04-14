@@ -119,7 +119,6 @@ public class Overview extends Fragment{
                 pieChart.setDescription("");
                 pieChart.animateY(1000, Easing.EasingOption.EaseInOutQuad);
                 pieChart.invalidate();
-                Toast.makeText(getActivity().getApplicationContext(), BackMandY[0]+" "+BackMandY[1], Toast.LENGTH_LONG).show();
             }
         });
         forwardMonth = (ImageView) v.findViewById(R.id.overview_right_month);
@@ -147,7 +146,6 @@ public class Overview extends Fragment{
                 pieChart.setDescription("");
                 pieChart.animateY(1000, Easing.EasingOption.EaseInOutQuad);
                 pieChart.invalidate();
-                Toast.makeText(getActivity().getApplicationContext(), NextMandY[0]+" "+NextMandY[1], Toast.LENGTH_LONG).show();
             }
         });
         return v;
