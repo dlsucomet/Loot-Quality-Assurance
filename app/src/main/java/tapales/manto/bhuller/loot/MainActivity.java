@@ -1,5 +1,6 @@
 package tapales.manto.bhuller.loot;
 
+import android.app.DialogFragment;
 import android.content.Intent;
 import android.os.Handler;
 import android.support.v4.view.ViewPager;
@@ -65,7 +66,9 @@ public class MainActivity extends AppCompatActivity{
                 startActivity(new Intent(getBaseContext(), SettingsActivity.class));
                 return true;
             case R.id.menu_about:
-                Toast.makeText(getApplicationContext(),"About Selected",Toast.LENGTH_LONG).show();
+                //Testing purposes
+                    DialogFragment df = new AchievementDialogFragment();
+                    df.show(getFragmentManager(), "");
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
