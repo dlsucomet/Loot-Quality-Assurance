@@ -24,7 +24,7 @@ public class IncomeList extends Fragment{
     IncomeCursorAdapter swapAdapter;
     //IncomeAdapter incomeAdapter;
     DatabaseOpenHelper dbHelper;
-    TextView monthText;
+    TextView monthText, emptyView;
     private ArrayList<String> monthList;
     private String[] CurrentMandY;
     ImageView backMonth, forwardMonth;
@@ -51,6 +51,7 @@ public class IncomeList extends Fragment{
         backMonth = (ImageView) v.findViewById(R.id.income_left_month);
 
         rvIncome = (RecyclerView) v.findViewById(R.id.recycler_income);
+		emptyView = (TextView) v.findViewById(R.id.empty_income_view);
         dbHelper = new DatabaseOpenHelper(v.getContext());
         //dbHelper.insertDummyIncome();
         incomeAdapter = new IncomeCursorAdapter(v.getContext(), dbHelper.getAllIncomeByMonth(CurrentMandY[0],CurrentMandY[1]));
@@ -61,11 +62,20 @@ public class IncomeList extends Fragment{
         rvIncome.setAdapter(incomeAdapter);
         rvIncome.setLayoutManager(new LinearLayoutManager(v.getContext()));
 
+		if (incomeAdapter.getItemCount() > 0)
+        {
+            rvIncome.setVisibility(View.VISIBLE);
+            emptyView.setVisibility(View.GONE);
+        }
+        else {
+
+            rvIncome.setVisibility(View.GONE);
+            emptyView.setVisibility(View.VISIBLE);
+        }
+		
         backMonth.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO
-                //Change monthText and filter items by month
                 Toast.makeText(getActivity().getApplicationContext(), "Back by One Month", Toast.LENGTH_LONG).show();
                 String date = monthText.getText().toString();
                 String[] MandY = date.split(" ");
@@ -80,8 +90,6 @@ public class IncomeList extends Fragment{
         forwardMonth.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO
-                //Change monthText and filter items by month
                 Toast.makeText(getActivity().getApplicationContext(), "Forward by One Month", Toast.LENGTH_LONG).show();
                 String date = monthText.getText().toString();
                 String[] MandY = date.split(" ");
@@ -103,6 +111,17 @@ public class IncomeList extends Fragment{
         String[] MandY = date.split(" ");
         Cursor cursor = dbHelper.getAllIncomeByMonth(MandY[0],MandY[1]);
         incomeAdapter.swapCursor(cursor);
+		
+		if (incomeAdapter.getItemCount() > 0)
+        {
+            rvIncome.setVisibility(View.VISIBLE);
+            emptyView.setVisibility(View.GONE);
+        }
+        else {
+
+            rvIncome.setVisibility(View.GONE);
+            emptyView.setVisibility(View.VISIBLE);
+        }
     }
 
     public String prevMonth(String month, int year){
