@@ -24,9 +24,15 @@ public class MyAccount extends Fragment {
     private HorizontalBarChart barChart;
     private ArrayList<BarEntry> experience = new ArrayList<>();
     private ImageView accountLevel;
-    private TextView level;
+    private TextView level, userName, daysUsed, achievementsUnlocked, incomeItems, expenseItems;
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.my_account, container, false);
+        level = (TextView) v.findViewById(R.id.account_level);
+        userName = (TextView) v.findViewById(R.id.account_user_name);
+        daysUsed = (TextView) v.findViewById(R.id.account_level);
+        achievementsUnlocked = (TextView) v.findViewById(R.id.account_unlocked_items);
+        incomeItems = (TextView) v.findViewById(R.id.account_income_count);
+        expenseItems = (TextView) v.findViewById(R.id.account_expense_count);
         accountLevel = (ImageView) v.findViewById(R.id.level_photo);
         barChart = (HorizontalBarChart) v.findViewById(R.id.experience_bar);
         experience.add(new BarEntry(70f, 0));
