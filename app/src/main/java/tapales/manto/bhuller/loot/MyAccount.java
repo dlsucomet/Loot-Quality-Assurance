@@ -7,6 +7,8 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.HorizontalBarChart;
 import com.github.mikephil.charting.data.BarData;
@@ -21,8 +23,11 @@ public class MyAccount extends Fragment {
     private ArrayList<String> labels = new ArrayList<String>();
     private HorizontalBarChart barChart;
     private ArrayList<BarEntry> experience = new ArrayList<>();
+    private ImageView accountLevel;
+    private TextView level;
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.my_account, container, false);
+        accountLevel = (ImageView) v.findViewById(R.id.level_photo);
         barChart = (HorizontalBarChart) v.findViewById(R.id.experience_bar);
         experience.add(new BarEntry(70f, 0));
         dataset = new BarDataSet(experience, "");
