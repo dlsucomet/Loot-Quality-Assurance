@@ -77,7 +77,6 @@ public class ExpenseList extends Fragment{
         backMonth.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity().getApplicationContext(),"Back by One Month", Toast.LENGTH_LONG).show();
                 String date = monthText.getText().toString();
                 String[] MandY = date.split(" ");
                 String backMandY = prevMonth(MandY[0], Integer.parseInt(MandY[1]));
@@ -101,7 +100,6 @@ public class ExpenseList extends Fragment{
         forwardMonth.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity().getApplicationContext(),"Forward by One Month", Toast.LENGTH_LONG).show();
                 String date = monthText.getText().toString();
                 String[] MandY = date.split(" ");
                 String nextMandY = nextMonth(MandY[0], Integer.parseInt(MandY[1]));

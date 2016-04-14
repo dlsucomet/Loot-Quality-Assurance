@@ -52,6 +52,7 @@ public class MainActivity extends AppCompatActivity{
                 startActivity(new Intent(getBaseContext(), MyAccountActivity.class));
                 return true;
             case R.id.action_add:
+                //if(viewPager.getCurrentItem() == 2)
                 startActivity(new Intent(getBaseContext(), AddItemActivity.class));
                 return true;
             case R.id.menu_settings:

@@ -76,7 +76,6 @@ public class IncomeList extends Fragment{
         backMonth.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity().getApplicationContext(), "Back by One Month", Toast.LENGTH_LONG).show();
                 String date = monthText.getText().toString();
                 String[] MandY = date.split(" ");
                 String backMandY = prevMonth(MandY[0], Integer.parseInt(MandY[1]));
@@ -84,13 +83,22 @@ public class IncomeList extends Fragment{
                 monthText.setText(backMandY);
                 swapAdapter = new IncomeCursorAdapter(v.getContext(), dbHelper.getAllExpensesByMonth(BackMandY[0],BackMandY[1]));
                 incomeAdapter.swapCursor(dbHelper.getAllIncomeByMonth(BackMandY[0], BackMandY[1]));
+                if (incomeAdapter.getItemCount() > 0)
+                {
+                    rvIncome.setVisibility(View.VISIBLE);
+                    emptyView.setVisibility(View.GONE);
+                }
+                else {
+
+                    rvIncome.setVisibility(View.GONE);
+                    emptyView.setVisibility(View.VISIBLE);
+                }
             }
         });
         forwardMonth = (ImageView) v.findViewById(R.id.income_right_month);
         forwardMonth.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity().getApplicationContext(), "Forward by One Month", Toast.LENGTH_LONG).show();
                 String date = monthText.getText().toString();
                 String[] MandY = date.split(" ");
                 String nextMandY = nextMonth(MandY[0], Integer.parseInt(MandY[1]));
@@ -98,7 +106,16 @@ public class IncomeList extends Fragment{
                 monthText.setText(nextMandY);
                 swapAdapter = new IncomeCursorAdapter(v.getContext(), dbHelper.getAllExpensesByMonth(NextMandY[0], NextMandY[1]));
                incomeAdapter.swapCursor(dbHelper.getAllIncomeByMonth(NextMandY[0], NextMandY[1]));
+                if (incomeAdapter.getItemCount() > 0)
+                {
+                    rvIncome.setVisibility(View.VISIBLE);
+                    emptyView.setVisibility(View.GONE);
+                }
+                else {
 
+                    rvIncome.setVisibility(View.GONE);
+                    emptyView.setVisibility(View.VISIBLE);
+                }
             }
         });
 

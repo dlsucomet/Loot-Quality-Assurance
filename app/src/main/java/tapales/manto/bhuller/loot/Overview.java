@@ -64,7 +64,7 @@ public class Overview extends Fragment{
         labels.add("Debt");
         labels.add("Others");
         colors[0] = Color.parseColor("#2196F3");
-        colors[1] = Color.parseColor("#FF8F00");
+        colors[1] = Color.parseColor("#FFA000");
         colors[2] = Color.parseColor("#FF1744");
         colors[3] = Color.parseColor("#3F51B5");
         colors[4] = Color.parseColor("#4CAF50");
@@ -116,7 +116,6 @@ public class Overview extends Fragment{
                 pieChart.setDescription("");
                 pieChart.animateY(1000, Easing.EasingOption.EaseInOutQuad);
                 pieChart.invalidate();
-                Toast.makeText(getActivity().getApplicationContext(), BackMandY[0]+" "+BackMandY[1], Toast.LENGTH_LONG).show();
             }
         });
         forwardMonth = (ImageView) v.findViewById(R.id.overview_right_month);
@@ -142,7 +141,6 @@ public class Overview extends Fragment{
                 pieChart.setDescription("");
                 pieChart.animateY(1000, Easing.EasingOption.EaseInOutQuad);
                 pieChart.invalidate();
-                Toast.makeText(getActivity().getApplicationContext(), NextMandY[0]+" "+NextMandY[1], Toast.LENGTH_LONG).show();
             }
         });
         return v;
