@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 package tapales.manto.bhuller.loot;
 
 import android.database.Cursor;

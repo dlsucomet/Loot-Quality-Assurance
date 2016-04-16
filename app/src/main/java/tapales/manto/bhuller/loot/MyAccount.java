@@ -30,7 +30,8 @@ public class MyAccount extends Fragment {
     private RelativeLayout userBox;
     private Random random = new Random();
     private TextView level, userName, daysUsed, achievementsUnlocked, incomeItems, expenseItems, accountProgress;
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState){
+
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.my_account, container, false);
         userBox = (RelativeLayout) v.findViewById(R.id.my_account_box);
         randomizeColors(random.nextInt((5 - 0 + 1) + 0));
@@ -73,7 +74,7 @@ public class MyAccount extends Fragment {
         expenseItems.setText(String.valueOf(dbHelper.getNoExpenses()));
         Cursor cursor = dbHelper.getAllLockedAchievements();
         ArrayList<Achievement> achList = new ArrayList<Achievement>();
-        while(cursor.moveToNext()){
+        while (cursor.moveToNext()) {
             Achievement a = new Achievement();
             a.setId(cursor.getInt(cursor.getColumnIndex(Achievement.COL_ID)));
             a.setAchievementName(cursor.getString(cursor.getColumnIndex(Achievement.COL_NAME)));
@@ -82,62 +83,63 @@ public class MyAccount extends Fragment {
             a.setLocked(cursor.getInt(cursor.getColumnIndex(Achievement.COL_LOCKED)));
             achList.add(a);
         }
-        for(Achievement a : achList){
-            if(a.getAchievementName().equalsIgnoreCase("Looter")){
-                dbHelper.updateAchievement(a.getId(),0);
+        for (Achievement a : achList) {
+            if (a.getAchievementName().equalsIgnoreCase("Looter")) {
+                dbHelper.updateAchievement(a.getId(), 0);
                 DialogFragment df = new AchievementDialogFragment();
                 Bundle bundle = new Bundle();
-                bundle.putString("name",a.getAchievementName());
-                bundle.putInt("points",a.getPointValue());
+                bundle.putString("name", a.getAchievementName());
+                bundle.putInt("points", a.getPointValue());
                 df.setArguments(bundle);
-                df.show(getActivity().getFragmentManager(),null);
+                df.show(getActivity().getFragmentManager(), null);
             }
-            if(a.getAchievementName().equalsIgnoreCase("First expense"))
-                if(dbHelper.getNoExpenses() == 1){
+            if (a.getAchievementName().equalsIgnoreCase("First expense"))
+                if (dbHelper.getNoExpenses() == 1) {
                     dbHelper.updateAchievement(a.getId(), 0);
                     DialogFragment df = new AchievementDialogFragment();
-                    df.show(getActivity().getFragmentManager(),null);
+                    df.show(getActivity().getFragmentManager(), null);
                     Bundle bundle = new Bundle();
-                    bundle.putString("name",a.getAchievementName());
+                    bundle.putString("name", a.getAchievementName());
                     bundle.putInt("points", a.getPointValue());
                     df.setArguments(bundle);
                 }
-            if(a.getAchievementName().equalsIgnoreCase("First income"))
-                if(dbHelper.getNoIncomes() == 1){
-                    dbHelper.updateAchievement(a.getId(),0);
+            if (a.getAchievementName().equalsIgnoreCase("First income"))
+                if (dbHelper.getNoIncomes() == 1) {
+                    dbHelper.updateAchievement(a.getId(), 0);
                     DialogFragment df = new AchievementDialogFragment();
-                    df.show(getActivity().getFragmentManager(),null);
+                    df.show(getActivity().getFragmentManager(), null);
                     Bundle bundle = new Bundle();
-                    bundle.putString("name",a.getAchievementName());
+                    bundle.putString("name", a.getAchievementName());
                     bundle.putInt("points", a.getPointValue());
                     df.setArguments(bundle);
                 }
-            if(a.getAchievementName().equalsIgnoreCase("Super saver")){
+            if (a.getAchievementName().equalsIgnoreCase("Super saver")) {
                 String s = getTotalSaving();
                 int val = Integer.parseInt(s);
-                if( val >= 500){
-                    dbHelper.updateAchievement(a.getId(),0);
+                if (val >= 500) {
+                    dbHelper.updateAchievement(a.getId(), 0);
                     DialogFragment df = new AchievementDialogFragment();
-                    df.show(getActivity().getFragmentManager(),null);
+                    df.show(getActivity().getFragmentManager(), null);
                     Bundle bundle = new Bundle();
-                    bundle.putString("name",a.getAchievementName());
+                    bundle.putString("name", a.getAchievementName());
                     bundle.putInt("points", a.getPointValue());
                     df.setArguments(bundle);
-                 }
+                }
             }
         }
         level.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 DialogFragment df = new AchievementDialogFragment();
-                df.show(getActivity().getFragmentManager(),null);
+                df.show(getActivity().getFragmentManager(), null);
             }
         });
         level.setText("Level " + String.valueOf(dbHelper.getUser().getLevel()));
         accountProgress.setText(String.valueOf(dbHelper.getNoAchUnlockedPts()) + "/100");
         return v;
     }
-    public void onResume(){
+
+    public void onResume() {
         super.onResume();
         randomizeColors(random.nextInt((5 - 0 + 1) + 0));
         dataset = new BarDataSet(experience, "");
@@ -159,7 +161,7 @@ public class MyAccount extends Fragment {
         barChart.invalidate();
         Cursor cursor = dbHelper.getAllLockedAchievements();
         ArrayList<Achievement> achList = new ArrayList<Achievement>();
-        while(cursor.moveToNext()){
+        while (cursor.moveToNext()) {
             Achievement a = new Achievement();
             a.setId(cursor.getInt(cursor.getColumnIndex(Achievement.COL_ID)));
             a.setAchievementName(cursor.getString(cursor.getColumnIndex(Achievement.COL_NAME)));
@@ -169,7 +171,7 @@ public class MyAccount extends Fragment {
             achList.add(a);
         }
         String u = dbHelper.getUser().getName();
-        userName.setText(u + " " +randomizeSmileys(random.nextInt((5 - 0 + 1) + 0)));
+        userName.setText(u + " " + randomizeSmileys(random.nextInt((5 - 0 + 1) + 0)));
         daysUsed.setText(String.valueOf(dbHelper.getDaysUsed()));
         String achUnlocked = String.valueOf(dbHelper.getNoAchUnlocked());
         String achTotal = String.valueOf(dbHelper.getTotalNoAch());
@@ -180,20 +182,21 @@ public class MyAccount extends Fragment {
         level.setText("Level " + String.valueOf(dbHelper.getUser().getLevel()));
         accountProgress.setText(String.valueOf(dbHelper.getNoAchUnlockedPts() + "/100"));
     }
-    public String getTotalSaving(){
-        String totalS="";
+
+    public String getTotalSaving() {
+        String totalS = "";
         int totalI, totalE, totalSav;
-        int sumE=0;
-        int sumI=0;
+        int sumE = 0;
+        int sumI = 0;
         Cursor cursorE = dbHelper.getAllExpenses();
         Cursor cursorI = dbHelper.getAllIncome();
-        while(cursorE.moveToNext()){
+        while (cursorE.moveToNext()) {
             String expense = cursorE.getString(cursorE.getColumnIndex(Expense.COL_SPENT_AMOUNT));
             int e = Integer.parseInt(expense);
             sumE += e;
         }
         cursorE.close();
-        while(cursorI.moveToNext()){
+        while (cursorI.moveToNext()) {
             String income = cursorI.getString(cursorI.getColumnIndex(Income.COL_INCOME_AMOUNT));
             int i = Integer.parseInt(income);
             sumI += i;
@@ -203,7 +206,8 @@ public class MyAccount extends Fragment {
         totalS = String.valueOf(totalSav);
         return totalS;
     }
-    public void randomizeColors(int random){
+
+    public void randomizeColors(int random) {
         int colors[] = new int[6];
         colors[0] = Color.parseColor("#2196F3");
         colors[1] = Color.parseColor("#FFA000");
@@ -213,8 +217,9 @@ public class MyAccount extends Fragment {
         colors[5] = Color.parseColor("#1976D2");
         userBox.setBackgroundColor(colors[random]);
     }
-    public String randomizeSmileys(int random){
-        switch(random){
+
+    public String randomizeSmileys(int random) {
+        switch (random) {
             case 0:
                 return ":)";
             case 1:
@@ -230,3 +235,4 @@ public class MyAccount extends Fragment {
         }
         return ":|";
     }
+}

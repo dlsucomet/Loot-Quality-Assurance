@@ -17,7 +17,8 @@ public class UserDialogFragment extends DialogFragment {
     TextInputLayout dialogOld, dialogOne;
     EditText etOldUsername, etUsername;
     Button btnSubmit, btnCancel;
-    public Dialog onCreateDialog(Bundle savedInstanceState){
+
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
         v = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_user, null);
         dialogOld = (TextInputLayout) v.findViewById(R.id.input_old_layout_title);
         dialogOne = (TextInputLayout) v.findViewById(R.id.input_layout_title);
@@ -32,7 +33,7 @@ public class UserDialogFragment extends DialogFragment {
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(submitForm())
+                if (submitForm())
                     dismiss();
             }
         });
@@ -44,24 +45,26 @@ public class UserDialogFragment extends DialogFragment {
         });
         return dialogBuilder.create();
     }
-    public boolean submitForm(){
-        if (!validateUsername()){
+
+    public boolean submitForm() {
+        if (!validateUsername()) {
             return false;
-        }
-        else{
-            ((SettingsActivity)getActivity()).onYesSelectedU(etUsername.getText().toString());
+        } else {
+            ((SettingsActivity) getActivity()).onYesSelectedU(etUsername.getText().toString());
             return true;
         }
     }
-    private boolean validateUsername(){
-        if (etOldUsername.getText().toString().trim().isEmpty()){
+
+    private boolean validateUsername() {
+        if (etOldUsername.getText().toString().trim().isEmpty()) {
             dialogOld
                     .setError("Enter Username");
             return false;
         }
-        if (etUsername.getText().toString().trim().isEmpty()){
+        if (etUsername.getText().toString().trim().isEmpty()) {
             dialogOne.setError("Enter Username");
             return false;
         }
         return true;
     }
+}
