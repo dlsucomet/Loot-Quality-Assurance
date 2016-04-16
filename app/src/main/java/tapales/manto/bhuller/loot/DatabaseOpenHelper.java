@@ -6,6 +6,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.util.ArrayList;
+
 public class DatabaseOpenHelper extends SQLiteOpenHelper{
     public static final String SCHEMA = "loot";
     private int DummyDataInserted = 0;
@@ -18,7 +20,9 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper{
         String sql = "CREATE TABLE " + User.TABLE_NAME  + " ("
                 + User.COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + User.COL_NAME + " TEXT, "
-                + User.COL_PINCODE + " INTEGER);";
+                + User.COL_PINCODE + " INTEGER, "
+                + User.COL_LEVEL + " INTEGER, "
+                + User.COL_XP + " INTEGER);";
         db.execSQL(sql);
         sql = "CREATE TABLE " + Expense.TABLE_NAME  + " ("
                 + Expense.COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
@@ -34,7 +38,13 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper{
                 + Income.COL_INCOME_AMOUNT + " FLOAT, "
                 + Income.COL_TIME_INTERVAL + " TEXT);";
         db.execSQL(sql);
-
+        sql = "CREATE TABLE " + Achievement.TABLE_NAME  + " ("
+                + Achievement.COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + Achievement.COL_NAME + " TEXT, "
+                + Achievement.COL_DESC + " TEXT, "
+                + Achievement.COL_POINTS + " INTEGER, "
+                + Achievement.COL_LOCKED + " INTEGER);";
+        db.execSQL(sql);
 
     }
 
@@ -127,6 +137,8 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper{
         db.execSQL(sql);
         sql = "DROP TABLE IF EXISTS " + Income.TABLE_NAME;
         db.execSQL(sql);
+        sql = "DROP TABLE IF EXISTS " + Achievement.TABLE_NAME;
+        db.execSQL(sql);
         onCreate(db);
 
     }
@@ -143,6 +155,7 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper{
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(Expense.TABLE_NAME, null, null);
         db.delete(Income.TABLE_NAME, null, null);
+        //achievement to be fixed
     }
 
     public long insertUser(User u){
@@ -150,7 +163,10 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper{
         ContentValues contentValues = new ContentValues();
         contentValues.put(User.COL_NAME, u.getName());
         contentValues.put(User.COL_PINCODE, u.getPincode());
+        contentValues.put(User.COL_LEVEL, u.getLevel());
+        contentValues.put(User.COL_XP,u.getXp());
         long id = db.insert(User.TABLE_NAME, null, contentValues);
+        insertAllAchievements();
         db.close();
         return id;
     }
@@ -163,6 +179,8 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper{
             u = new User();
             u.setName(cursor.getString(cursor.getColumnIndex(User.COL_NAME)));
             u.setPincode(cursor.getInt(cursor.getColumnIndex(User.COL_PINCODE)));
+            u.setLevel(cursor.getInt(cursor.getColumnIndex(User.COL_LEVEL)));
+            u.setXp(cursor.getInt(cursor.getColumnIndex(User.COL_XP)));
         }
         cursor.close();
         return u;
@@ -183,6 +201,14 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper{
                 User.COL_ID + " = 1 ",
                 null);
     }
+    public int updateXP(int xp){
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(User.COL_XP, xp);
+        return  getWritableDatabase().update(User.TABLE_NAME,
+                contentValues,
+                User.COL_ID + " = 1 ",
+                null);
+    }
 
     public long insertExpense(Expense e){
         SQLiteDatabase db =  getWritableDatabase();
@@ -196,6 +222,7 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper{
         db.close();
         return id;
     }
+
     public Expense getExpense(int id){
         Expense e = null;
         SQLiteDatabase db = getReadableDatabase();
@@ -357,4 +384,169 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper{
                 new String[]{String.valueOf(id)});
     }
 
+    public Cursor getAllAchievements(){
+        SQLiteDatabase db = getReadableDatabase();
+//        Cursor cursor =  db.query(Income.TABLE_NAME, null, null, null, null, null, null);
+        Cursor cursor =  db.query(Achievement.TABLE_NAME,
+                null,null, null,
+                null, null, null);
+        return cursor;
+    }
+
+    public long insertAchievement(Achievement a){
+        SQLiteDatabase db =  getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(Achievement.COL_NAME, a.getAchievementName());
+        contentValues.put(Achievement.COL_DESC, a.getAchievementDescription());
+        contentValues.put(Achievement.COL_POINTS, a.getPointValue());
+        contentValues.put(Achievement.COL_LOCKED, a.isLocked());
+        long id =  db.insert(Achievement.TABLE_NAME, null, contentValues);
+        db.close();
+        return id;
+    }
+
+    public Achievement getAchievement(int id){
+        Achievement a = null;
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor =  db.query(Achievement.TABLE_NAME,
+                null,
+                Achievement.COL_ID + " =? ",
+                new String[]{String.valueOf(id)},
+                null, null, null);
+        if(cursor.moveToFirst()){
+            a = new Achievement();
+            a.setId(id);
+            a.setAchievementName(cursor.getString(cursor.getColumnIndex(Achievement.COL_NAME)));
+            a.setAchievementDescription((cursor.getString(cursor.getColumnIndex(Achievement.COL_DESC))));
+            a.setPointValue((cursor.getInt(cursor.getColumnIndex(Achievement.COL_POINTS))));
+            a.setLocked(cursor.getInt(cursor.getColumnIndex(Achievement.COL_LOCKED)));
+
+        }
+        cursor.close();
+        return a;
+    }
+
+    public int updateAchievement(int id, int locked){
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(Achievement.COL_LOCKED, locked);
+        return  getWritableDatabase().update(Achievement.TABLE_NAME,
+                contentValues,
+                Achievement.COL_ID + " =? ",
+                new String[]{String.valueOf(id)});
+    }
+    public int getDaysUsed(){
+        int days = 0;
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = null;
+        cursor = db.rawQuery("SELECT DISTINCT " + Expense.COL_DATE + " FROM " + Expense.TABLE_NAME , null);
+        while(cursor.moveToNext())
+        {
+            days++;
+        }
+
+        return days;
+    }
+
+    public int getNoAchUnlocked() {
+        int count = 0;
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.query(Achievement.TABLE_NAME,
+                null,
+                Achievement.COL_LOCKED + " =? ",
+                new String[]{String.valueOf(0)},
+                null, null, null);
+
+        while (cursor.moveToNext()) {
+            count++;
+        }
+        return count;
+    }
+
+    public int getTotalNoAch()
+    {
+        int count = 0;
+        Cursor cursor = null;
+        cursor = getAllAchievements();
+        while (cursor.moveToNext()) {
+            count++;
+        }
+        return count;
+    }
+
+    public int getNoExpenses(){
+        int count = 0;
+        Cursor cursor = null;
+        cursor = getAllExpenses();
+        while (cursor.moveToNext()) {
+            count++;
+        }
+        return count;
+
+    }
+    public int getNoIncomes(){
+        int count = 0;
+        Cursor cursor = null;
+        cursor = getAllIncome();
+        while (cursor.moveToNext()) {
+            count++;
+        }
+        return count;
+    }
+
+    public void insertAllAchievements()
+    {
+            Achievement a1 = new Achievement();
+            a1.setAchievementName("Looter");
+            a1.setAchievementDescription("Opened the app first time");
+            a1.setPointValue(50);
+            a1.setLocked(1);
+            insertAchievement(a1);
+            Achievement a = new Achievement();
+            a.setAchievementName("First Expense");
+            a.setAchievementDescription("Added the first expense");
+            a.setPointValue(20);
+            a.setLocked(1);
+            insertAchievement(a);
+            Achievement a2 = new Achievement();
+            a2.setAchievementName("First Income");
+            a2.setAchievementDescription("Added the first income");
+            a2.setPointValue(20);
+            a2.setLocked(1);
+            insertAchievement(a2);
+            Achievement a3 = new Achievement();
+            a3.setAchievementName("Super Saver");
+            a3.setAchievementDescription("First Saving of more than 500");
+            a3.setPointValue(30);
+            a3.setLocked(1);
+            insertAchievement(a3);
+    }
+
+    public int getNoAchUnlockedPts() {
+        int pts = 0;
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.query(Achievement.TABLE_NAME,
+                null,
+                Achievement.COL_LOCKED + " =? ",
+                new String[]{String.valueOf(0)},
+                null, null, null);
+
+        while (cursor.moveToNext()) {
+            int val = cursor.getInt(cursor.getColumnIndex(Achievement.COL_POINTS));
+            pts += val;
+        }
+        updateXP(pts);
+        return pts;
+    }
+
+    public Cursor getAllLockedAchievements()
+    {
+
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.query(Achievement.TABLE_NAME,
+                null,
+                Achievement.COL_LOCKED + " =? ",
+                new String[]{String.valueOf(1)},
+                null, null, null);
+        return cursor;
+    }
 }

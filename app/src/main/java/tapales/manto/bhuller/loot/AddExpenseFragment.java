@@ -11,6 +11,8 @@ import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -36,7 +38,7 @@ public class AddExpenseFragment extends Fragment {
         mMonth = c.get(Calendar.MONTH);
         mDay = c.get(Calendar.DAY_OF_MONTH);
         categoryItem = (TextView) v.findViewById(R.id.add_category);
-        categoryItem.setText("Category - None");
+        categoryItem.setText("Others");
         dateText = (TextView) v.findViewById(R.id.add_date);
         dateText.setText("Date - " + months[mMonth] + " " + mDay + ", " + mYear);
         inputTitle = (EditText) v.findViewById(R.id.input_expense_title);
@@ -47,17 +49,7 @@ public class AddExpenseFragment extends Fragment {
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Expense expense = new Expense();
-                expense.setExpName(inputTitle.getText().toString());
-                expense.setSpentAmount(Float.valueOf(inputValue.getText().toString()));
-                expense.setCategory(categoryItem.getText().toString().replace("Category - ", ""));
-                //expense.setCategory("Food");
-                expense.setDate(dateText.getText().toString().replace("Date - ", ""));
-                //Temporary 1
-                expense.setPaymentType(1);
-                dbHelper.insertExpense(expense);
-                getActivity().setResult(Activity.RESULT_OK, new Intent(getActivity().getApplicationContext(), MainActivity.class));
-                getActivity().finish();
+                submitForm();
             }
         });
         cancelButton = (Button) v.findViewById(R.id.add_cancel_button);
@@ -75,7 +67,6 @@ public class AddExpenseFragment extends Fragment {
                         new DatePickerDialog.OnDateSetListener() {
                             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                                 dateText.setText("Date - " + months[monthOfYear] + " " + dayOfMonth + ", " + year);
-                                Toast.makeText(getActivity().getApplicationContext(), "Date - " + months[monthOfYear] + " " + dayOfMonth + ", " + year, Toast.LENGTH_LONG).show();
                             }
                         }
                         , mYear, mMonth, mDay);
@@ -86,53 +77,71 @@ public class AddExpenseFragment extends Fragment {
         foodButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity().getApplicationContext(), "Category - Food Selected", Toast.LENGTH_LONG).show();
-                categoryItem.setText("Category - Food");
+                categoryItem.setText("Food");
+                Animation animFadein = AnimationUtils.loadAnimation(getActivity().getApplicationContext(),R.anim.fade_in);
+                Animation animFadeText = AnimationUtils.loadAnimation(getActivity().getApplicationContext(),R.anim.fade_text);
+                foodButton.startAnimation(animFadein);
+                categoryItem.startAnimation(animFadeText);
             }
         });
         leisureButton = (ImageView) v.findViewById(R.id.add_leisure);
         leisureButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity().getApplicationContext(), "Category - Leisure Selected", Toast.LENGTH_LONG).show();
-                categoryItem.setText("Category - Leisure");
+                categoryItem.setText("Leisure");
+                Animation animFadein = AnimationUtils.loadAnimation(getActivity().getApplicationContext(),R.anim.fade_in);
+                Animation animFadeText = AnimationUtils.loadAnimation(getActivity().getApplicationContext(),R.anim.fade_text);
+                leisureButton.startAnimation(animFadein);
+                categoryItem.startAnimation(animFadeText);
             }
         });
         transportButton = (ImageView) v.findViewById(R.id.add_transportation);
         transportButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity().getApplicationContext(), "Category - Transportation Selected", Toast.LENGTH_LONG).show();
-                categoryItem.setText("Category - Transportation");
+                categoryItem.setText("Transportation");
+                Animation animFadein = AnimationUtils.loadAnimation(getActivity().getApplicationContext(),R.anim.fade_in);
+                Animation animFadeText = AnimationUtils.loadAnimation(getActivity().getApplicationContext(),R.anim.fade_text);
+                transportButton.startAnimation(animFadein);
+                categoryItem.startAnimation(animFadeText);
             }
         });
         billButton = (ImageView) v.findViewById(R.id.add_bills);
         billButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity().getApplicationContext(), "Category - Bills Selected", Toast.LENGTH_LONG).show();
-                categoryItem.setText("Category - Bills");
+                categoryItem.setText("Bills");
+                Animation animFadein = AnimationUtils.loadAnimation(getActivity().getApplicationContext(),R.anim.fade_in);
+                Animation animFadeText = AnimationUtils.loadAnimation(getActivity().getApplicationContext(),R.anim.fade_text);
+                billButton.startAnimation(animFadein);
+                categoryItem.startAnimation(animFadeText);
             }
         });
         debtButton = (ImageView) v.findViewById(R.id.add_debt);
         debtButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity().getApplicationContext(), "Category - Debt Selected", Toast.LENGTH_LONG).show();
-                categoryItem.setText("Category - Debt");
+                categoryItem.setText("Debt");
+                Animation animFadein = AnimationUtils.loadAnimation(getActivity().getApplicationContext(),R.anim.fade_in);
+                Animation animFadeText = AnimationUtils.loadAnimation(getActivity().getApplicationContext(),R.anim.fade_text);
+                debtButton.startAnimation(animFadein);
+                categoryItem.startAnimation(animFadeText);
             }
         });
         othersButton = (ImageView) v.findViewById(R.id.add_others);
         othersButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity().getApplicationContext(), "Category - Others Selected", Toast.LENGTH_LONG).show();
-                categoryItem.setText("Category - Others");
+                categoryItem.setText("Others");
+                Animation animFadein = AnimationUtils.loadAnimation(getActivity().getApplicationContext(),R.anim.fade_in);
+                Animation animFadeText = AnimationUtils.loadAnimation(getActivity().getApplicationContext(),R.anim.fade_text);
+                othersButton.startAnimation(animFadein);
+                categoryItem.startAnimation(animFadeText);
             }
         });
         return v;
     }
-    private void submitForm() {
+    private void submitForm(){
         if (!validateTitle()) {
             return;
         }
@@ -145,9 +154,8 @@ public class AddExpenseFragment extends Fragment {
         Expense expense = new Expense();
         expense.setExpName(inputTitle.getText().toString());
         expense.setSpentAmount(Float.valueOf(inputValue.getText().toString()));
-        expense.setCategory(categoryItem.getText().toString().replace("Category -", ""));
+        expense.setCategory(categoryItem.getText().toString());
         expense.setDate(dateText.getText().toString().replace("Date - ", ""));
-        //Temporary 1
         expense.setPaymentType(1);
         dbHelper.insertExpense(expense);
         getActivity().setResult(Activity.RESULT_OK, new Intent(getActivity().getApplicationContext(), MainActivity.class));

@@ -18,7 +18,6 @@ import android.widget.TextView;
 public class SlidingTabLayout extends HorizontalScrollView{
     public interface TabColorizer{
         int getIndicatorColor(int position);
-
     }
     private static final int TITLE_OFFSET_DIPS = 24;
     private static final int TAB_VIEW_PADDING_DIPS = 16;

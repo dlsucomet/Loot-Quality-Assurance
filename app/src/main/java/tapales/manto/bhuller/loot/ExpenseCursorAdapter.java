@@ -12,6 +12,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.nispok.snackbar.Snackbar;
+import com.nispok.snackbar.SnackbarManager;
+
 public class ExpenseCursorAdapter extends CursorRecyclerViewAdapter<ExpenseCursorAdapter.ExpenseViewHolder> {
     private Context context;
     public ExpenseCursorAdapter(Context context, Cursor cursor) {
@@ -29,15 +32,15 @@ public class ExpenseCursorAdapter extends CursorRecyclerViewAdapter<ExpenseCurso
         viewHolder.expenseValue.setText(price);
         viewHolder.expenseDate.setText(date);
         viewHolder.expenseCategory.setImageResource(e.getCategoryInt());
-
         viewHolder.container.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                Toast.makeText(context, "Hold to Edit Expense", Toast.LENGTH_LONG).show();
+                SnackbarManager.show(
+                        Snackbar.with(v.getContext())
+                                .text("Hold to Edit Expense")
+                                .duration(1000));
             }
         });
-
         viewHolder.container.setTag(expenseID);
         viewHolder.container.setOnLongClickListener(new View.OnLongClickListener(){
             @Override

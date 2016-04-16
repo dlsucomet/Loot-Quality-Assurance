@@ -8,17 +8,19 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.nispok.snackbar.Snackbar;
+import com.nispok.snackbar.SnackbarManager;
+
 public class IncomeCursorAdapter extends CursorRecyclerViewAdapter2<IncomeCursorAdapter.ExpenseViewHolder> {
     private Context context;
-    public IncomeCursorAdapter(Context context, Cursor cursor) {
+    public IncomeCursorAdapter(Context context, Cursor cursor){
         super(context, cursor);
         this.context = context;
     }
-    public void onBindViewHolder(ExpenseViewHolder viewHolder, Cursor cursor) {
+    public void onBindViewHolder(ExpenseViewHolder viewHolder, Cursor cursor){
         String title = cursor.getString(cursor.getColumnIndex(Income.COL_NAME));
         String price = cursor.getString(cursor.getColumnIndex(Income.COL_INCOME_AMOUNT));
         String date = cursor.getString(cursor.getColumnIndex(Income.COL_TIME_INTERVAL));
@@ -27,12 +29,13 @@ public class IncomeCursorAdapter extends CursorRecyclerViewAdapter2<IncomeCursor
         viewHolder.incomeDate.setText(date);
         int incomeID = cursor.getInt(cursor.getColumnIndex(Income.COL_ID));
         viewHolder.container.setTag(incomeID);
-
         viewHolder.container.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                Toast.makeText(context, "Hold to Edit Income", Toast.LENGTH_LONG).show();
+                SnackbarManager.show(
+                        Snackbar.with(v.getContext())
+                                .text("Hold to Edit Income")
+                                .duration(1000));
             }
         });
         viewHolder.container.setOnLongClickListener(new View.OnLongClickListener() {

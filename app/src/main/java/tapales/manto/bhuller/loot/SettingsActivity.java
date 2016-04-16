@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.Toast;
 
 public class SettingsActivity extends AppCompatActivity {
     private Toolbar toolbar;
@@ -51,6 +50,7 @@ public class SettingsActivity extends AppCompatActivity {
             public void onClick(View v) {
                 new AlertDialog.Builder(SettingsActivity.this)
                         .setTitle("Remove All Data")
+                        .setIcon(R.drawable.delete_all)
                         .setMessage("Are you sure you want to remove all data?")
                         .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
@@ -66,16 +66,13 @@ public class SettingsActivity extends AppCompatActivity {
             }
         });
     }
-
     public void onYesSelectedU(String username){
         dbHelper.updateUsername(username);
     }
-
     public void onYesSelectedP(int passcode){
         dbHelper.updatePasscode(passcode);
     }
-
-    public String getOldPasscode() {
+    public String getOldPasscode(){
         int passcode = dbHelper.getUser().getPincode();
         String p = String.valueOf(passcode);
         return p;

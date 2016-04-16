@@ -14,51 +14,55 @@ import android.widget.Toast;
 
 public class UserDialogFragment extends DialogFragment {
     View v;
-    TextInputLayout dialogOne, dialogTwo;
-    EditText dialogCodeOne, dialogCodeTwo;
+    TextInputLayout dialogOld, dialogOne;
+    EditText etOldUsername, etUsername;
     Button btnSubmit, btnCancel;
     public Dialog onCreateDialog(Bundle savedInstanceState){
         v = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_user, null);
-        dialogCodeOne = (EditText) v.findViewById(R.id.dialog_username);
-        btnSubmit = (Button) v.findViewById(R.id.btn_user_submit);
-        btnCancel = (Button) v.findViewById(R.id.btn_user_cancel);
+        dialogOld = (TextInputLayout) v.findViewById(R.id.input_old_layout_title);
+        dialogOne = (TextInputLayout) v.findViewById(R.id.input_layout_title);
+        etOldUsername = (EditText) v.findViewById(R.id.dialog_old_username);
+        etUsername = (EditText) v.findViewById(R.id.dialog_username);
+        btnSubmit = (Button) v.findViewById(R.id.btn_SubmitU);
+        btnCancel = (Button) v.findViewById(R.id.btn_CancelU);
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity())
                 .setView(v)
-                .setTitle("Change Username");
-                /*
-                .setPositiveButton("Submit", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        //Doesn't have error handling yet
-                        EditText dialogName = (EditText) v.findViewById(R.id.dialog_username);
-                        Toast.makeText(getActivity().getApplicationContext(), "Username changed to " + dialogName.getText().toString(), Toast.LENGTH_LONG).show();
-                        //TODO
-                        ((SettingsActivity)getActivity()).onYesSelectedU(dialogName.getText().toString());
-
-                    }
-                })
-                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        dismiss();
-                    }
-                });
-                */
+                .setTitle("Change Username")
+                .setIcon(R.drawable.change_user);
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity().getApplicationContext(),"Submit Username", Toast.LENGTH_LONG).show();
-                //if(submitForm())
+                if(submitForm())
                     dismiss();
             }
         });
         btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Toast.makeText(getActivity().getApplicationContext(),"testCancel", Toast.LENGTH_LONG).show();
                 dismiss();
             }
         });
-
-        Dialog d = dialogBuilder.create();
-        return d;
+        return dialogBuilder.create();
+    }
+    public boolean submitForm(){
+        if (!validateUsername()){
+            return false;
+        }
+        else{
+            ((SettingsActivity)getActivity()).onYesSelectedU(etUsername.getText().toString());
+            return true;
+        }
+    }
+    private boolean validateUsername(){
+        if (etOldUsername.getText().toString().trim().isEmpty()){
+            dialogOld
+                    .setError("Enter Username");
+            return false;
+        }
+        if (etUsername.getText().toString().trim().isEmpty()){
+            dialogOne.setError("Enter Username");
+            return false;
+        }
+        return true;
     }
 }

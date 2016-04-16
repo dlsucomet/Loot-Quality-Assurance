@@ -5,7 +5,6 @@ import android.graphics.PorterDuff;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -34,39 +33,36 @@ public class LoginActivity extends AppCompatActivity{
             }
         });
     }
-    private void submitForm() {
-        if (!validateUsername()) {
+    private void submitForm(){
+        if(!validateUsername()){
             return;
         }
-        if (!validatePasscode()) {
+        if(!validatePasscode()){
             return;
         }
-        if(validatePasscode() &&  validateUsername())
-        {
-            //Temp just for Navigation
-            dbHelper.insertUser(new User(username.getText().toString(),Integer.parseInt(passcode.getText().toString())));
+        if(validatePasscode() &&  validateUsername()){
+            dbHelper.insertUser(new User(username.getText().toString(),Integer.parseInt(passcode.getText().toString()),1,0));
             Intent intent = new Intent(getBaseContext(), MainActivity.class);
             startActivity(intent);
             finish();
-            //TO DO
         }
-
     }
     private boolean validateUsername() {
-        if (username.getText().toString().trim().isEmpty()) {
+        if(username.getText().toString().trim().isEmpty()){
             inputLayoutUser.setError("Enter a Username");
             return false;
-        } else {
+        }
+        else{
             inputLayoutUser.setErrorEnabled(false);
         }
         return true;
     }
     private boolean validatePasscode(){
-        if (passcode.getText().toString().trim().isEmpty()){
+        if(passcode.getText().toString().trim().isEmpty()){
             inputLayoutPasscode.setError("Enter a Passcode");
             return false;
         }
-        else if (passcode.getText().length() != 6){
+        else if(passcode.getText().length() != 6){
             inputLayoutPasscode.setError("Passcode Must be 6 Digits Only");
             return false;
         }

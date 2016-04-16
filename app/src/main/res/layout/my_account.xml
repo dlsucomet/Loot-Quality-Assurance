@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <RelativeLayout
+        android:id="@+id/my_account_box"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorAccountAccent"
@@ -57,10 +58,11 @@
                     android:layout_height="56dp"/>
                 <TextView
                     android:id="@+id/account_progress"
+                    android:paddingRight="10dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:layout_toRightOf="@id/experience_bar"
+                    android:layout_alignParentEnd="true"
                     android:textSize="18sp"
                     android:text="70/100"/>
             </RelativeLayout>
@@ -70,6 +72,7 @@
         xmlns:card_view="http://schemas.android.com/apk/res-auto"
         card_view:cardCornerRadius="0dp"
         android:id="@+id/card_total_days"
+        android:clickable="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:foreground="?android:attr/selectableItemBackground">
@@ -108,6 +111,7 @@
         xmlns:card_view="http://schemas.android.com/apk/res-auto"
         card_view:cardCornerRadius="0dp"
         android:id="@+id/card_total_unlocked"
+        android:clickable="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:foreground="?android:attr/selectableItemBackground">
@@ -146,6 +150,7 @@
         xmlns:card_view="http://schemas.android.com/apk/res-auto"
         card_view:cardCornerRadius="0dp"
         android:id="@+id/card_total_income_items"
+        android:clickable="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:foreground="?android:attr/selectableItemBackground">
@@ -184,6 +189,7 @@
         xmlns:card_view="http://schemas.android.com/apk/res-auto"
         card_view:cardCornerRadius="0dp"
         android:id="@+id/card_total_expense_items"
+        android:clickable="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:foreground="?android:attr/selectableItemBackground">

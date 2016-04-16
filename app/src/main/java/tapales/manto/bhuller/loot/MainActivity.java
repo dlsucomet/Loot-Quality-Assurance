@@ -1,16 +1,14 @@
 package tapales.manto.bhuller.loot;
 
+import android.app.DialogFragment;
 import android.content.Intent;
-import android.os.Handler;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.ImageButton;
-import android.widget.Toast;
+import com.ToxicBakery.viewpager.transforms.AccordionTransformer;
 
 public class MainActivity extends AppCompatActivity{
     private Toolbar toolbar;
@@ -30,6 +28,7 @@ public class MainActivity extends AppCompatActivity{
         pagerAdapter =  new ViewPagerAdapter(getSupportFragmentManager(), tabList, TAB_NUMBERS);
         viewPager = (ViewPager) findViewById(R.id.pager);
         viewPager.setAdapter(pagerAdapter);
+        viewPager.setPageTransformer(true,new AccordionTransformer());
         viewPager.setCurrentItem(1);
         tabSlider = (SlidingTabLayout) findViewById(R.id.tabs);
         tabSlider.setDistributeEvenly(true);
@@ -46,31 +45,29 @@ public class MainActivity extends AppCompatActivity{
         return true;
     }
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
+    public boolean onOptionsItemSelected(MenuItem item){
+        switch (item.getItemId()){
             case R.id.action_account:
                 startActivity(new Intent(getBaseContext(), MyAccountActivity.class));
+                finish();
                 return true;
             case R.id.action_add:
-                startActivity(new Intent(getBaseContext(), AddItemActivity.class));
+                Intent intent = new Intent(this, AddItemActivity.class);
+                if(viewPager.getCurrentItem() == 0){
+                    intent.putExtra("caller", "income");
+                }
+                else intent.putExtra("caller", "expense");
+                startActivity(intent);
                 return true;
             case R.id.menu_settings:
                 startActivity(new Intent(getBaseContext(), SettingsActivity.class));
                 return true;
             case R.id.menu_about:
-                Toast.makeText(getApplicationContext(),"About Selected",Toast.LENGTH_LONG).show();
+                DialogFragment df = new AboutDialogFragment();
+                df.show(getFragmentManager(), "");
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
-
-
-//    @Override
-//    protected void onResume() {
-//        super.onResume();
-//        Intent mainIntent = new Intent(getBaseContext(), PasscodeActivity.class);
-//        startActivity(mainIntent);
-//        finish();
-//    }
 }

@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.List;
 
@@ -40,17 +39,6 @@ public class AchievementAdapter extends RecyclerView.Adapter<AchievementAdapter.
         holder.achievementDescription.setText(achievements.get(position).getAchievementDescription());
         holder.pointValue.setText(String.valueOf(achievements.get(position).getPointValue()));
         holder.isLocked.setImageResource(achievements.get(position).getLockedInt());
-
-        final boolean isLocked = achievements.get(position).isLocked();
-        holder.container.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(!isLocked){
-                    Toast.makeText(v.getContext(), "Achievement Unlocked", Toast.LENGTH_SHORT).show();
-                }
-                else Toast.makeText(v.getContext(), "Achievement Locked", Toast.LENGTH_SHORT).show();
-            }
-        });
     }
     public int getItemCount(){
         return achievements.size();

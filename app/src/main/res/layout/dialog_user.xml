@@ -6,6 +6,17 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
     <android.support.design.widget.TextInputLayout
+        android:id="@+id/input_old_layout_title"
+        android:layout_marginTop="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    <EditText
+        android:id="@+id/dialog_old_username"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter Username" />
+    </android.support.design.widget.TextInputLayout>
+    <android.support.design.widget.TextInputLayout
         android:id="@+id/input_layout_title"
         android:layout_marginTop="16dp"
         android:layout_width="match_parent"
@@ -29,7 +40,7 @@
             android:background="@null"
             android:textColor="@color/colorAccent"
             android:textSize="14dp"
-            android:id="@+id/btn_user_cancel"/>
+            android:id="@+id/btn_CancelU"/>
         <Button
             android:layout_width="match_parent"
             android:layout_height="30dp"
@@ -37,6 +48,6 @@
             android:text="Submit"
             android:background="@null"
             android:textColor="@color/colorAccent"
-            android:id="@+id/btn_user_submit"/>
+            android:id="@+id/btn_SubmitU"/>
     </LinearLayout>
 </LinearLayout>

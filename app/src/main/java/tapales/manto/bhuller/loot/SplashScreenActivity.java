@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Menu;
 
 public class SplashScreenActivity extends AppCompatActivity{
     private final int SPLASH_DISPLAY_LENGTH = 1000;
@@ -21,9 +20,8 @@ public class SplashScreenActivity extends AppCompatActivity{
             }
         }, SPLASH_DISPLAY_LENGTH);
     }
-
     @Override
-    protected void onRestart() {
+    protected void onRestart(){
         super.onRestart();
         new Handler().postDelayed(new Runnable() {
             @Override
@@ -34,9 +32,8 @@ public class SplashScreenActivity extends AppCompatActivity{
             }
         }, SPLASH_DISPLAY_LENGTH);
     }
-
     @Override
-    protected void onResume() {
+    protected void onResume(){
         super.onResume();
         new Handler().postDelayed(new Runnable() {
             @Override

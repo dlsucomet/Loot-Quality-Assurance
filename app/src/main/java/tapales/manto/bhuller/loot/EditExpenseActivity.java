@@ -9,6 +9,8 @@ import android.text.Html;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -25,7 +27,6 @@ public class EditExpenseActivity extends AppCompatActivity{
     private int mYear, mMonth, mDay;
     private TextView categoryItem, dateText;
     private Button dateButton, submitButton, cancelButton;
-    private ImageButton floatingActionBar;
     private EditText editTitle, editValue;
     private TextInputLayout editLayoutTitle, editLayoutValue;
     private ImageView foodButton, leisureButton, transportButton, billButton, debtButton, othersButton;
@@ -51,7 +52,7 @@ public class EditExpenseActivity extends AppCompatActivity{
         mMonth = c.get(Calendar.MONTH);
         mDay = c.get(Calendar.DAY_OF_MONTH);
         categoryItem = (TextView) findViewById(R.id.edit_category);
-        categoryItem.setText("Category - " + currentExpense.getCategory());
+        categoryItem.setText(currentExpense.getCategory());
         dateText = (TextView) findViewById(R.id.edit_date);
         dateText.setText("Date - " + currentExpense.getDate());
         editTitle = (EditText) findViewById(R.id.edit_expense_title);
@@ -92,53 +93,69 @@ public class EditExpenseActivity extends AppCompatActivity{
         foodButton = (ImageView) findViewById(R.id.edit_food);
         foodButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
-                Toast.makeText(getBaseContext(), "Category - Food Selected", Toast.LENGTH_LONG).show();
-                categoryItem.setText("Category - Food");
+            public void onClick(View v) {
+                categoryItem.setText("Food");
+                Animation animFadein = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.fade_in);
+                Animation animFadeText = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.fade_text);
+                foodButton.startAnimation(animFadein);
+                categoryItem.startAnimation(animFadeText);
             }
         });
         leisureButton = (ImageView) findViewById(R.id.edit_leisure);
         leisureButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
-                Toast.makeText(getBaseContext(),"Category - Leisure Selected", Toast.LENGTH_LONG).show();
-                categoryItem.setText("Category - Leisure");
+            public void onClick(View v) {
+                categoryItem.setText("Leisure");
+                Animation animFadein = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.fade_in);
+                Animation animFadeText = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.fade_text);
+                leisureButton.startAnimation(animFadein);
+                categoryItem.startAnimation(animFadeText);
             }
         });
         transportButton = (ImageView) findViewById(R.id.edit_transportation);
         transportButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
-                Toast.makeText(getBaseContext(),"Category - Transportation Selected", Toast.LENGTH_LONG).show();
-                categoryItem.setText("Category - Transportation");
+            public void onClick(View v) {
+                categoryItem.setText("Transportation");
+                Animation animFadein = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.fade_in);
+                Animation animFadeText = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.fade_text);
+                transportButton.startAnimation(animFadein);
+                categoryItem.startAnimation(animFadeText);
             }
         });
         billButton = (ImageView) findViewById(R.id.edit_bills);
         billButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
-                Toast.makeText(getBaseContext(),"Category - Bills Selected", Toast.LENGTH_LONG).show();
-                categoryItem.setText("Category - Bills");
+            public void onClick(View v) {
+                categoryItem.setText("Bills");
+                Animation animFadein = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.fade_in);
+                Animation animFadeText = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.fade_text);
+                billButton.startAnimation(animFadein);
+                categoryItem.startAnimation(animFadeText);
             }
         });
         debtButton = (ImageView) findViewById(R.id.edit_debt);
         debtButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
-                Toast.makeText(getBaseContext(),"Category - Debt Selected", Toast.LENGTH_LONG).show();
-                categoryItem.setText("Category - Debt");
+            public void onClick(View v) {
+                categoryItem.setText("Debt");
+                Animation animFadein = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.fade_in);
+                Animation animFadeText = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.fade_text);
+                debtButton.startAnimation(animFadein);
+                categoryItem.startAnimation(animFadeText);
             }
         });
         othersButton = (ImageView) findViewById(R.id.edit_others);
         othersButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getBaseContext(), "Category - Others Selected", Toast.LENGTH_LONG).show();
-                categoryItem.setText("Category - Others");
+                categoryItem.setText("Others");
+                Animation animFadein = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.fade_in);
+                Animation animFadeText = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.fade_text);
+                othersButton.startAnimation(animFadein);
+                categoryItem.startAnimation(animFadeText);
             }
         });
-        //floatingActionBar = (ImageButton) findViewById(R.id.floating_action_button);
-        //floatingActionBar.setVisibility(View.INVISIBLE);
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -169,9 +186,8 @@ public class EditExpenseActivity extends AppCompatActivity{
         }
         currentExpense.setExpName(editTitle.getText().toString());
         currentExpense.setSpentAmount(Float.valueOf(editValue.getText().toString()));
-        currentExpense.setCategory(categoryItem.getText().toString().replace("Category - ", ""));
+        currentExpense.setCategory(categoryItem.getText().toString());
         currentExpense.setDate(dateText.getText().toString().replace("Date - ", ""));
-        //Temporary 1
         currentExpense.setPaymentType(1);
         dbHelper.updateExpense(currentExpense);
         setResult(RESULT_OK);

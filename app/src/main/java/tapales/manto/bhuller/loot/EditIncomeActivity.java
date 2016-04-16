@@ -12,7 +12,6 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -86,8 +85,6 @@ public class EditIncomeActivity extends AppCompatActivity{
                 dpd.show();
             }
         });
-        //floatingActionBar = (ImageButton) findViewById(R.id.floating_action_button);
-        //floatingActionBar.setVisibility(View.INVISIBLE);
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

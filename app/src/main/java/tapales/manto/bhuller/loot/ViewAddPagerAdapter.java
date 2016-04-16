@@ -11,7 +11,6 @@ public class ViewAddPagerAdapter extends FragmentStatePagerAdapter{
         super(fm);
         this.Titles = mTitles;
         this.NumbOfTabs = mNumbOfTabsumb;
-
     }
     public Fragment getItem(int position){
         if(position == 0){

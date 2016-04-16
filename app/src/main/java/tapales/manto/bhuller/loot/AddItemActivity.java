@@ -5,7 +5,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.ImageButton;
 
 public class AddItemActivity extends AppCompatActivity{
     private Toolbar toolbar;
@@ -22,15 +21,20 @@ public class AddItemActivity extends AppCompatActivity{
         toolbar.setTitle("New Item");
         setSupportActionBar(toolbar);
         toolbar.setNavigationIcon(R.drawable.back);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener(){
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
+            public void onClick(View v) {
                 onBackPressed();
             }
         });
         pagerAdapter =  new ViewAddPagerAdapter(getSupportFragmentManager(), tabList, TAB_NUMBERS);
         viewPager = (ViewPager) findViewById(R.id.pager);
         viewPager.setAdapter(pagerAdapter);
+        String loc = getIntent().getStringExtra("caller");
+        if( loc.compareToIgnoreCase("income") == 0){
+            viewPager.setCurrentItem(0);
+        }
+        else viewPager.setCurrentItem(1);
         tabSlider = (SlidingTabLayout) findViewById(R.id.tabs);
         tabSlider.setDistributeEvenly(true);
         tabSlider.setCustomTabColorizer(new SlidingTabLayout.TabColorizer() {
@@ -39,5 +43,14 @@ public class AddItemActivity extends AppCompatActivity{
             }
         });
         tabSlider.setViewPager(viewPager);
+    }
+    @Override
+    protected void onResume(){
+        super.onResume();
+        String loc = getIntent().getStringExtra("caller");
+        if(loc.compareToIgnoreCase("income") == 0){
+            viewPager.setCurrentItem(0);
+        }
+        else viewPager.setCurrentItem(1);
     }
 }
