@@ -230,4 +230,3 @@ public class MyAccount extends Fragment {
         }
         return ":|";
     }
-}

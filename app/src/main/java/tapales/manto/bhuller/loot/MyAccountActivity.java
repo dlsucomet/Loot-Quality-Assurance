@@ -1,3 +1,4 @@
+
 package tapales.manto.bhuller.loot;
 
 import android.app.DialogFragment;

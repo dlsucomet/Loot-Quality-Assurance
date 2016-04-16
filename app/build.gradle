@@ -28,7 +28,10 @@ dependencies {
     compile 'com.android.support:recyclerview-v7:23.2.1'
     compile 'com.android.support:support-v4:23.2.1'
     compile 'com.ToxicBakery.viewpager.transforms:view-pager-transforms:1.2.32@aar'
+<<<<<<< HEAD
     compile 'com.nispok:snackbar:2.11.+'
+=======
+>>>>>>> be9433cead2345936ce3bbb8b78b603fabd56f83
     compile files('libs/mpandroidchartlibrary-2-2-4.jar')
 
 }

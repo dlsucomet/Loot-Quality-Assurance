@@ -65,4 +65,3 @@ public class UserDialogFragment extends DialogFragment {
         }
         return true;
     }
-}
