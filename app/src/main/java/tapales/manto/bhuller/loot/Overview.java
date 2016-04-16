@@ -87,10 +87,12 @@ public class Overview extends Fragment{
         int monthly = Integer.parseInt(getMonthlySaving(CurrentMandY[0], CurrentMandY[1]));
         if(monthly < 0)
             monthlySavings.setTextColor(getResources().getColor(R.color.colorRed));
+        else monthlySavings.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
         totalSavings.setText(getTotalSaving());
         int total = Integer.parseInt(getTotalSaving());
         if(total < 0)
             totalSavings.setTextColor(getResources().getColor(R.color.colorRed));
+        else totalSavings.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
         backMonth = (ImageView) v.findViewById(R.id.overview_left_month);
         backMonth.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -106,10 +108,12 @@ public class Overview extends Fragment{
                 int monthly = Integer.parseInt(getMonthlySaving(BackMandY[0], BackMandY[1]));
                 if(monthly < 0)
                     monthlySavings.setTextColor(getResources().getColor(R.color.colorRed));
+                else monthlySavings.setTextColor(getResources().getColor(R.color.colorPrimary));
                 totalSavings.setText(getTotalSaving());
                 int total = Integer.parseInt(getTotalSaving());
                 if(total < 0)
                     totalSavings.setTextColor(getResources().getColor(R.color.colorRed));
+                else totalSavings.setTextColor(getResources().getColor(R.color.colorPrimary));
                 pieDataSet = new PieDataSet(getData(BackMandY[0],BackMandY[1]), "");
                 pieDataSet.setColors(colors);
                 dataSet = new PieData(labels, pieDataSet);
@@ -137,10 +141,12 @@ public class Overview extends Fragment{
                 int monthly = Integer.parseInt(getMonthlySaving(NextMandY[0], NextMandY[1]));
                 if(monthly < 0)
                     monthlySavings.setTextColor(getResources().getColor(R.color.colorRed));
+                else monthlySavings.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
                 totalSavings.setText(getTotalSaving());
                 int total = Integer.parseInt(getTotalSaving());
                 if(total < 0)
                     totalSavings.setTextColor(getResources().getColor(R.color.colorRed));
+                else totalSavings.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
                 pieDataSet = new PieDataSet(getData(NextMandY[0],NextMandY[1]), "");
                 pieDataSet.setColors(colors);
                 dataSet = new PieData(labels, pieDataSet);
@@ -320,10 +326,12 @@ public class Overview extends Fragment{
         int monthly = Integer.parseInt(getMonthlySaving(MandY[0], MandY[1]));
         if(monthly < 0)
             monthlySavings.setTextColor(getResources().getColor(R.color.colorRed));
+        else monthlySavings.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
         totalSavings.setText(getTotalSaving());
         int total = Integer.parseInt(getTotalSaving());
         if(total < 0)
             totalSavings.setTextColor(getResources().getColor(R.color.colorRed));
+        else totalSavings.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
         pieDataSet = new PieDataSet(getData(MandY[0],MandY[1]), "");
         pieDataSet.setColors(colors);
         dataSet = new PieData(labels, pieDataSet);

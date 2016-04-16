@@ -11,6 +11,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.nispok.snackbar.Snackbar;
+import com.nispok.snackbar.SnackbarManager;
+
 public class AchievementCursorAdapter extends CursorRecyclerViewAdapter3<AchievementCursorAdapter.AchievementViewHolder> {
     private Context context;
     public AchievementCursorAdapter(Context context, Cursor cursor) {
@@ -34,10 +37,15 @@ public class AchievementCursorAdapter extends CursorRecyclerViewAdapter3<Achieve
             @Override
             public void onClick(View v) {
                 if (isLocked == 0) {
-                    //Toast.makeText(v.getContext(), viewHolder.achievementTitle.getText().toString() +" Unlocked", Toast.LENGTH_SHORT).show();
+                    SnackbarManager.show(
+                            Snackbar.with(v.getContext())
+                                    .text(viewHolder.achievementTitle.getText().toString() + " already Unlocked")
+                                    .duration(1000));
                 } else {
-                    //Toast.makeText(v.getContext(), viewHolder.achievementTitle.getText().toString() + " Locked", Toast.LENGTH_SHORT).show();
-                }
+                    SnackbarManager.show(
+                            Snackbar.with(v.getContext())
+                                    .text(viewHolder.achievementTitle.getText().toString() + " is Locked")
+                                    .duration(1000));                }
             }
         });
     }
