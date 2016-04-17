@@ -15,7 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="All icons were taken from icons8.com"/>
+        android:text="All icons are from iconshock.com obtained with a Premium License"/>
     <TextView
         android:layout_marginTop="10dp"
         android:layout_width="match_parent"
