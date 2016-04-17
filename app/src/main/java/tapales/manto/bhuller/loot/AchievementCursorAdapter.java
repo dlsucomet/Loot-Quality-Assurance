@@ -39,7 +39,7 @@ public class AchievementCursorAdapter extends CursorRecyclerViewAdapter3<Achieve
                 if (isLocked == 0) {
                     SnackbarManager.show(
                             Snackbar.with(v.getContext())
-                                    .text(viewHolder.achievementTitle.getText().toString() + " already Unlocked")
+                                    .text(viewHolder.achievementTitle.getText().toString() + " Already Unlocked")
                                     .duration(1000));
                 } else {
                     SnackbarManager.show(

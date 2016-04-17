@@ -244,10 +244,10 @@ public class MyAccount extends Fragment {
 
     public void randomizeColors(int random) {
         int colors[] = new int[6];
-        colors[0] = Color.parseColor("#2196F3");
-        colors[1] = Color.parseColor("#FFA000");
-        colors[2] = Color.parseColor("#FF1744");
-        colors[3] = Color.parseColor("#3F51B5");
+        colors[0] = Color.parseColor("#FFA000");
+        colors[1] = Color.parseColor("#00897B");
+        colors[2] = Color.parseColor("#E53935");
+        colors[3] = Color.parseColor("#5C6BC0");
         colors[4] = Color.parseColor("#388E3C");
         colors[5] = Color.parseColor("#1976D2");
         userBox.setBackgroundColor(colors[random]);

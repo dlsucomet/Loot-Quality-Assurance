@@ -16,8 +16,9 @@
             android:layout_height="wrap_content">
             <ImageView
                 android:id="@+id/expense_left_month"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
+                android:layout_margin="4dp"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
                 android:layout_alignParentLeft="true"
                 android:src="@drawable/left"/>
             <TextView
@@ -30,14 +31,15 @@
                 android:textColor="#000000"/>
             <ImageView
                 android:id="@+id/expense_right_month"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
+                android:layout_margin="4dp"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
                 android:layout_alignParentRight="true"
                 android:src="@drawable/right"/>
         </RelativeLayout>
     </android.support.v7.widget.CardView>
     <LinearLayout
-        android:layout_margin="16dp"
+        android:layout_margin="12dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
