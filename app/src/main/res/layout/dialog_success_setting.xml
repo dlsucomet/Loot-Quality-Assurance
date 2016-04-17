@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="10dp">
+    <RelativeLayout
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/dialog_setting_title"
+            android:paddingLeft="14dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:textSize="16sp"
+            android:textColor="#000000"
+            android:text="Success!"/>
+        <ImageView
+            android:id="@+id/dialog_unlocked_photo"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_toLeftOf="@id/dialog_setting_title"
+            android:src="@drawable/about"
+            android:paddingLeft="15dp"/>
+    </RelativeLayout>
+    <TextView
+        android:paddingLeft="14dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:textSize="16sp"
+        android:textColor="#000000"
+        android:text="successfully changed!"
+        android:paddingBottom="10dp"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:text="OK"
+        android:background="@null"
+        android:textColor="@color/colorAccent"
+        android:textSize="14dp"
+        android:id="@+id/btn_Ok"/>
+</LinearLayout>

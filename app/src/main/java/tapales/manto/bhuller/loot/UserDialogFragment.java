@@ -51,6 +51,11 @@ public class UserDialogFragment extends DialogFragment {
             return false;
         } else {
             ((SettingsActivity) getActivity()).onYesSelectedU(etUsername.getText().toString());
+            DialogFragment df = new SettingsDialogFragment();
+            df.show(getActivity().getFragmentManager(), null);
+            Bundle bundle = new Bundle();
+            bundle.putString("title", "Username");
+            df.setArguments(bundle);
             return true;
         }
     }
@@ -58,9 +63,21 @@ public class UserDialogFragment extends DialogFragment {
     private boolean validateUsername() {
         if (etOldUsername.getText().toString().trim().isEmpty()) {
             dialogOld
-                    .setError("Enter Username");
+                    .setError("Enter a Username");
             return false;
+
         }
+        else {
+            String u = ((SettingsActivity) getActivity()).getOldUsername();
+            if(!(etOldUsername.getText().toString().equalsIgnoreCase(u)))
+            {
+                dialogOld
+                        .setError("Incorrect Username");
+                return false;
+            }
+            else dialogOld.setError("");
+        }
+
         if (etUsername.getText().toString().trim().isEmpty()) {
             dialogOne.setError("Enter Username");
             return false;

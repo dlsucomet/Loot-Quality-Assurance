@@ -77,4 +77,8 @@ public class SettingsActivity extends AppCompatActivity {
         String p = String.valueOf(passcode);
         return p;
     }
+    public String getOldUsername(){
+        String u = dbHelper.getUser().getName();
+        return u;
+    }
 }

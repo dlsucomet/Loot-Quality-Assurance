@@ -209,6 +209,14 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper{
                 User.COL_ID + " = 1 ",
                 null);
     }
+    public int updateLevel(int level){
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(User.COL_LEVEL, level);
+        return  getWritableDatabase().update(User.TABLE_NAME,
+                contentValues,
+                User.COL_ID + " = 1 ",
+                null);
+    }
 
     public long insertExpense(Expense e){
         SQLiteDatabase db =  getWritableDatabase();
@@ -519,6 +527,18 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper{
             a3.setPointValue(30);
             a3.setLocked(1);
             insertAchievement(a3);
+            Achievement a4 = new Achievement();
+            a4.setAchievementName("Big Income");
+            a4.setAchievementDescription("Added 5 income items");
+            a4.setPointValue(40);
+            a4.setLocked(1);
+            insertAchievement(a4);
+            Achievement a5 = new Achievement();
+            a5.setAchievementName("Big Spender");
+            a5.setAchievementDescription("Added 5 expense items");
+            a5.setPointValue(40);
+            a5.setLocked(1);
+            insertAchievement(a5);
     }
 
     public int getNoAchUnlockedPts() {

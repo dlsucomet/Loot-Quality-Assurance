@@ -51,6 +51,11 @@ public class PasscodeDialogFragment extends DialogFragment {
         }
         else{
             ((SettingsActivity)getActivity()).onYesSelectedP(Integer.parseInt(dialogCodeTwo.getText().toString()));
+            DialogFragment df = new SettingsDialogFragment();
+            df.show(getActivity().getFragmentManager(), null);
+            Bundle bundle = new Bundle();
+            bundle.putString("title", "Password");
+            df.setArguments(bundle);
             return true;
         }
     }
@@ -68,7 +73,7 @@ public class PasscodeDialogFragment extends DialogFragment {
             String p =   ((SettingsActivity)getActivity()).getOldPasscode();
             String oldP = dialogCodeOld.getText().toString();
             if(oldP.equalsIgnoreCase(p)== false){
-                dialogOld.setError("Enter Old Passcode");
+                dialogOld.setError("Incorrect Old Passcode");
                 noError = false;
             }
             else dialogOld.setError("");

@@ -29,6 +29,7 @@ public class MyAccount extends Fragment {
     private DatabaseOpenHelper dbHelper;
     private RelativeLayout userBox;
     private Random random = new Random();
+    private int xpFull;
     private TextView level, userName, daysUsed, achievementsUnlocked, incomeItems, expenseItems, accountProgress;
 
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -94,7 +95,7 @@ public class MyAccount extends Fragment {
                 df.show(getActivity().getFragmentManager(), null);
             }
             if (a.getAchievementName().equalsIgnoreCase("First expense"))
-                if (dbHelper.getNoExpenses() == 1) {
+                if (dbHelper.getNoExpenses() >= 1) {
                     dbHelper.updateAchievement(a.getId(), 0);
                     DialogFragment df = new AchievementDialogFragment();
                     df.show(getActivity().getFragmentManager(), null);
@@ -104,7 +105,7 @@ public class MyAccount extends Fragment {
                     df.setArguments(bundle);
                 }
             if (a.getAchievementName().equalsIgnoreCase("First income"))
-                if (dbHelper.getNoIncomes() == 1) {
+                if (dbHelper.getNoIncomes() >= 1) {
                     dbHelper.updateAchievement(a.getId(), 0);
                     DialogFragment df = new AchievementDialogFragment();
                     df.show(getActivity().getFragmentManager(), null);
@@ -116,7 +117,29 @@ public class MyAccount extends Fragment {
             if (a.getAchievementName().equalsIgnoreCase("Super saver")) {
                 String s = getTotalSaving();
                 int val = Integer.parseInt(s);
-                if (val >= 500) {
+                if (val >= 500 && dbHelper.getNoExpenses() >= 1) {
+                    dbHelper.updateAchievement(a.getId(), 0);
+                    DialogFragment df = new AchievementDialogFragment();
+                    df.show(getActivity().getFragmentManager(), null);
+                    Bundle bundle = new Bundle();
+                    bundle.putString("name", a.getAchievementName());
+                    bundle.putInt("points", a.getPointValue());
+                    df.setArguments(bundle);
+                }
+            }
+            if (a.getAchievementName().equalsIgnoreCase("Big Spender")) {
+                if (dbHelper.getNoExpenses() >= 5) {
+                    dbHelper.updateAchievement(a.getId(), 0);
+                    DialogFragment df = new AchievementDialogFragment();
+                    df.show(getActivity().getFragmentManager(), null);
+                    Bundle bundle = new Bundle();
+                    bundle.putString("name", a.getAchievementName());
+                    bundle.putInt("points", a.getPointValue());
+                    df.setArguments(bundle);
+                }
+            }
+            if (a.getAchievementName().equalsIgnoreCase("Big Income")) {
+                if (dbHelper.getNoIncomes() >= 5) {
                     dbHelper.updateAchievement(a.getId(), 0);
                     DialogFragment df = new AchievementDialogFragment();
                     df.show(getActivity().getFragmentManager(), null);
@@ -127,15 +150,22 @@ public class MyAccount extends Fragment {
                 }
             }
         }
-        level.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                DialogFragment df = new AchievementDialogFragment();
-                df.show(getActivity().getFragmentManager(), null);
-            }
-        });
+//        level.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                DialogFragment df = new AchievementDialogFragment();
+//                df.show(getActivity().getFragmentManager(), null);
+//            }
+//        });
+
+        xpFull = 100;
+        if (dbHelper.getNoAchUnlockedPts() > xpFull){
+            while(dbHelper.getNoAchUnlockedPts() >= xpFull)
+            {   xpFull += 100;}
+            //dbHelper.updateLevel(dbHelper.getUser().getLevel()+1);
+        }
         level.setText("Level " + String.valueOf(dbHelper.getUser().getLevel()));
-        accountProgress.setText(String.valueOf(dbHelper.getNoAchUnlockedPts()) + "/100");
+        accountProgress.setText(dbHelper.getNoAchUnlockedPts() + "/" + xpFull);
         return v;
     }
 
@@ -179,8 +209,13 @@ public class MyAccount extends Fragment {
         achievementsUnlocked.setText(ach);
         incomeItems.setText(String.valueOf(dbHelper.getNoIncomes()));
         expenseItems.setText(String.valueOf(dbHelper.getNoExpenses()));
+        if (dbHelper.getNoAchUnlockedPts() > xpFull){
+            while(dbHelper.getNoAchUnlockedPts() >= xpFull)
+            {   xpFull += 100;}
+            //dbHelper.updateLevel(dbHelper.getUser().getLevel()+1);
+        }
         level.setText("Level " + String.valueOf(dbHelper.getUser().getLevel()));
-        accountProgress.setText(String.valueOf(dbHelper.getNoAchUnlockedPts() + "/100"));
+        accountProgress.setText(dbHelper.getNoAchUnlockedPts() + "/" + xpFull);
     }
 
     public String getTotalSaving() {
