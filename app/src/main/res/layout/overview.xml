@@ -11,13 +11,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <RelativeLayout
-            android:padding="10dp"
+            android:padding="14dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <ImageView
                 android:id="@+id/overview_left_month"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
                 android:layout_alignParentLeft="true"
                 android:src="@drawable/left"/>
             <TextView
@@ -30,8 +30,8 @@
                 android:textColor="#000000"/>
             <ImageView
                 android:id="@+id/overview_right_month"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
                 android:layout_alignParentRight="true"
                 android:src="@drawable/right"/>
         </RelativeLayout>

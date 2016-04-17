@@ -12,8 +12,8 @@
         android:layout_marginTop="200dp">
     <ImageView
         android:id="@+id/loot_icon"
-        android:layout_width="76dp"
-        android:layout_height="76dp"
+        android:layout_width="82dp"
+        android:layout_height="82dp"
         android:layout_centerVertical="true"
         android:src="@drawable/loot_icon"/>
     <TextView
@@ -24,7 +24,7 @@
         android:layout_centerVertical="true"
         android:layout_toRightOf="@id/loot_icon"
         android:textColor="@color/colorDefault"
-        android:textSize="76dp"
+        android:textSize="72dp"
         android:text="Loot" />
     </RelativeLayout>
     <TextView

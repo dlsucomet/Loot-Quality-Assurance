@@ -61,11 +61,11 @@ public class Overview extends Fragment{
         labels.add("Bills");
         labels.add("Debt");
         labels.add("Others");
-        colors[0] = Color.parseColor("#2196F3");
-        colors[1] = Color.parseColor("#FF8F00");
-        colors[2] = Color.parseColor("#FF1744");
-        colors[3] = Color.parseColor("#3F51B5");
-        colors[4] = Color.parseColor("#388E3C");
+        colors[0] = Color.parseColor("#FFA000");
+        colors[1] = Color.parseColor("#00897B");
+        colors[2] = Color.parseColor("#E53935");
+        colors[3] = Color.parseColor("#5C6BC0");
+        colors[4] = Color.parseColor("#66BB6A");
         colors[5] = Color.parseColor("#1976D2");
         ArrayList<Entry> dataList = getData(CurrentMandY[0],CurrentMandY[1]);
         pieDataSet = new PieDataSet(dataList, "");
