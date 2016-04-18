@@ -16,7 +16,7 @@ public class MyAccountActivity extends AppCompatActivity{
     private ViewPager viewPager;
     private ViewAccountPagerAdapter pagerAdapter;
     private SlidingTabLayout tabSlider;
-    private CharSequence tabList[] = {"Statistics", "Achievements"};
+    private CharSequence tabList[] = {"My Account", "Achievements"};
     public static final int TAB_NUMBERS = 2;
     @Override
     protected void onCreate(Bundle savedInstanceState){
