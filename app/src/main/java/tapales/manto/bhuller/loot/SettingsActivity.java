@@ -55,6 +55,11 @@ public class SettingsActivity extends AppCompatActivity {
                         .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 dbHelper.deleteAllData();
+                                DialogFragment df = new SettingsDialogFragment();
+                                df.show(getFragmentManager(), null);
+                                Bundle bundle = new Bundle();
+                                bundle.putString("title", "Data");
+                                df.setArguments(bundle);
                             }
                         })
                         .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {

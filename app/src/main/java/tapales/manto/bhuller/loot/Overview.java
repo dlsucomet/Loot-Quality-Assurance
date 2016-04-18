@@ -308,6 +308,7 @@ public class Overview extends Fragment{
             sumO += val;
         }
         cursorOthers.close();
+
             dataList.add(new Entry(sumF, 0));
             dataList.add(new Entry(sumL, 1));
             dataList.add(new Entry(sumT, 2));

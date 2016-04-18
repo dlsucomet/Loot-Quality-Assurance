@@ -19,7 +19,9 @@ public class SettingsDialogFragment extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState){
         v = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_success_setting, null);
         title = (TextView) v.findViewById(R.id.dialog_setting_title);
-        title.setText(getArguments().getString("title"));
+        if(getArguments().getString("title").equalsIgnoreCase("Data"))
+            title.setText(getArguments().getString("title") + " successfully removed!");
+        else title.setText(getArguments().getString("title") + " successfully changed!");
         btnOk = (Button) v.findViewById(R.id.btn_Ok);
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity())
                 .setView(v);

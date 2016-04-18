@@ -54,7 +54,7 @@ public class PasscodeDialogFragment extends DialogFragment {
             DialogFragment df = new SettingsDialogFragment();
             df.show(getActivity().getFragmentManager(), null);
             Bundle bundle = new Bundle();
-            bundle.putString("title", "Password");
+            bundle.putString("title", "Passcode");
             df.setArguments(bundle);
             return true;
         }

@@ -155,6 +155,9 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper{
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(Expense.TABLE_NAME, null, null);
         db.delete(Income.TABLE_NAME, null, null);
+        updateLevel(1);
+        updateXP(0);
+        lockAllAchievements();
         //achievement to be fixed
     }
 
@@ -164,7 +167,7 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper{
         contentValues.put(User.COL_NAME, u.getName());
         contentValues.put(User.COL_PINCODE, u.getPincode());
         contentValues.put(User.COL_LEVEL, u.getLevel());
-        contentValues.put(User.COL_XP,u.getXp());
+        contentValues.put(User.COL_XP, u.getXp());
         long id = db.insert(User.TABLE_NAME, null, contentValues);
         insertAllAchievements();
         db.close();
@@ -568,5 +571,14 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper{
                 new String[]{String.valueOf(1)},
                 null, null, null);
         return cursor;
+    }
+    public int lockAllAchievements()
+    {
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(Achievement.COL_LOCKED, 1);
+        return  getWritableDatabase().update(Achievement.TABLE_NAME,
+                contentValues,
+                null,
+                null);
     }
 }

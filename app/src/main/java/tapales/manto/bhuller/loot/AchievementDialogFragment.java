@@ -30,12 +30,14 @@ public class AchievementDialogFragment extends DialogFragment {
     ArrayList<BarEntry> experience = new ArrayList<>();
     TextView achievementName;
     TextView pointsAdded;
+    Button btnOk;
     public Dialog onCreateDialog(Bundle savedInstanceState){
         v = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_unlocked, null);
         achievementName = (TextView) v.findViewById(R.id.dialog_unlocked_title);
         pointsAdded = (TextView) v.findViewById(R.id.dialog_plus_points);
         achievementName.setText(getArguments().getString("name") + " unlocked");
         pointsAdded.setText("+" + getArguments().getInt("points"));
+        btnOk = (Button) v.findViewById(R.id.btn_Ok);
         barChart = (HorizontalBarChart) v.findViewById(R.id.dialog_experience_bar);
         experience.add(new BarEntry(70f, 0));
         dataset = new BarDataSet(experience, "");
@@ -58,6 +60,12 @@ public class AchievementDialogFragment extends DialogFragment {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity())
                 .setView(v);
         Dialog d = dialogBuilder.create();
+        btnOk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dismiss();
+            }
+        });
         return d;
     }
 }

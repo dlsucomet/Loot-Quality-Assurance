@@ -158,14 +158,26 @@ public class MyAccount extends Fragment {
 //            }
 //        });
 
-        xpFull = 100;
-        if (dbHelper.getNoAchUnlockedPts() > xpFull){
-            while(dbHelper.getNoAchUnlockedPts() >= xpFull)
-            {   xpFull += 100;}
-            //dbHelper.updateLevel(dbHelper.getUser().getLevel()+1);
+//        xpFull = 100;
+        int currLevel = dbHelper.getUser().getLevel();
+        while(dbHelper.getNoAchUnlockedPts() > currLevel*100)
+        {
+            dbHelper.updateLevel(dbHelper.getUser().getLevel()+1);
+            currLevel = dbHelper.getUser().getLevel();
+            DialogFragment df = new LevelUpDialogFragment();
+            df.show(getActivity().getFragmentManager(), null);
+            Bundle bundle = new Bundle();
+            bundle.putString("level", String.valueOf(currLevel));
+            df.setArguments(bundle);
         }
+
+//        if (dbHelper.getNoAchUnlockedPts() > xpFull){
+//            while(dbHelper.getNoAchUnlockedPts() >= xpFull)
+//            {   xpFull += 100;}
+//            //dbHelper.updateLevel(dbHelper.getUser().getLevel()+1);
+//        }
         level.setText("Level " + String.valueOf(dbHelper.getUser().getLevel()));
-        accountProgress.setText(dbHelper.getNoAchUnlockedPts() + "/" + xpFull);
+        accountProgress.setText(dbHelper.getNoAchUnlockedPts() + "/" + currLevel*100);
         return v;
     }
 
@@ -209,13 +221,26 @@ public class MyAccount extends Fragment {
         achievementsUnlocked.setText(ach);
         incomeItems.setText(String.valueOf(dbHelper.getNoIncomes()));
         expenseItems.setText(String.valueOf(dbHelper.getNoExpenses()));
-        if (dbHelper.getNoAchUnlockedPts() > xpFull){
-            while(dbHelper.getNoAchUnlockedPts() >= xpFull)
-            {   xpFull += 100;}
-            //dbHelper.updateLevel(dbHelper.getUser().getLevel()+1);
+
+        int currLevel = dbHelper.getUser().getLevel();
+        while(dbHelper.getNoAchUnlockedPts() > currLevel*100)
+        {
+            dbHelper.updateLevel(dbHelper.getUser().getLevel() + 1);
+            currLevel = dbHelper.getUser().getLevel();
+            DialogFragment df = new LevelUpDialogFragment();
+            df.show(getActivity().getFragmentManager(), null);
+            Bundle bundle = new Bundle();
+            bundle.putString("level", String.valueOf(currLevel));
+            df.setArguments(bundle);
         }
+
+//        if (dbHelper.getNoAchUnlockedPts() > xpFull){
+//            while(dbHelper.getNoAchUnlockedPts() >= xpFull)
+//            {   xpFull += 100;}
+//            //dbHelper.updateLevel(dbHelper.getUser().getLevel()+1);
+//        }
         level.setText("Level " + String.valueOf(dbHelper.getUser().getLevel()));
-        accountProgress.setText(dbHelper.getNoAchUnlockedPts() + "/" + xpFull);
+        accountProgress.setText(dbHelper.getNoAchUnlockedPts() + "/" + currLevel*100);
     }
 
     public String getTotalSaving() {
