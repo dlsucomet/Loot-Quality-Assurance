@@ -12,9 +12,7 @@ public class AboutDialogFragment extends DialogFragment{
     public Dialog onCreateDialog(Bundle savedInstanceState){
         v = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_about, null);
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity())
-                .setView(v)
-                .setTitle("About")
-                .setIcon(R.drawable.about);
+                .setView(v);
         Dialog d = dialogBuilder.create();
         return d;
     }

@@ -23,9 +23,8 @@ public class MyAccountActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_account);
         toolbar = (Toolbar) findViewById(R.id.tool_bar);
-        toolbar.setTitle(" Account");
+        toolbar.setTitle("Account");
         setSupportActionBar(toolbar);
-        toolbar.setLogo(R.drawable.loot_icon_small);
         pagerAdapter =  new ViewAccountPagerAdapter(getSupportFragmentManager(), tabList, TAB_NUMBERS);
         viewPager = (ViewPager) findViewById(R.id.pager);
         viewPager.setAdapter(pagerAdapter);

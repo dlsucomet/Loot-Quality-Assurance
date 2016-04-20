@@ -62,8 +62,8 @@
                 android:padding="12dp">
                 <ImageView
                     android:id="@+id/overview_income_photo"
-                    android:layout_width="26dp"
-                    android:layout_height="26dp"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
                     android:layout_alignParentLeft="true"
                     android:layout_centerVertical="true"
                     android:src="@drawable/view_income"/>
@@ -100,8 +100,8 @@
                 android:padding="12dp">
                 <ImageView
                     android:id="@+id/overview_expense_photo"
-                    android:layout_width="26dp"
-                    android:layout_height="26dp"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
                     android:layout_alignParentLeft="true"
                     android:layout_centerVertical="true"
                     android:src="@drawable/view_expense"/>
@@ -138,8 +138,8 @@
                 android:padding="12dp">
                 <ImageView
                     android:id="@+id/overview_savings_photo"
-                    android:layout_width="26dp"
-                    android:layout_height="26dp"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
                     android:layout_alignParentLeft="true"
                     android:layout_centerVertical="true"
                     android:src="@drawable/monthly_savings"/>
@@ -176,8 +176,8 @@
                 android:padding="12dp">
                 <ImageView
                     android:id="@+id/overview_total_photo"
-                    android:layout_width="26dp"
-                    android:layout_height="26dp"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
                     android:layout_alignParentLeft="true"
                     android:layout_centerVertical="true"
                     android:src="@drawable/total_savings"/>
