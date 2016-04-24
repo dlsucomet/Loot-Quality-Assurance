@@ -84,12 +84,12 @@ public class Overview extends Fragment{
         monthlyIncome.setText(getMonthlyIncome(CurrentMandY[0],CurrentMandY[1]));
         monthlyExpenses.setText(getMonthlyExpense(CurrentMandY[0], CurrentMandY[1]));
         monthlySavings.setText(getMonthlySaving(CurrentMandY[0], CurrentMandY[1]));
-        int monthly = Integer.parseInt(getMonthlySaving(CurrentMandY[0], CurrentMandY[1]));
+        double monthly = Double.parseDouble(getMonthlySaving(CurrentMandY[0], CurrentMandY[1]));
         if(monthly < 0)
             monthlySavings.setTextColor(getResources().getColor(R.color.colorRed));
         else monthlySavings.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
         totalSavings.setText(getTotalSaving());
-        int total = Integer.parseInt(getTotalSaving());
+        double total = Double.parseDouble(getTotalSaving());
         if(total < 0)
             totalSavings.setTextColor(getResources().getColor(R.color.colorRed));
         else totalSavings.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
@@ -105,12 +105,12 @@ public class Overview extends Fragment{
                 monthlyIncome.setText(getMonthlyIncome(BackMandY[0],BackMandY[1]));
                 monthlyExpenses.setText(getMonthlyExpense(BackMandY[0], BackMandY[1]));
                 monthlySavings.setText(getMonthlySaving(BackMandY[0], BackMandY[1]));
-                int monthly = Integer.parseInt(getMonthlySaving(BackMandY[0], BackMandY[1]));
+                double monthly = Double.parseDouble(getMonthlySaving(BackMandY[0], BackMandY[1]));
                 if(monthly < 0)
                     monthlySavings.setTextColor(getResources().getColor(R.color.colorRed));
                 else monthlySavings.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
                 totalSavings.setText(getTotalSaving());
-                int total = Integer.parseInt(getTotalSaving());
+                double total = Double.parseDouble(getTotalSaving());
                 if(total < 0)
                     totalSavings.setTextColor(getResources().getColor(R.color.colorRed));
                 else totalSavings.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
@@ -138,12 +138,12 @@ public class Overview extends Fragment{
                 monthlyIncome.setText(getMonthlyIncome(NextMandY[0],NextMandY[1]));
                 monthlyExpenses.setText(getMonthlyExpense(NextMandY[0], NextMandY[1]));
                 monthlySavings.setText(getMonthlySaving(NextMandY[0], NextMandY[1]));
-                int monthly = Integer.parseInt(getMonthlySaving(NextMandY[0], NextMandY[1]));
+                double monthly = Double.parseDouble(getMonthlySaving(NextMandY[0], NextMandY[1]));
                 if(monthly < 0)
                     monthlySavings.setTextColor(getResources().getColor(R.color.colorRed));
                 else monthlySavings.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
                 totalSavings.setText(getTotalSaving());
-                int total = Integer.parseInt(getTotalSaving());
+                double total = Double.parseDouble(getTotalSaving());
                 if(total < 0)
                     totalSavings.setTextColor(getResources().getColor(R.color.colorRed));
                 else totalSavings.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
@@ -163,11 +163,11 @@ public class Overview extends Fragment{
     }
     public String getMonthlyIncome(String month, String year){
         String mI="";
-        int sum=0;
+        double sum=0;
         Cursor cursor = dbHelper.getAllIncomeByMonth(month,year);
         while(cursor.moveToNext()){
                 String income = cursor.getString(cursor.getColumnIndex(Income.COL_INCOME_AMOUNT));
-                int i = Integer.parseInt(income);
+                double i = Double.parseDouble(income);
                 sum += i;
         }
         cursor.close();
@@ -176,11 +176,11 @@ public class Overview extends Fragment{
     }
     public String getMonthlyExpense(String month, String year){
         String mE="";
-        int sum=0;
+        double sum=0;
         Cursor cursor = dbHelper.getAllExpensesByMonth(month, year);
         while(cursor.moveToNext()){
             String expense = cursor.getString(cursor.getColumnIndex(Expense.COL_SPENT_AMOUNT));
-            int i = Integer.parseInt(expense);
+            double i = Double.parseDouble(expense);
             sum += i;
         }
         cursor.close();
@@ -189,26 +189,26 @@ public class Overview extends Fragment{
     }
     public String getMonthlySaving(String month, String year){
         String mS="";
-        int saving = Integer.parseInt(getMonthlyIncome(month,year)) - Integer.parseInt(getMonthlyExpense(month,year));
+        double saving = Double.parseDouble(getMonthlyIncome(month,year)) - Double.parseDouble(getMonthlyExpense(month,year));
         mS = String.valueOf(saving);
         return mS;
     }
     public String getTotalSaving(){
         String totalS="";
-        int totalI, totalE, totalSav;
-        int sumE=0;
-        int sumI=0;
+        double totalI, totalE, totalSav;
+        double sumE=0;
+        double sumI=0;
         Cursor cursorE = dbHelper.getAllExpenses();
         Cursor cursorI = dbHelper.getAllIncome();
         while(cursorE.moveToNext()){
             String expense = cursorE.getString(cursorE.getColumnIndex(Expense.COL_SPENT_AMOUNT));
-            int e = Integer.parseInt(expense);
+            double e = Double.parseDouble(expense);
             sumE += e;
         }
         cursorE.close();
         while(cursorI.moveToNext()){
             String income = cursorI.getString(cursorI.getColumnIndex(Income.COL_INCOME_AMOUNT));
-            int i = Integer.parseInt(income);
+            double i = Double.parseDouble(income);
             sumI += i;
         }
         cursorI.close();
@@ -324,12 +324,12 @@ public class Overview extends Fragment{
         monthlyIncome.setText(getMonthlyIncome(MandY[0],MandY[1]));
         monthlyExpenses.setText(getMonthlyExpense(MandY[0], MandY[1]));
         monthlySavings.setText(getMonthlySaving(MandY[0], MandY[1]));
-        int monthly = Integer.parseInt(getMonthlySaving(MandY[0], MandY[1]));
+        double monthly = Double.parseDouble(getMonthlySaving(MandY[0], MandY[1]));
         if(monthly < 0)
             monthlySavings.setTextColor(getResources().getColor(R.color.colorRed));
         else monthlySavings.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
         totalSavings.setText(getTotalSaving());
-        int total = Integer.parseInt(getTotalSaving());
+        double total = Double.parseDouble(getTotalSaving());
         if(total < 0)
             totalSavings.setTextColor(getResources().getColor(R.color.colorRed));
         else totalSavings.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
