@@ -33,5 +33,5 @@
         android:background="@null"
         android:textColor="@color/colorAccent"
         android:textSize="14dp"
-        android:id="@+id/btn_Ok" />
+        android:id="@+id/btn_Ok"/>
 </LinearLayout>

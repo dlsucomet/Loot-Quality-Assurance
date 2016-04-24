@@ -44,7 +44,7 @@ public class AchievementCursorAdapter extends CursorRecyclerViewAdapter3<Achieve
                 } else {
                     SnackbarManager.show(
                             Snackbar.with(v.getContext())
-                                    .text(viewHolder.achievementTitle.getText().toString() + " is Locked")
+                                    .text(viewHolder.achievementTitle.getText().toString() + " Locked")
                                     .duration(1000));                }
             }
         });
