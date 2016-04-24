@@ -16,6 +16,7 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import java.text.DateFormatSymbols;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -31,6 +32,7 @@ public class Overview extends Fragment{
     private int mYear, mMonth;
     private ArrayList<String> labels = new ArrayList<String>();
     private int[] colors = new int[6];
+    private DecimalFormat format = new DecimalFormat("0.#");
     private static final String[] months = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState){
         View v = inflater.inflate(R.layout.overview, container, false);
@@ -171,7 +173,7 @@ public class Overview extends Fragment{
                 sum += i;
         }
         cursor.close();
-        mI = String.valueOf(sum);
+        mI = String.valueOf(format.format(sum));
         return mI;
     }
     public String getMonthlyExpense(String month, String year){
@@ -184,13 +186,13 @@ public class Overview extends Fragment{
             sum += i;
         }
         cursor.close();
-        mE = String.valueOf(sum);
+        mE = String.valueOf(format.format(sum));
         return mE;
     }
     public String getMonthlySaving(String month, String year){
         String mS="";
         double saving = Double.parseDouble(getMonthlyIncome(month,year)) - Double.parseDouble(getMonthlyExpense(month,year));
-        mS = String.valueOf(saving);
+        mS = String.valueOf(format.format(saving));
         return mS;
     }
     public String getTotalSaving(){
@@ -213,7 +215,7 @@ public class Overview extends Fragment{
         }
         cursorI.close();
         totalSav = sumI - sumE;
-        totalS = String.valueOf(totalSav);
+        totalS = String.valueOf(format.format(totalSav));
         return totalS;
     }
     public String prevMonth(String month, int year){
