@@ -310,13 +310,44 @@ public class Overview extends Fragment{
             sumO += val;
         }
         cursorOthers.close();
+            //ctr =0;
+            //if sumf is not zero
+            // data list,add(sumF,ctr));
+            int index = 0;
+            if (sumF > 0) {
+                dataList.add(new Entry(sumF, index));
+                index++;
+            }
+            if (sumL > 0) {
+                dataList.add(new Entry(sumL, index));
+                index++;
+            }
+            if (sumT > 0) {
+                dataList.add(new Entry(sumT, index));
+                index++;
 
-            dataList.add(new Entry(sumF, 0));
+            }
+            if (sumB > 0) {
+                dataList.add(new Entry(sumB, index));
+                index++;
+
+            }
+            if (sumD > 0) {
+                dataList.add(new Entry(sumD, index));
+                index++;
+
+            }
+            if (sumO > 0) {
+                dataList.add(new Entry(sumO, index));
+                index++;
+
+            }
+            /*dataList.add(new Entry(sumF, 0));
             dataList.add(new Entry(sumL, 1));
             dataList.add(new Entry(sumT, 2));
             dataList.add(new Entry(sumB, 3));
             dataList.add(new Entry(sumD, 4));
-            dataList.add(new Entry(sumO, 5));
+            dataList.add(new Entry(sumO, 5));*/
         return dataList;
     }
     public void onResume(){
