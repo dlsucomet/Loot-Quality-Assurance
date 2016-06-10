@@ -96,6 +96,11 @@ public class AddIncomeFragment extends Fragment{
             inputLayoutValue.setError("Enter a Value");
             return false;
         }
+        else if (Integer.parseInt(inputValue.getText().toString().trim()) <= 0) {
+            inputLayoutValue.setError("Enter a Value Greater Than 0");
+            return false;
+        }
+
         return true;
     }
 }
