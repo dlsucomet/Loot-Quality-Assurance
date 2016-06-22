@@ -305,9 +305,7 @@ public class Overview extends Fragment{
         result = month + " " + year;
         return result;
     }
-    private ArrayList<Entry> getData(String month, String
-
-                                     ){
+    private ArrayList<Entry> getData(String month, String year){
         ArrayList<Entry> dataList = new ArrayList<Entry>();
         float sumF = 0;
         float sumL = 0;
