@@ -1,5 +1,6 @@
 package tapales.manto.bhuller.loot;
 
+import android.app.DatePickerDialog;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -8,8 +9,12 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.TextView;
+import java.text.DateFormatSymbols;
+import android.widget.Toast;
+
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.Entry;
@@ -29,7 +34,7 @@ public class Overview extends Fragment{
     private PieChart pieChart;
     private PieDataSet pieDataSet;
     private PieData dataSet;
-    private int mYear, mMonth;
+    private int mYear, mMonth, mDay;
     private ArrayList<String> labels = new ArrayList<String>();
     private int[] colors = new int[6];
     private DecimalFormat format = new DecimalFormat("0.#");
@@ -39,6 +44,7 @@ public class Overview extends Fragment{
         final Calendar c = Calendar.getInstance();
         mYear = c.get(Calendar.YEAR);
         mMonth = c.get(Calendar.MONTH);
+        mDay = c.get(Calendar.DAY_OF_MONTH);
         dbHelper = new DatabaseOpenHelper(v.getContext());
         pieChart = (PieChart) v.findViewById(R.id.pie_chart);
         pieChart.setDrawHoleEnabled(true);
@@ -48,7 +54,7 @@ public class Overview extends Fragment{
         pieChart.setDrawSliceText(!pieChart.isDrawSliceTextEnabled());
         pieChart.setHighlightPerTapEnabled(false);
         monthList = new ArrayList<String>();
-        String[] months = new DateFormatSymbols().getMonths();
+        final String[] months = new DateFormatSymbols().getMonths();
         for(int i = 0; i < months.length; i++){
             String month = months[i];
             monthList .add(months[i]);
@@ -161,8 +167,47 @@ public class Overview extends Fragment{
                 pieChart.invalidate();
             }
         });
+
+        monthText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDatePicker();
+            }
+        });
         return v;
     }
+
+    public String getMonth(int month) {
+        return new DateFormatSymbols().getMonths()[month-1];
+    }
+
+    DatePickerDialog.OnDateSetListener ondate = new DatePickerDialog.OnDateSetListener() {
+
+        public void onDateSet(DatePicker view, int year, int monthOfYear,
+                              int dayOfMonth) {
+
+            monthText.setText(getMonth(monthOfYear + 1) + " " + year);
+        }
+    };
+
+    private void showDatePicker() {
+        DatePickerFragment date2 = new DatePickerFragment();
+        /**
+         * Set Up Current Date Into dialog
+         */
+        Calendar calender = Calendar.getInstance();
+        Bundle args = new Bundle();
+        args.putInt("year", calender.get(Calendar.YEAR));
+        args.putInt("month", calender.get(Calendar.MONTH));
+        args.putInt("day", calender.get(Calendar.DAY_OF_MONTH));
+        date2.setArguments(args);
+        /**
+         * Set Call back to capture selected date
+         */
+        date2.setCallBack(ondate);
+        date2.show(getFragmentManager(), "Date Picker");
+    }
+
     public String getMonthlyIncome(String month, String year){
         String mI="";
         double sum=0;
@@ -260,7 +305,9 @@ public class Overview extends Fragment{
         result = month + " " + year;
         return result;
     }
-    private ArrayList<Entry> getData(String month, String year){
+    private ArrayList<Entry> getData(String month, String
+
+                                     ){
         ArrayList<Entry> dataList = new ArrayList<Entry>();
         float sumF = 0;
         float sumL = 0;
