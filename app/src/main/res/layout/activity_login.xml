@@ -46,7 +46,7 @@
             android:textColor="@color/colorDefault"
             android:inputType="numberPassword"
             android:maxLength="6"
-            android:hint="Passcode"
+            android:hint="Passcode (6 digits)"
             android:gravity="center"/>
     </android.support.design.widget.TextInputLayout>
     <Button
