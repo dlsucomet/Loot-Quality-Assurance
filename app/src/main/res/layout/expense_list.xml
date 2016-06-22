@@ -17,7 +17,7 @@
             <ImageView
                 android:id="@+id/expense_left_month"
                 android:layout_margin="4dp"
-                android:layout_width="20dp"
+                android:layout_width="40dp"
                 android:layout_height="20dp"
                 android:layout_alignParentLeft="true"
                 android:src="@drawable/left"/>
@@ -32,7 +32,7 @@
             <ImageView
                 android:id="@+id/expense_right_month"
                 android:layout_margin="4dp"
-                android:layout_width="20dp"
+                android:layout_width="40dp"
                 android:layout_height="20dp"
                 android:layout_alignParentRight="true"
                 android:src="@drawable/right"/>
