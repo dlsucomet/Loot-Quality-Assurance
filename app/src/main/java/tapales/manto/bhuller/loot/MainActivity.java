@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity{
         switch (item.getItemId()){
             case R.id.action_account:
                 startActivity(new Intent(getBaseContext(), MyAccountActivity.class));
-                finish();
+                //finish();
                 return true;
             case R.id.action_add:
                 Intent intent = new Intent(this, AddItemActivity.class);
@@ -65,9 +65,6 @@ public class MainActivity extends AppCompatActivity{
             case R.id.menu_about:
                 DialogFragment df = new AboutDialogFragment();
                 df.show(getFragmentManager(), "");
-                return true;
-            case R.id.menu_logout:
-                finish();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
