@@ -66,9 +66,6 @@ public class MainActivity extends AppCompatActivity{
                 DialogFragment df = new AboutDialogFragment();
                 df.show(getFragmentManager(), "");
                 return true;
-            case R.id.menu_logout:
-                finish();
-                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
