@@ -20,7 +20,6 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper{
         String sql = "CREATE TABLE " + User.TABLE_NAME  + " ("
                 + User.COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + User.COL_NAME + " TEXT, "
-                + User.COL_PINCODE + " INTEGER, "
                 + User.COL_LEVEL + " INTEGER, "
                 + User.COL_XP + " INTEGER);";
         db.execSQL(sql);
@@ -59,7 +58,7 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper{
         SQLiteDatabase db =  getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(User.COL_NAME, "User");
-        contentValues.put(User.COL_PINCODE, 1234);
+        //contentValues.put(User.COL_PINCODE, 1234);
         long id =  db.insert(User.TABLE_NAME, null, contentValues);
 
         //inserting dummy expenses
@@ -165,7 +164,7 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper{
         SQLiteDatabase db =  getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(User.COL_NAME, u.getName());
-        contentValues.put(User.COL_PINCODE, u.getPincode());
+        //contentValues.put(User.COL_PINCODE, u.getPincode());
         contentValues.put(User.COL_LEVEL, u.getLevel());
         contentValues.put(User.COL_XP, u.getXp());
         long id = db.insert(User.TABLE_NAME, null, contentValues);
@@ -181,7 +180,7 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper{
         if(cursor.moveToFirst()){
             u = new User();
             u.setName(cursor.getString(cursor.getColumnIndex(User.COL_NAME)));
-            u.setPincode(cursor.getInt(cursor.getColumnIndex(User.COL_PINCODE)));
+            //u.setPincode(cursor.getInt(cursor.getColumnIndex(User.COL_PINCODE)));
             u.setLevel(cursor.getInt(cursor.getColumnIndex(User.COL_LEVEL)));
             u.setXp(cursor.getInt(cursor.getColumnIndex(User.COL_XP)));
         }
@@ -196,14 +195,14 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper{
                 User.COL_ID + " = 1 ",
                 null);
     }
-    public int updatePasscode(int passcode){
+    /*public int updatePasscode(int passcode){
         ContentValues contentValues = new ContentValues();
         contentValues.put(User.COL_PINCODE, passcode);
         return  getWritableDatabase().update(User.TABLE_NAME,
                 contentValues,
                 User.COL_ID + " = 1 ",
                 null);
-    }
+    }*/
     public int updateXP(int xp){
         ContentValues contentValues = new ContentValues();
         contentValues.put(User.COL_XP, xp);

@@ -11,7 +11,7 @@ import android.view.View;
 
 public class SettingsActivity extends AppCompatActivity {
     private Toolbar toolbar;
-    private CardView changeUser, changePasscode, deleteAllData;
+    private CardView changeUser, deleteAllData;
     private DatabaseOpenHelper dbHelper;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,14 +33,6 @@ public class SettingsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 DialogFragment df = new UserDialogFragment();
-                df.show(getFragmentManager(), "");
-            }
-        });
-        changePasscode = (CardView) findViewById(R.id.settings_passcode_card);
-        changePasscode.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                DialogFragment df = new PasscodeDialogFragment();
                 df.show(getFragmentManager(), "");
             }
         });
@@ -74,14 +66,7 @@ public class SettingsActivity extends AppCompatActivity {
     public void onYesSelectedU(String username){
         dbHelper.updateUsername(username);
     }
-    public void onYesSelectedP(int passcode){
-        dbHelper.updatePasscode(passcode);
-    }
-    public String getOldPasscode(){
-        int passcode = dbHelper.getUser().getPincode();
-        String p = String.valueOf(passcode);
-        return p;
-    }
+
     public String getOldUsername(){
         String u = dbHelper.getUser().getName();
         return u;

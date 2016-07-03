@@ -13,7 +13,8 @@ import android.widget.TextView;
 
 public class PasscodeActivity extends AppCompatActivity{
     private TextView noPasscode, tvwelcome;
-    private EditText passcode;
+    //private EditText passcode;
+    private EditText etName;
     private TextInputLayout inputLayoutPasscode;
     private Button submitButton;
     private DatabaseOpenHelper dbHelper;
@@ -22,26 +23,22 @@ public class PasscodeActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_passcode);
         dbHelper = new DatabaseOpenHelper(getBaseContext());
-        tvwelcome = (TextView) findViewById(R.id.welcome_user_passcode);
-        noPasscode = (TextView) findViewById(R.id.no_passcode_text);
-        if(dbHelper.getUser() == null){
-            tvwelcome.setText("Welcome to Loot.");
-            noPasscode.setText((Html.fromHtml("No Passcode Yet? Click <u>Here</u> to Get One!")));
-            noPasscode.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(getBaseContext(), LoginActivity.class);
-                    startActivity(intent);
-                    finish();
-                }
-            });
+        tvwelcome = (TextView) findViewById(R.id.welcome_user);
+        //noPasscode = (TextView) findViewById(R.id.no_passcode_text);
+        if(dbHelper.getUser() != null){
+           /*Intent intent = new Intent(getBaseContext(), MainActivity.class);
+            startActivity(intent);*/
+            startMainActivity();
+            finish();
         }
-        else{
+        /*else{
             tvwelcome.setText("Welcome " + dbHelper.getUser().getName() + ".");
             noPasscode.setText("");
-        }
-        passcode = (EditText) findViewById(R.id.enter_passcode);
-        passcode.getBackground().mutate().setColorFilter(getResources().getColor(R.color.colorDefault), PorterDuff.Mode.SRC_ATOP);
+        }*/
+        //passcode = (EditText) findViewById(R.id.enter_passcode);
+//        passcode.getBackground().mutate().setColorFilter(getResources().getColor(R.color.colorDefault), PorterDuff.Mode.SRC_ATOP);
+        etName = (EditText) findViewById(R.id.enter_name);
+        etName.getBackground().mutate().setColorFilter(getResources().getColor(R.color.colorDefault), PorterDuff.Mode.SRC_ATOP);
         inputLayoutPasscode = (TextInputLayout) findViewById(R.id.enter_layout_passcode);
         submitButton = (Button) findViewById(R.id.button_enter);
         submitButton.setOnClickListener(new View.OnClickListener() {
@@ -52,16 +49,38 @@ public class PasscodeActivity extends AppCompatActivity{
         });
     }
     private void submitForm(){
-        if(!validatePasscode()){
+        if(!validateName()){
             return;
         }
         else{
-            Intent intent = new Intent(getBaseContext(), MainActivity.class);
-            startActivity(intent);
+            /*Intent intent = new Intent(getBaseContext(), MainActivity.class);
+            startActivity(intent);*/
+            dbHelper.insertUser(new User(etName.getText().toString(),1,0));
+            startMainActivity();
             finish();
         }
     }
-    private boolean validatePasscode(){
+
+    private boolean validateName() {
+        if(etName.getText().toString().trim().isEmpty()){
+            inputLayoutPasscode.setError("Enter a Name");
+            return false;
+        }
+        else if(etName.getText().length() <= 1){
+            inputLayoutPasscode.setError("Please enter a longer name.");
+            return false;
+        }
+        return true;
+    }
+
+    private void startMainActivity() {
+        Intent i = new Intent(PasscodeActivity.this, MainActivity.class);
+        // set the new task and clear flags
+        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(i);
+    }
+
+    /*private boolean validatePasscode(){
         if(passcode.getText().toString().trim().isEmpty()){
             inputLayoutPasscode.setError("Enter a Passcode");
             return false;
@@ -81,5 +100,5 @@ public class PasscodeActivity extends AppCompatActivity{
             }
         }
         return true;
-    }
+    }*/
 }

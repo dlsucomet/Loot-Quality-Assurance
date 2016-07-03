@@ -47,7 +47,7 @@ public class MyAccountActivity extends AppCompatActivity{
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_expenses:
-                startActivity(new Intent(getBaseContext(), MainActivity.class));
+                //startActivity(new Intent(getBaseContext(), MainActivity.class));
                 finish();
                 return true;
             case R.id.action_add:
