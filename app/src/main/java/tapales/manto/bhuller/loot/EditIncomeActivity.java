@@ -86,11 +86,13 @@ public class EditIncomeActivity extends AppCompatActivity{
             }
         });
     }
+    /*
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_edit, menu);
         return true;
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -103,6 +105,7 @@ public class EditIncomeActivity extends AppCompatActivity{
                 return super.onOptionsItemSelected(item);
         }
     }
+    */
     private void submitForm() {
         if (!validateTitle()){
             return;

@@ -157,6 +157,7 @@ public class EditExpenseActivity extends AppCompatActivity{
             }
         });
     }
+    /*
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_edit, menu);
@@ -174,6 +175,7 @@ public class EditExpenseActivity extends AppCompatActivity{
                 return super.onOptionsItemSelected(item);
         }
     }
+    */
     private void submitForm() {
         if (!validateTitle()) {
             return;
