@@ -35,7 +35,7 @@ public class PopupEditExpenseActivity extends Activity{
         int width = dm.widthPixels;
         int height = dm.heightPixels;
 
-        getWindow().setLayout((int)(width*0.433), (int)(height*0.1));
+        getWindow().setLayout((int)(width*0.475), (int)(height*0.075));
 
         editButton = (Button) findViewById(R.id.button_edit);
         editButton.setOnClickListener(new View.OnClickListener(){
