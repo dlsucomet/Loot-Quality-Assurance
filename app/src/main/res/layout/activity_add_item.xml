@@ -58,20 +58,23 @@
            android:layout_height="wrap_content"
            android:id="@+id/rgItem"
            android:baselineAligned="false"
-           android:orientation="horizontal">
+           android:orientation="horizontal"
+           android:paddingTop="5dp">
 
            <RadioButton
                android:layout_width="wrap_content"
                android:layout_height="wrap_content"
                android:text="Income"
                android:id="@+id/rbIncome"
-               android:checked="false" />
+               android:checked="false"
+               android:paddingRight="20dp" />
 
            <RadioButton
                android:layout_width="wrap_content"
                android:layout_height="wrap_content"
                android:text="Expense"
-               android:id="@+id/rbExpense" />
+               android:id="@+id/rbExpense"
+               android:paddingRight="20dp" />
 
        </RadioGroup>
 
