@@ -41,6 +41,8 @@ public class AddItemActivity extends AppCompatActivity {
     private static final String[] months = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
     private String loc;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -86,14 +88,15 @@ public class AddItemActivity extends AppCompatActivity {
         dateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DatePickerDialog dpd = new DatePickerDialog(getBaseContext(),
+                /*DatePickerDialog dpd = new DatePickerDialog(getBaseContext(),
                         new DatePickerDialog.OnDateSetListener() {
                             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                                 dateText.setText("Date - " + months[monthOfYear] + " " + dayOfMonth + ", " + year);
                             }
                         }
                         , mYear, mMonth, mDay);
-                dpd.show();
+                dpd.show();*/
+                showDatePicker();
             }
         });
 
@@ -211,6 +214,33 @@ public class AddItemActivity extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    DatePickerDialog.OnDateSetListener ondate = new DatePickerDialog.OnDateSetListener() {
+
+        public void onDateSet(DatePicker view, int year, int monthOfYear,
+                              int dayOfMonth) {
+
+            dateText.setText("Date - " + months[monthOfYear] + " " + dayOfMonth + ", " + year);
+        }
+    };
+
+    private void showDatePicker() {
+        DatePickerFragment date2 = new DatePickerFragment();
+        /**
+         * Set Up Current Date Into dialog
+         */
+        Calendar calender = Calendar.getInstance();
+        Bundle args = new Bundle();
+        args.putInt("year", calender.get(Calendar.YEAR));
+        args.putInt("month", calender.get(Calendar.MONTH));
+        args.putInt("day", calender.get(Calendar.DAY_OF_MONTH));
+        date2.setArguments(args);
+        /**
+         * Set Call back to capture selected date
+         */
+        date2.setCallBack(ondate);
+        date2.show(getSupportFragmentManager(), "Date Picker");
     }
 
     private void submitForm(){
