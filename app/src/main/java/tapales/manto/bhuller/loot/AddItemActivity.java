@@ -290,7 +290,7 @@ public class AddItemActivity extends AppCompatActivity {
             inputLayoutValue.setError("Enter a Value");
             return false;
         }
-        else if (inputValue.getText().toString().trim().length() > 7 ) {
+        else if (inputValue.getText().toString().trim().length() > 9 ) {
             inputLayoutValue.setError("Input is too large!");
             return false;
         }
