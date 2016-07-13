@@ -54,7 +54,7 @@ public class AddItemActivity extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                submitForm();
+                onBackPressed();
             }
         });
         dbHelper = new DatabaseOpenHelper(getApplicationContext());
@@ -189,6 +189,8 @@ public class AddItemActivity extends AppCompatActivity {
         loc = getIntent().getStringExtra("caller");
         if(isIncome()){
             rbIncome.setChecked(true);
+            ((LinearLayout) findViewById(R.id.categoryButtons)).setVisibility(View.GONE);
+            ((LinearLayout) findViewById(R.id.categoryText)).setVisibility(View.GONE);
         }
         else {
             rbExpense.setChecked(true);

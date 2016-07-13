@@ -35,7 +35,8 @@ public class ExpenseAdapter extends RecyclerView.Adapter<ExpenseAdapter.ExpenseV
     }
     public void onBindViewHolder(ExpenseViewHolder holder, int position){
         holder.expenseTitle.setText(expenses.get(position).getExpName());
-        holder.expenseValue.setText(String.valueOf(expenses.get(position).getSpentAmount()));
+        holder.expenseValue.setText(String.format("%,d", expenses.get(position).getSpentAmount()));
+//        holder.expenseValue.setText(String.valueOf(expenses.get(position).getSpentAmount()));
         holder.expenseDate.setText(expenses.get(position).getDate());
         holder.expenseCategory.setImageResource(expenses.get(position).getCategoryInt());
     }
