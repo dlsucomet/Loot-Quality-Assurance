@@ -30,10 +30,11 @@ public class IncomeCursorAdapter extends CursorRecyclerViewAdapter2<IncomeCursor
             @Override
             public void onClick(View v) {
                // Toast.makeText(v.getContext(), "Hold to Edit/Delete Income", Toast.LENGTH_SHORT).show();
+                /*
                 Intent PopUpIntent = new Intent(v.getContext(), PopupEditActivity.class);
                 PopUpIntent.putExtra(Income.COL_ID, Integer.parseInt(v.getTag().toString()));
                 v.getContext().startActivity(PopUpIntent);
-
+                */
             }
         });
         viewHolder.container.setOnLongClickListener(new View.OnLongClickListener() {

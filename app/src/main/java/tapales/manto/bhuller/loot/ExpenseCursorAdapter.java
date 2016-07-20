@@ -33,9 +33,11 @@ public class ExpenseCursorAdapter extends CursorRecyclerViewAdapter<ExpenseCurso
             @Override
             public void onClick(View v) {
                 //Toast.makeText(v.getContext(), "Hold to Edit/Delete Expense", Toast.LENGTH_SHORT).show();
+                /*
                 Intent PopUpIntent = new Intent(v.getContext(), PopupEditExpenseActivity.class);
                 PopUpIntent.putExtra(Expense.COL_ID, Integer.parseInt(v.getTag().toString()));
                 v.getContext().startActivity(PopUpIntent);
+                */
             }
         });
         viewHolder.container.setTag(expenseID);
