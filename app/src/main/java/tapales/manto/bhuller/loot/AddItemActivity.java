@@ -11,6 +11,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
+import android.text.InputFilter;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -68,6 +69,7 @@ public class AddItemActivity extends AppCompatActivity {
         dateText.setText("Date - " + months[mMonth] + " " + mDay + ", " + mYear);
         inputTitle = (EditText) findViewById(R.id.input_expense_title);
         inputValue = (EditText) findViewById(R.id.input_expense_value);
+        inputValue.addTextChangedListener(new NumberTextWatcherForThousand(inputValue));
         inputLayoutTitle = (TextInputLayout) findViewById(R.id.input_layout_title);
         inputLayoutValue = (TextInputLayout) findViewById(R.id.input_layout_value);
         submitButton = (Button) findViewById(R.id.add_submit_button);
@@ -258,7 +260,7 @@ public class AddItemActivity extends AppCompatActivity {
         if (!isIncome()) {
             Expense expense = new Expense();
             expense.setExpName(inputTitle.getText().toString());
-            expense.setSpentAmount(Float.valueOf(inputValue.getText().toString()));
+            expense.setSpentAmount(Float.valueOf(NumberTextWatcherForThousand.trimCommaOfString(inputValue.getText().toString())));
             expense.setCategory(categoryItem.getText().toString());
             expense.setDate(dateText.getText().toString().replace("Date - ", ""));
             expense.setPaymentType(1);
@@ -270,7 +272,7 @@ public class AddItemActivity extends AppCompatActivity {
         else {
             Income income = new Income();
             income.setIncomeName(inputTitle.getText().toString());
-            income.setIncomeAmount(Float.valueOf(inputValue.getText().toString()));
+            income.setIncomeAmount(Float.valueOf(NumberTextWatcherForThousand.trimCommaOfString(inputValue.getText().toString())));
             income.setTimeInterval(dateText.getText().toString().replace("Date - ", ""));
             dbHelper.insertIncome(income);
             setResult(Activity.RESULT_OK, new Intent(getApplicationContext(), MainActivity.class));
@@ -288,15 +290,18 @@ public class AddItemActivity extends AppCompatActivity {
         return true;
     }
     private boolean validatePrice(){
-        if (inputValue.getText().toString().trim().isEmpty()){
+        String s = NumberTextWatcherForThousand.trimCommaOfString(inputValue.getText().toString()).trim();
+        float f = Float.parseFloat(s);
+
+        if (NumberTextWatcherForThousand.trimCommaOfString(inputValue.getText().toString()).trim().isEmpty()){
             inputLayoutValue.setError("Enter a Value");
             return false;
         }
-        else if (inputValue.getText().toString().trim().length() > 9 ) {
+        else if (NumberTextWatcherForThousand.trimCommaOfString(inputValue.getText().toString()).trim().length() > 9 ) {
             inputLayoutValue.setError("Input is too large!");
             return false;
         }
-        else if (Integer.parseInt(inputValue.getText().toString().trim()) <= 0) {
+        else if (f <= 0) {
             inputLayoutValue.setError("Enter a Value Greater Than 0");
             return false;
         }

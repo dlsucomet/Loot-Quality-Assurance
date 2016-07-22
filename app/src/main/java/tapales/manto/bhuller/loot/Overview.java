@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import java.text.DateFormatSymbols;
@@ -27,6 +28,7 @@ import java.util.Calendar;
 
 public class Overview extends Fragment{
     private TextView monthText, totalSavings, monthlySavings, monthlyIncome, monthlyExpenses;
+
     private ImageView backMonth, forwardMonth;
     private DatabaseOpenHelper dbHelper;
     private ArrayList<String> monthList;
