@@ -38,6 +38,9 @@ public class ExpenseCursorAdapter extends CursorRecyclerViewAdapter<ExpenseCurso
                 PopUpIntent.putExtra(Expense.COL_ID, Integer.parseInt(v.getTag().toString()));
                 v.getContext().startActivity(PopUpIntent);
                 */
+                Intent viewEditExpenseIntent = new Intent(v.getContext(), EditExpenseActivity.class);
+                viewEditExpenseIntent.putExtra(Expense.COL_ID, Integer.parseInt(v.getTag().toString()));
+                v.getContext().startActivity(viewEditExpenseIntent);
             }
         });
         viewHolder.container.setTag(expenseID);

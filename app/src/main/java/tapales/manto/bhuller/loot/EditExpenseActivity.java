@@ -26,7 +26,7 @@ public class EditExpenseActivity extends AppCompatActivity{
     private DatabaseOpenHelper dbHelper;
     private int mYear, mMonth, mDay;
     private TextView categoryItem, dateText;
-    private Button dateButton, submitButton, cancelButton;
+    private Button dateButton;
     private EditText editTitle, editValue;
     private TextInputLayout editLayoutTitle, editLayoutValue;
     private ImageView foodButton, leisureButton, transportButton, billButton, debtButton, othersButton;
@@ -61,21 +61,7 @@ public class EditExpenseActivity extends AppCompatActivity{
         editValue.setText(String.valueOf(currentExpense.getSpentAmount()));
         editLayoutTitle = (TextInputLayout) findViewById(R.id.edit_layout_title);
         editLayoutValue = (TextInputLayout) findViewById(R.id.edit_layout_value);
-        submitButton = (Button) findViewById(R.id.edit_submit_button);
-        submitButton.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                submitForm();
-            }
-        });
-        cancelButton = (Button) findViewById(R.id.edit_cancel_button);
-        cancelButton.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v){
-                setResult(RESULT_CANCELED);
-                finish();
-            }
-        });
+
         dateButton = (Button) findViewById(R.id.edit_date_button);
         dateButton.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -157,7 +143,7 @@ public class EditExpenseActivity extends AppCompatActivity{
             }
         });
     }
-    /*
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_edit, menu);
@@ -166,16 +152,20 @@ public class EditExpenseActivity extends AppCompatActivity{
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
+
             case R.id.menu_delete:
                 Toast.makeText(getApplicationContext(), "Expense Deleted", Toast.LENGTH_LONG).show();
                 dbHelper.deleteExpense(currentExpense.getId());
                 finish();
                 return true;
+            case R.id.menu_submit:
+                submitForm();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
-    */
+
     private void submitForm() {
         if (!validateTitle()) {
             return;
@@ -205,8 +195,19 @@ public class EditExpenseActivity extends AppCompatActivity{
         return true;
     }
     private boolean validatePrice(){
+        String s = editValue.getText().toString().trim();
+        float f = Float.parseFloat(s);
+
         if (editValue.getText().toString().trim().isEmpty()){
             editLayoutValue.setError("Enter a Value");
+            return false;
+        }
+        else if (editValue.getText().toString().trim().length() > 9 ) {
+            editLayoutValue.setError("Input is too large!");
+            return false;
+        }
+        else if (f <= 0) {
+            editLayoutValue.setError("Enter a Value Greater Than 0");
             return false;
         }
         return true;
@@ -219,4 +220,8 @@ public class EditExpenseActivity extends AppCompatActivity{
         }
         return true;
     }
+
+
 }
+
+

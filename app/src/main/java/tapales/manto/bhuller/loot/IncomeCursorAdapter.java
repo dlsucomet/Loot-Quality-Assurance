@@ -35,6 +35,9 @@ public class IncomeCursorAdapter extends CursorRecyclerViewAdapter2<IncomeCursor
                 PopUpIntent.putExtra(Income.COL_ID, Integer.parseInt(v.getTag().toString()));
                 v.getContext().startActivity(PopUpIntent);
                 */
+                Intent viewEditIncomeIntent = new Intent(v.getContext(), EditIncomeActivity.class);
+                viewEditIncomeIntent.putExtra(Income.COL_ID, Integer.parseInt(v.getTag().toString()));
+                v.getContext().startActivity(viewEditIncomeIntent);
             }
         });
         viewHolder.container.setOnLongClickListener(new View.OnLongClickListener() {

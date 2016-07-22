@@ -23,7 +23,7 @@ public class EditIncomeActivity extends AppCompatActivity{
     private DatabaseOpenHelper dbHelper;
     private int mYear, mMonth, mDay;
     private TextView dateText;
-    private Button dateButton, submitButton, cancelButton;
+    private Button dateButton;
     private ImageButton floatingActionBar;
     private EditText editTitle, editValue;
     private TextInputLayout editLayoutTitle, editLayoutValue;
@@ -56,21 +56,7 @@ public class EditIncomeActivity extends AppCompatActivity{
         editValue.setText(String.valueOf(currentIncome.getIncomeAmount()));
         editLayoutTitle = (TextInputLayout) findViewById(R.id.edit_income_layout_title);
         editLayoutValue = (TextInputLayout) findViewById(R.id.edit_income_layout_value);
-        submitButton = (Button) findViewById(R.id.edit_income_submit_button);
-        submitButton.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                submitForm();
-            }
-        });
-        cancelButton = (Button) findViewById(R.id.edit_income_cancel_button);
-        cancelButton.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v){
-                setResult(RESULT_CANCELED);
-                finish();
-            }
-        });
+
         dateButton = (Button) findViewById(R.id.edit_income_date_button);
         dateButton.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -86,7 +72,7 @@ public class EditIncomeActivity extends AppCompatActivity{
             }
         });
     }
-    /*
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_edit, menu);
@@ -101,11 +87,14 @@ public class EditIncomeActivity extends AppCompatActivity{
                 dbHelper.deleteIncome(currentIncome.getId());
                 finish();
                 return true;
+            case R.id.menu_submit:
+                submitForm();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
-    */
+
     private void submitForm() {
         if (!validateTitle()){
             return;
@@ -131,8 +120,19 @@ public class EditIncomeActivity extends AppCompatActivity{
         return true;
     }
     private boolean validatePrice(){
+        String s = editValue.getText().toString().trim();
+        float f = Float.parseFloat(s);
+
         if (editValue.getText().toString().trim().isEmpty()){
             editLayoutValue.setError("Enter a Value");
+            return false;
+        }
+        else if (editValue.getText().toString().trim().length() > 9 ) {
+            editLayoutValue.setError("Input is too large!");
+            return false;
+        }
+        else if (f <= 0) {
+            editLayoutValue.setError("Enter a Value Greater Than 0");
             return false;
         }
         return true;
