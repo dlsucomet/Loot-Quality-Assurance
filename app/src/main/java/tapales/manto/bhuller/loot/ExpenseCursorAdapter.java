@@ -12,6 +12,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.DecimalFormat;
+
 public class ExpenseCursorAdapter extends CursorRecyclerViewAdapter<ExpenseCursorAdapter.ExpenseViewHolder> {
     private Context context;
     public ExpenseCursorAdapter(Context context, Cursor cursor) {
@@ -25,8 +27,11 @@ public class ExpenseCursorAdapter extends CursorRecyclerViewAdapter<ExpenseCurso
         String category = cursor.getString(cursor.getColumnIndex(Expense.COL_CATEGORY));
         int expenseID = cursor.getInt(cursor.getColumnIndex(Expense.COL_ID));
         Expense e = new Expense(expenseID, title,Float.parseFloat(price), 1, category, date);
+        Double moneyForm = Double.parseDouble(price);
+        DecimalFormat formatter = new DecimalFormat("#,###.00");
+
         viewHolder.expenseTitle.setText(title);
-        viewHolder.expenseValue.setText(price);
+        viewHolder.expenseValue.setText(formatter.format(moneyForm));
         viewHolder.expenseDate.setText(date);
         viewHolder.expenseCategory.setImageResource(e.getCategoryInt());
         viewHolder.container.setOnClickListener(new View.OnClickListener() {
@@ -68,6 +73,7 @@ public class ExpenseCursorAdapter extends CursorRecyclerViewAdapter<ExpenseCurso
         CardView container;
         public ExpenseViewHolder(View itemView) {
             super(itemView);
+
             expenseTitle = (TextView) itemView.findViewById(R.id.expense_title);
             expenseValue = (TextView) itemView.findViewById(R.id.expense_price);
             expenseDate = (TextView) itemView.findViewById(R.id.expense_date);

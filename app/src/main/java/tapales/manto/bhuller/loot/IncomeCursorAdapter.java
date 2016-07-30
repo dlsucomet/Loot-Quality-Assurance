@@ -11,6 +11,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.DecimalFormat;
+
 public class IncomeCursorAdapter extends CursorRecyclerViewAdapter2<IncomeCursorAdapter.ExpenseViewHolder> {
     private Context context;
     public IncomeCursorAdapter(Context context, Cursor cursor){
@@ -21,8 +23,11 @@ public class IncomeCursorAdapter extends CursorRecyclerViewAdapter2<IncomeCursor
         String title = cursor.getString(cursor.getColumnIndex(Income.COL_NAME));
         String price = cursor.getString(cursor.getColumnIndex(Income.COL_INCOME_AMOUNT));
         String date = cursor.getString(cursor.getColumnIndex(Income.COL_TIME_INTERVAL));
+        Double moneyForm = Double.parseDouble(price);
+        DecimalFormat formatter = new DecimalFormat("#,###.00");
+
         viewHolder.incomeTitle.setText(title);
-        viewHolder.incomeValue.setText(price);
+        viewHolder.incomeValue.setText(formatter.format(moneyForm));
         viewHolder.incomeDate.setText(date);
         int incomeID = cursor.getInt(cursor.getColumnIndex(Income.COL_ID));
         viewHolder.container.setTag(incomeID);
