@@ -40,6 +40,7 @@ public class Overview extends Fragment{
     private ArrayList<String> labels = new ArrayList<String>();
     private int[] colors = new int[6];
     private DecimalFormat format = new DecimalFormat("0.#");
+    private DecimalFormat formatter = new DecimalFormat("#,###.00");
     private static final String[] months = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState){
         View v = inflater.inflate(R.layout.overview, container, false);
@@ -91,18 +92,22 @@ public class Overview extends Fragment{
         monthlySavings = (TextView) v.findViewById(R.id.overview_savings_price);
         monthlyIncome = (TextView) v.findViewById(R.id.overview_income_price);
         monthlyExpenses = (TextView) v.findViewById(R.id.overview_expense_price);
-        monthlyIncome.setText(getMonthlyIncome(CurrentMandY[0],CurrentMandY[1]));
-        monthlyExpenses.setText(getMonthlyExpense(CurrentMandY[0], CurrentMandY[1]));
-        monthlySavings.setText(getMonthlySaving(CurrentMandY[0], CurrentMandY[1]));
+        monthlyIncome.setText(formatter.format(Double.parseDouble(getMonthlyIncome(CurrentMandY[0],CurrentMandY[1]))));
+        monthlyExpenses.setText(formatter.format(Double.parseDouble(getMonthlyExpense(CurrentMandY[0], CurrentMandY[1]))));
+        monthlySavings.setText(formatter.format(Double.parseDouble(getMonthlySaving(CurrentMandY[0], CurrentMandY[1]))));
         double monthly = Double.parseDouble(getMonthlySaving(CurrentMandY[0], CurrentMandY[1]));
+
         if(monthly < 0)
             monthlySavings.setTextColor(getResources().getColor(R.color.colorRed));
         else monthlySavings.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
-        totalSavings.setText(getTotalSaving());
+
+        totalSavings.setText(formatter.format(Double.parseDouble(getTotalSaving())));
+
         double total = Double.parseDouble(getTotalSaving());
         if(total < 0)
             totalSavings.setTextColor(getResources().getColor(R.color.colorRed));
         else totalSavings.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+
         backMonth = (ImageView) v.findViewById(R.id.overview_left_month);
         backMonth.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -112,14 +117,14 @@ public class Overview extends Fragment{
                 String backMandY = prevMonth(MandY[0], Integer.parseInt(MandY[1]));
                 String[] BackMandY = backMandY.split(" ");
                 monthText.setText(backMandY);
-                monthlyIncome.setText(getMonthlyIncome(BackMandY[0],BackMandY[1]));
-                monthlyExpenses.setText(getMonthlyExpense(BackMandY[0], BackMandY[1]));
-                monthlySavings.setText(getMonthlySaving(BackMandY[0], BackMandY[1]));
+                monthlyIncome.setText(formatter.format(Double.parseDouble(getMonthlyIncome(BackMandY[0],BackMandY[1]))));
+                monthlyExpenses.setText(formatter.format(Double.parseDouble(getMonthlyExpense(BackMandY[0], BackMandY[1]))));
+                monthlySavings.setText(formatter.format(Double.parseDouble(getMonthlySaving(BackMandY[0], BackMandY[1]))));
                 double monthly = Double.parseDouble(getMonthlySaving(BackMandY[0], BackMandY[1]));
                 if(monthly < 0)
                     monthlySavings.setTextColor(getResources().getColor(R.color.colorRed));
                 else monthlySavings.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
-                totalSavings.setText(getTotalSaving());
+                totalSavings.setText(formatter.format(Double.parseDouble(getTotalSaving())));
                 double total = Double.parseDouble(getTotalSaving());
                 if(total < 0)
                     totalSavings.setTextColor(getResources().getColor(R.color.colorRed));
@@ -145,14 +150,14 @@ public class Overview extends Fragment{
                 String nextMandY = nextMonth(MandY[0], Integer.parseInt(MandY[1]));
                 String[] NextMandY = nextMandY.split(" ");
                 monthText.setText(nextMandY);
-                monthlyIncome.setText(getMonthlyIncome(NextMandY[0],NextMandY[1]));
-                monthlyExpenses.setText(getMonthlyExpense(NextMandY[0], NextMandY[1]));
-                monthlySavings.setText(getMonthlySaving(NextMandY[0], NextMandY[1]));
+                monthlyIncome.setText(formatter.format(Double.parseDouble(getMonthlyIncome(NextMandY[0],NextMandY[1]))));
+                monthlyExpenses.setText(formatter.format(Double.parseDouble(getMonthlyExpense(NextMandY[0], NextMandY[1]))));
+                monthlySavings.setText(formatter.format(Double.parseDouble(getMonthlySaving(NextMandY[0], NextMandY[1]))));
                 double monthly = Double.parseDouble(getMonthlySaving(NextMandY[0], NextMandY[1]));
                 if(monthly < 0)
                     monthlySavings.setTextColor(getResources().getColor(R.color.colorRed));
                 else monthlySavings.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
-                totalSavings.setText(getTotalSaving());
+                totalSavings.setText(formatter.format(Double.parseDouble(getTotalSaving())));
                 double total = Double.parseDouble(getTotalSaving());
                 if(total < 0)
                     totalSavings.setTextColor(getResources().getColor(R.color.colorRed));
@@ -401,14 +406,14 @@ public class Overview extends Fragment{
         super.onResume();
         String date = monthText.getText().toString();
         String[] MandY = date.split(" ");
-        monthlyIncome.setText(getMonthlyIncome(MandY[0],MandY[1]));
-        monthlyExpenses.setText(getMonthlyExpense(MandY[0], MandY[1]));
-        monthlySavings.setText(getMonthlySaving(MandY[0], MandY[1]));
+        monthlyIncome.setText(formatter.format(Double.parseDouble(getMonthlyIncome(MandY[0],MandY[1]))));
+        monthlyExpenses.setText(formatter.format(Double.parseDouble(getMonthlyExpense(MandY[0], MandY[1]))));
+        monthlySavings.setText(formatter.format(Double.parseDouble(getMonthlySaving(MandY[0], MandY[1]))));
         double monthly = Double.parseDouble(getMonthlySaving(MandY[0], MandY[1]));
         if(monthly < 0)
             monthlySavings.setTextColor(getResources().getColor(R.color.colorRed));
         else monthlySavings.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
-        totalSavings.setText(getTotalSaving());
+        totalSavings.setText(formatter.format(Double.parseDouble(getTotalSaving())));
         double total = Double.parseDouble(getTotalSaving());
         if(total < 0)
             totalSavings.setTextColor(getResources().getColor(R.color.colorRed));
