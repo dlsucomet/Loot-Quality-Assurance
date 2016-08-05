@@ -40,7 +40,7 @@ public class Overview extends Fragment{
     private ArrayList<String> labels = new ArrayList<String>();
     private int[] colors = new int[6];
     private DecimalFormat format = new DecimalFormat("0.#");
-    private DecimalFormat formatter = new DecimalFormat("#,###.00");
+    private DecimalFormat formatter = new DecimalFormat("#,##0.00");
     private static final String[] months = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState){
         View v = inflater.inflate(R.layout.overview, container, false);
