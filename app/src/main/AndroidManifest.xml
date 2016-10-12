@@ -37,12 +37,6 @@
         <activity android:name=".MyAccountActivity"
             android:screenOrientation="portrait"></activity>
 
-        <activity android:name=".PopupEditActivity"
-        android:theme="@style/AppTheme.CustomTheme"
-        ></activity>
-        <activity android:name=".PopupEditExpenseActivity"
-            android:theme="@style/AppTheme.CustomTheme"
-            ></activity>
     </application>
 
 </manifest>
